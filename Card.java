@@ -1,30 +1,30 @@
 public class Card {
     private char rank;
-    private char suite;
+    private char suit;
 
     Card() {
         rank = 'A';
-        suite = 's';
+        suit = 's';
     }
 
-    Card(char rank, char suite) {
+    Card(char rank, char suit) {
         this.rank = rank;
-        this.suite = suite;
+        this.suit = suit;
     }
 
     char getRank() {
         return this.rank;
     }
 
-    char getSuite() {
-        return this.suite;
+    char getSuit() {
+        return this.suit;
     }
 
     void setRank(char rank) {
         this.rank = rank;
     }
 
-    void setSuite(char suite) {
-        this.suite = suite;
+    void setSuit(char suit) {
+        this.suit = suit;
     }
 }
