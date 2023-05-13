@@ -1,4 +1,5 @@
 import java.util.*;
+//this is a testing file that used to test hashmap but now there no use for it
 public class test {
     public static void main(String[] args){ //for testing if the hashmap was working or not
         Deck decky = new Deck();
