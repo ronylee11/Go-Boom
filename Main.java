@@ -4,9 +4,28 @@ public class Main {
         // System.out.println("Hello");
 
         Card card1 = new Card('A', 's');
-        // System.out.println(card1.getSuite());
-
-        Player player1 = new Player();
+        // System.out.println(card1.getSuit());
+        
+        Deck deck1 = new Deck();
+        deck1.shuffleCards();
+        System.out.println(deck1.toString());
+        
+        Player[] player = new Player[4];
+        for (int i = 0; i < 4; i++){
+            player[i]= new Player();
+        }
+        
+        //Deal 1 card to each player at a time
+        for (int i = 0; i < 7; i++) {
+            //System.out.println(players[0].getHand());
+            for (int j = 0; j < 4; j++) {
+                player[j].addCard();
+                
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Player" + (i+1) + ": " + player[i].getHand());
+        }
 
         Deck deck1 = new Deck();
     }
