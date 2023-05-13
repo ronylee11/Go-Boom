@@ -34,7 +34,7 @@ public class Player extends Card {
         return cardToCheck;
     }
 
-    Player() {
+    /* Player() {
         // repeat 7 times
         // generate a card that is not in hand // hA
         // check if card exists in hand, if not, create card
@@ -45,6 +45,17 @@ public class Player extends Card {
         // super();
 
         // add all 7 cards to hand
+    }*/
+    Player(){}
+    
+    //Add card to one player at a time
+    public void addCard(){
+        hand.add(checkCard(generateCard()));
+    }
+    
+    //get cards on hand for each player
+    public ArrayList<String> getCards() {
+        return hand;
     }
 
 }
