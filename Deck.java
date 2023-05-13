@@ -4,10 +4,9 @@ public class Deck {
     // Combine Suite and Character
     private static ArrayList<String> deck = new ArrayList<>();
     private static String[] D_Suit = { "c", "h", "d", "s" };       //Change the char to String
-    private static String[] D_Rank = { "a", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K" };
+    private static String[] D_Rank = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K" };
     private static ArrayList<Integer> listy = new ArrayList<>();
     private static ArrayList<String> cunny = new ArrayList<>();
-    private static HashMap<String , Integer> Hash_value;
     static Random rand = new Random();
     //Create A deck of card with no duplicates
     public static void Create_deck(){
@@ -23,8 +22,8 @@ public class Deck {
      * The keys are card ranks (2-10, J, Q, K, A) and the values are integers from 1 to 13.
      * @return A HashMap<String, Integer> representing the mapping of card ranks to their values.
      */
-    public static HashMap<String , Integer> create_card_Values_HashMap(){
-        Hash_value = new HashMap<>();
+    HashMap<String , Integer> Hash_value = new HashMap<>();
+    public HashMap<String , Integer> create_card_Values_HashMap(){
         Hash_value.put("2", 1);
         Hash_value.put("3", 2);
         Hash_value.put("4", 3);
@@ -38,8 +37,12 @@ public class Deck {
         Hash_value.put("Q", 11);
         Hash_value.put("K", 12);
         Hash_value.put("a", 13);
+        System.out.println(Hash_value);
         return Hash_value;
     }    
+    public void hash_setter(HashMap<String , Integer>Hash_value){
+        this.Hash_value = Hash_value;
+    }
 
     public void test1(){ // to test if this work (it still have errors) the error is that null pointer error since the hashmap is empty meaning
                         //  the hash_value in the method above didn't get pass in to the private hashmap(still need some bug fix)
@@ -87,7 +90,7 @@ public class Deck {
     }
     
     public static void main(String[] args) {
-        
+        Deck deck = new Deck();
     }
     
 }
