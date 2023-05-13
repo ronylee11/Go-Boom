@@ -2,12 +2,12 @@
 
 ## A. Member Contributions
 
-| No  | ID         | Name        | Task descriptions | Contribution % |
-| --- | ---------- | ----------- | ----------------- | -------------- |
-| 1   | 1221302735 | Ho Jing Lu  |                   |
-| 2   | 1211311027 | Lee Rong Yi |                   |
-| 3   |            |             |                   |
-| 4   |            |             |                   |
+| No  | ID         | Name             | Task descriptions | Contribution % |
+| --- | ---------- | -----------      | ----------------- | -------------- |
+| 1   | 1221302735 | Ho Jing Lu       |                   |
+| 2   | 1211311027 | Lee Rong Yi      |                   |
+| 3   | 1211102270 |Yap Choo Kath Moon|                   |
+| 4   |            |                  |                   |
 
 ## B. Feature Completion
 
