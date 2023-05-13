@@ -24,7 +24,7 @@ public class Main {
             }
         }
         for (int i = 0; i < 4; i++) {
-            System.out.println("Player" + (i+1) + ": " + player[i].getHand());
+            System.out.println("Player" + (i+1) + ": " + player[i].getCards());
         }
 
         Deck deck1 = new Deck();
