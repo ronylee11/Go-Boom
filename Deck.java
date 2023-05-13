@@ -23,7 +23,7 @@ public class Deck {
      * The keys are card ranks (2-10, J, Q, K, A) and the values are integers from 1 to 13.
      * @return A HashMap<String, Integer> representing the mapping of card ranks to their values.
      */
-    public static HashMap<String , Integer> create_card_Values_HashMap(){
+    public static HashMap<String , Integer> create_card_Values_HashMap(){ 
         Hash_value = new HashMap<>();
         Hash_value.put("2", 1);
         Hash_value.put("3", 2);
@@ -52,12 +52,12 @@ public class Deck {
         }
         System.out.println(cunny);
         String largest_card = cunny.get(0);
-        int largest_value = Hash_value.get(largest_card.substring(0, 1));
+        int largest_value = Hash_value.get(largest_card.substring(0, 1)); // get the first card in the arraylist
     
         for (String cunnies : cunny) {
-            int cardValue = Hash_value.get(cunnies.substring(0, 1));
+            int cardValue = Hash_value.get(cunnies.substring(0, 1)); // this get each item in the arraylist
     
-            if (cardValue > largest_value) {
+            if (cardValue > largest_value) { // this check which card ranking is higher
                 largest_card = cunnies;
                 largest_value = cardValue;
                 System.out.println("Largest Card : " + largest_card);
