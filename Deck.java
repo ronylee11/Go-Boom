@@ -54,18 +54,18 @@ public class Deck {
             cunny.add(getdeck(listy.get(j)));
         }
         System.out.println(cunny);
-        String largest_card = cunny.get(0);
-        int largest_value = Hash_value.get(largest_card.substring(0, 1)); // get the first card in the arraylist
+        //String largest_card = cunny.get(0); // this part have problems
+        // int largest_value = Hash_value.get(largest_card.substring(0, 1)); // get the first card in the arraylist
     
-        for (String cunnies : cunny) {
-            int cardValue = Hash_value.get(cunnies.substring(0, 1)); // this get each item in the arraylist
+        // for (String cunnies : cunny) {
+        //     int cardValue = Hash_value.get(cunnies.substring(0, 1)); // this get each item in the arraylist
     
-            if (cardValue > largest_value) { // this check which card ranking is higher
-                largest_card = cunnies;
-                largest_value = cardValue;
-                System.out.println("Largest Card : " + largest_card);
-            }
-        }
+        //     if (cardValue > largest_value) { // this check which card ranking is higher
+        //         largest_card = cunnies;
+        //         largest_value = cardValue;
+        //         System.out.println("Largest Card : " + largest_card);
+        //     }
+        // }
     }
     
 
