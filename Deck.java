@@ -23,7 +23,7 @@ public class Deck {
      * @return A HashMap<String, Integer> representing the mapping of card ranks to their values.
      */
     HashMap<String , Integer> Hash_value = new HashMap<>(); 
-    public HashMap<String , Integer> create_card_Values_HashMap(){
+    public HashMap<String , Integer> create_card_Values_HashMap(){ 
         Hash_value.put("2", 1);
         Hash_value.put("3", 2);
         Hash_value.put("4", 3);
@@ -32,11 +32,11 @@ public class Deck {
         Hash_value.put("7", 6);
         Hash_value.put("8", 7);
         Hash_value.put("9", 8);
-        Hash_value.put("X", 9);
+        Hash_value.put("T", 9);
         Hash_value.put("J", 10);
         Hash_value.put("Q", 11);
         Hash_value.put("K", 12);
-        Hash_value.put("a", 13);
+        Hash_value.put("A", 13);
         System.out.println(Hash_value);
         return Hash_value;
     }    
@@ -44,28 +44,26 @@ public class Deck {
         this.Hash_value = Hash_value;
     }
 
-    public void test1(){ // to test if this work (it still have errors) the error is that null pointer error since the hashmap is empty meaning
-                        //  the hash_value in the method above didn't get pass in to the private hashmap(still need some bug fix)
-                        //  comment the hashmap and the test1 if you want to use this class
-        for (int i = 0; i <= 3; i++) { // to randomize the number
+    public void test1(){ //to test if the hashmap is working and to get the largest card
+        for (int i = 0; i <= 5; i++) { // to randomize the number
             listy.add(rand.nextInt(51));
         }
         for (int j = 0; j < listy.size(); j++) { // to use the randomize number and get the card from the deck 
             cunny.add(getdeck(listy.get(j)));
         }
         System.out.println(cunny);
-        //String largest_card = cunny.get(0); // this part have problems
-        // int largest_value = Hash_value.get(largest_card.substring(0, 1)); // get the first card in the arraylist
+        String largest_card = cunny.get(0); //to the get the first card from the randomize list
+        int largest_value = Hash_value.get(largest_card.substring(1)); // get the first card's rank in the arraylist
     
-        // for (String cunnies : cunny) {
-        //     int cardValue = Hash_value.get(cunnies.substring(0, 1)); // this get each item in the arraylist
+        for (String cunnies : cunny) {
+            int cardValue = Hash_value.get(cunnies.substring(1)); // this get each each card's rank in the arraylist
     
-        //     if (cardValue > largest_value) { // this check which card ranking is higher
-        //         largest_card = cunnies;
-        //         largest_value = cardValue;
-        //         System.out.println("Largest Card : " + largest_card);
-        //     }
-        // }
+            if (cardValue > largest_value) { // this check which card ranking is higher
+                largest_card = cunnies;
+                largest_value = cardValue;
+            }
+        }
+        System.out.println("Largest Card : " + largest_card);
     }
     
 
