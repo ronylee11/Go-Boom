@@ -6,25 +6,22 @@ public class Main {
         ArrayList<String> shuffledDeck = deck.shuffleCards();
         System.out.println(deck.toString());
     
-        // Create players
-        Player player1 = new Player();
-        Player player2 = new Player();
-        Player player3 = new Player();
-        Player player4 = new Player();
-    
-        // Deal 7 cards to each player
-        for (int i = 0; i < 7; i++) {
-            player1.addCard(shuffledDeck.remove(0));
-            player2.addCard(shuffledDeck.remove(0));
-            player3.addCard(shuffledDeck.remove(0));
-            player4.addCard(shuffledDeck.remove(0));
+        Player[] player = new Player[4];
+        for (int i = 0; i < 4; i++){
+            player[i]= new Player();
         }
-    
-        // Print the cards of each player
-        System.out.println("Player1: " + player1.getCards());
-        System.out.println("Player2: " + player2.getCards());
-        System.out.println("Player3: " + player3.getCards());
-        System.out.println("Player4: " + player4.getCards());
+
+        //Deal 1 card to each player at a time
+        for (int i = 0; i < 7; i++) {
+            //System.out.println(players[0].getHand());
+            for (int j = 0; j < 4; j++) {
+                player[j].addCard();
+                
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Player" + (i+1) + ": " + player[i].getCards());
+        }
     
         // Print the remaining deck and score (initially 0 for all players)
         System.out.println(deck.toString());
