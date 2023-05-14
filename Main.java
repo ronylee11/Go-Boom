@@ -42,7 +42,7 @@ public class Main {
     
         if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
             return 0; // Player1
-        } else if (rank == '2' || rank == '6' || rank == '10') {
+        } else if (rank == '2' || rank == '6' || rank == 'X') {
             return 1; // Player2
         } else if (rank == '3' || rank == '7' || rank == 'J') {
             return 2; // Player3
