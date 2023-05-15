@@ -49,6 +49,7 @@ public class Deck {
             cunny.add(getdeck(listy.get(j)));
         }
         System.out.println(cunny);
+        //---------------------The compare part-----------------//
         String largest_card = cunny.get(0); //to the get the first card from the randomize list
         int largest_value = Hash_value.get(largest_card.substring(1)); // get the first card's rank in the arraylist
     
