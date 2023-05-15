@@ -5,8 +5,8 @@ public class Deck {
     private static ArrayList<String> deck = new ArrayList<>();
     private static String[] D_Suit = { "c", "h", "d", "s" };       //Change the char to String
     private static String[] D_Rank = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K" };
-    private static ArrayList<Integer> listy = new ArrayList<>();
-    private static ArrayList<String> cunny = new ArrayList<>();
+    private static ArrayList<Integer> listy = new ArrayList<>(); // this two arraylist is to store the randomize number and the card from the deck
+    private static ArrayList<String> cunny = new ArrayList<>();     //which is mainly for testing only
     static Random rand = new Random();
     //Create A deck of card with no duplicates
     public static void Create_deck(){
