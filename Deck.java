@@ -40,9 +40,6 @@ public class Deck {
         System.out.println(Hash_value);
         return Hash_value;
     }    
-    public void hash_setter(HashMap<String , Integer>Hash_value){
-        this.Hash_value = Hash_value;
-    }
 
     public void test1(){ //to test if the hashmap is working and to get the largest card
         for (int i = 0; i <= 5; i++) { // to randomize the number
@@ -58,8 +55,8 @@ public class Deck {
         for (String cunnies : cunny) {
             int cardValue = Hash_value.get(cunnies.substring(1)); // this get each each card's rank in the arraylist
     
-            if (cardValue > largest_value) { // this check which card ranking is higher
-                largest_card = cunnies;
+            if (cardValue > largest_value) { // this check which card ranking is higher -- if there only cards with rank of same value the first card placed is get
+                largest_card = cunnies;     
                 largest_value = cardValue;
             }
         }
