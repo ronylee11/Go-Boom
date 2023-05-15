@@ -72,7 +72,7 @@ public class Deck {
     }
     
     public String toString() {
-        return "Deck : " + deck;
+        return "Deck   : " + deck;
     }
 
     public static String getdeck(int a){
