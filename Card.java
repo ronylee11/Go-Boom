@@ -1,4 +1,4 @@
-public class Card extends Deck{
+public class Card{
     private char rank;
     private char suit;
 
