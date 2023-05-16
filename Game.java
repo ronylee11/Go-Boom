@@ -7,10 +7,7 @@ public class Game {
     Player[] players = new Player[4];
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
 
-    
-
-
-    public void start(){
+    public void start() {
         for (int i = 0; i < 4; i++) {
             players[i] = new Player();
         }
@@ -22,7 +19,8 @@ public class Game {
             }
         }
 
-        String leadCard = shuffledDeck.remove(0); // Remove the first card from the shuffled deck as the lead card
+        String leadCard = shuffledDeck.remove(
+                0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
 
         // Print each player's hand
@@ -34,8 +32,9 @@ public class Game {
         System.out.println("Center : " + center);
 
         // Print the remaining deck and score (initially 0 for all players)
-        //System.out.println(deck.toString());
-        System.out.println("Score: Player1 = 0 | Player2 = 0 | Player3 = 0 | Player4 = 0");
+        // System.out.println(deck.toString());
+        System.out.println(
+                "Score: Player1 = 0 | Player2 = 0 | Player3 = 0 | Player4 = 0");
 
         // Determine the first player based on the lead card
         int firstPlayer = player.determineFirstPlayer(leadCard);
