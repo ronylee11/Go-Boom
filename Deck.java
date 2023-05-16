@@ -4,7 +4,7 @@ public class Deck {
     // Combine Suite and Character
     private static ArrayList<String> deck = new ArrayList<>();
     private static String[] D_Suit = { "c", "h", "d", "s" };       //Change the char to String
-    private static String[] D_Rank = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K" };
+    private static String[] D_Rank = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "X", "J", "Q", "K" };
     private static ArrayList<Integer> listy = new ArrayList<>(); // this two arraylist is to store the randomize number and the card from the deck
     private static ArrayList<String> cunny = new ArrayList<>();     //which is mainly for testing only
     static Random rand = new Random();
@@ -32,7 +32,7 @@ public class Deck {
         Hash_value.put("7", 6);
         Hash_value.put("8", 7);
         Hash_value.put("9", 8);
-        Hash_value.put("T", 9);
+        Hash_value.put("X", 9);
         Hash_value.put("J", 10);
         Hash_value.put("Q", 11);
         Hash_value.put("K", 12);
