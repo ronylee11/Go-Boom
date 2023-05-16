@@ -30,7 +30,7 @@ public class Game {
 
         // Print the center ArrayList
         System.out.println("Center : " + center);
-        deck.Largest_Card(center);
+        deck.Largest_Card(center); //get the largest card
         // Print the remaining deck and score (initially 0 for all players)
         // System.out.println(deck.toString());
         System.out.println(
