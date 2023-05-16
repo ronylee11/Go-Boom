@@ -52,5 +52,22 @@ public class Player extends Card {
     public ArrayList<String> getCards() {
         return hand;
     }
+    
+    // Determine the first player based on the lead card
+     public int determineFirstPlayer(String leadCard) {
+        char rank = leadCard.charAt(1);
+
+        if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
+            return 0; // Player1
+        } else if (rank == '2' || rank == '6' || rank == 'X') {
+            return 1; // Player2
+        } else if (rank == '3' || rank == '7' || rank == 'J') {
+            return 2; // Player3
+        } else if (rank == '4' || rank == '8' || rank == 'Q') {
+            return 3; // Player4
+        } else {
+            return -1; // Invalid lead card
+        }
+    }
 
 }
