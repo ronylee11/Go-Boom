@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
     Deck deck = new Deck();
@@ -6,6 +7,7 @@ public class Game {
     ArrayList<String> shuffledDeck = deck.shuffleCards();
     Player[] players = new Player[4];
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
+    Scanner input = new Scanner(System.in);
 
     public void start() {
         for (int i = 0; i < 4; i++) {
@@ -24,31 +26,37 @@ public class Game {
                 0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
 
-        // Print each player's hand
-        for (int i = 0; i < 4; i++) {
-            System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
+        while (true) { // Game loop
+            // Print the trick number
+            System.out.println("Trick #1");
+            // Print each player's hand
+            for (int i = 0; i < 4; i++) {
+                System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
+            }
+
+            // Print the center ArrayList
+            System.out.println("Center : " + center);
+            deck.Largest_Card(center); // get the largest card
+
+            // Print the remaining deck
+            System.out.println(deck.toString());
+
+            // Print the current scores for all players
+            System.out.print("Score  : ");
+            for (int i = 0; i < 4; i++) {
+                System.out.print(
+                        String.format("Player%d = %d | ", i + 1, players[i].getScore()));
+            }
+            System.out.println();
+
+            // Determine the first player based on the lead card
+            int firstPlayer = player.determineFirstPlayer(leadCard);
+
+            // Print the current player
+            System.out.println("Turn: Player" + firstPlayer);
+
+            System.out.print("> ");
+            String text = input.nextLine();
         }
-
-        // Print the center ArrayList
-        System.out.println("Center : " + center);
-        deck.Largest_Card(center); // get the largest card
-
-        // Print the remaining deck
-        System.out.println(deck.toString());
-
-        // Print the current scores for all players
-        System.out.print("Score  : ");
-        for (int i = 0; i < 4; i++) {
-            System.out.print(
-                    String.format("Player%d = %d | ", i + 1, players[i].getScore()));
-        }
-        System.out.println();
-
-        // Determine the first player based on the lead card
-        int firstPlayer = player.determineFirstPlayer(leadCard);
-
-        // Print the trick number and the first player
-        System.out.println("Trick #1");
-        System.out.println("Turn: Player" + (firstPlayer + 1));
     }
 }
