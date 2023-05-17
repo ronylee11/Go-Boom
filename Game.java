@@ -31,9 +31,12 @@ public class Game {
         // Print the center ArrayList
         System.out.println("Center : " + center);
         deck.Largest_Card(center); // get the largest card
-        // Print the remaining deck and score (initially 0 for all players)
-        // System.out.println(deck.toString());
-        System.out.print("Score: ");
+
+        // Print the remaining deck
+        System.out.println(deck.toString());
+
+        // Print the current scores for all players
+        System.out.print("Score  : ");
         for (int i = 0; i < 4; i++) {
             System.out.print(
                     String.format("Player%d = %d | ", i + 1, players[i].getScore()));

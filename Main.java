@@ -6,10 +6,12 @@ public class Main {
         Game game = new Game();
         game.start();
         Scanner input = new Scanner(System.in);
+
+        System.out.print("> ");
         String text = input.nextLine();
 
-        clearScreen();
-        System.out.println("Game Over! " + text);
+        // clearScreen();
+        // System.out.println("Game Over! " + text);
         input.close();
     }
 

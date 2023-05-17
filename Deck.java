@@ -19,14 +19,14 @@ public class Deck {
                 deck.add((D_Suit[i]) + (D_Rank[j]));
             }
         }
-        System.out.println(deck);
+        // System.out.println(deck);
     }
 
     /**
      * Creates and returns a HashMap with card values mapped to their
      * corresponding integer values. The keys are card ranks (2-10, J, Q, K, A)
      * and the values are integers from 1 to 13.
-     * 
+     *
      * @return A HashMap<String, Integer> representing the mapping of card ranks
      *         to their values.
      */
@@ -46,7 +46,7 @@ public class Deck {
         Hash_value.put("Q", 11);
         Hash_value.put("K", 12);
         Hash_value.put("A", 13);
-        System.out.println(Hash_value);
+        // System.out.println(Hash_value);
         return Hash_value;
     }
 
@@ -67,7 +67,7 @@ public class Deck {
                 largest_value = cardValue;
             }
         }
-        System.out.println("Largest Card : " + largest_card);
+        // System.out.println("Largest Card : " + largest_card);
     }
 
     public void test1() { // to test if the hashmap is working and to get the largest card
