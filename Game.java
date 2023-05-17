@@ -3,13 +3,17 @@ import java.util.Scanner;
 
 public class Game {
     Deck deck = new Deck();
-    Player player = new Player();
     ArrayList<String> shuffledDeck = deck.shuffleCards();
     Player[] players = new Player[4];
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
     Scanner input = new Scanner(System.in);
+    static boolean gameStarted = false;
 
     public void start() {
+        // Start game
+        gameStarted = true;
+
+        // Create 4 players
         for (int i = 0; i < 4; i++) {
             players[i] = new Player();
         }
@@ -26,7 +30,7 @@ public class Game {
                 0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
 
-        while (true) { // Game loop
+        while (gameStarted) { // Game loop
             // Print the trick number
             System.out.println("Trick #1");
             // Print each player's hand
@@ -50,13 +54,51 @@ public class Game {
             System.out.println();
 
             // Determine the first player based on the lead card
-            int firstPlayer = player.determineFirstPlayer(leadCard);
+            int currentPlayer = determineFirstPlayer(leadCard);
 
             // Print the current player
-            System.out.println("Turn: Player" + firstPlayer);
+            System.out.println("Turn: Player" + currentPlayer);
 
             System.out.print("> ");
-            String text = input.nextLine();
+            String command = input.nextLine();
+
+            switch (command.toLowerCase()) {
+                case "s": // restart game
+                    start(); // BROKEN!!!
+                    break;
+                case "d": // draw a card
+                    players[currentPlayer].addCard();
+                    break;
+                case "x": // quit game
+                    gameStarted = false;
+                    break;
+            }
+
+            for (String cardsInHand : players[currentPlayer]
+                    .getCards()) { // play card from hand // BROKEN!!!
+                if (command.toLowerCase().equals(cardsInHand)) {
+                    players[currentPlayer].removeCard(cardsInHand);
+                    center.add(cardsInHand);
+                    break;
+                }
+            }
+        }
+    }
+
+    // Determine the first player based on the lead card
+    public int determineFirstPlayer(String leadCard) {
+        char rank = leadCard.charAt(1);
+
+        if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
+            return 1; // Player1
+        } else if (rank == '2' || rank == '6' || rank == 'X') {
+            return 2; // Player2
+        } else if (rank == '3' || rank == '7' || rank == 'J') {
+            return 3; // Player3
+        } else if (rank == '4' || rank == '8' || rank == 'Q') {
+            return 4; // Player4
+        } else {
+            return -1; // Invalid lead card
         }
     }
 }
