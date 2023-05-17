@@ -11,6 +11,7 @@ public class Deck {
                                                                  // and the card from the deck
     private static ArrayList<String> cunny = new ArrayList<>(); // which is mainly for testing only
     static Random rand = new Random();
+    private static boolean deckCreated = false;
 
     // Create A deck of card with no duplicates
     public static void Create_deck() {
@@ -70,32 +71,33 @@ public class Deck {
         // System.out.println("Largest Card : " + largest_card);
     }
 
-    public void test1() { // to test if the hashmap is working and to get the largest card
-        for (int i = 0; i <= 5; i++) { // to randomize the number
-            listy.add(rand.nextInt(51));
-        }
-        for (int j = 0; j < listy.size(); j++) { // to use the randomize number and get the card from the deck
-            cunny.add(getdeck(listy.get(j)));
-        }
-        System.out.println(cunny);
-        // ---------------------The compare part-----------------//
-        String largest_card = cunny.get(0); // to the get the first card from the randomize list
-        int largest_value = Hash_value.get(largest_card.substring(
-                1)); // get the first card's rank in the arraylist
+    // public void test1() { // to test if the hashmap is working and to get the
+    // largest card for (int i = 0; i <= 5; i++) { // to randomize the number
+    // listy.add(rand.nextInt(51));
+    // }
+    // for (int j = 0; j < listy.size(); j++) { // to use the randomize number and
+    // get the card from the deck cunny.add(getdeck(listy.get(j)));
+    // }
+    // System.out.println(cunny);
+    //// ---------------------The compare part-----------------//
+    // String largest_card = cunny.get(0); // to the get the first card from the
+    // randomize list int largest_value = Hash_value.get(largest_card.substring(
+    // 1)); // get the first card's rank in the arraylist
 
-        for (String cunnies : cunny) {
-            int cardValue = Hash_value.get(cunnies.substring(
-                    1)); // this get each each card's rank in the arraylist
+    // for (String cunnies : cunny) {
+    // int cardValue = Hash_value.get(cunnies.substring(
+    // 1)); // this get each each card's rank in the arraylist
 
-            if (cardValue > largest_value) { // this check which card ranking is higher -- if
-                                             // there only cards with rank of same value the first
-                                             // card placed is get
-                largest_card = cunnies;
-                largest_value = cardValue;
-            }
-        }
-        System.out.println("Largest Card : " + largest_card);
-    }
+    // if (cardValue > largest_value) { // this check which card ranking is higher
+    // -- if
+    //// there only cards with rank of same value the first
+    //// card placed is get
+    // largest_card = cunnies;
+    // largest_value = cardValue;
+    // }
+    // }
+    // System.out.println("Largest Card : " + largest_card);
+    // }
 
     // Shuffles the deck
     public ArrayList<String> shuffleCards() {
@@ -103,17 +105,24 @@ public class Deck {
         return deck;
     }
 
+    public void addCardToHand(String card) {
+        deck.remove(card);
+    }
+
     public String toString() {
         return "Deck   : " + deck;
     }
 
-    public static String getdeck(int a) {
-        return deck.get(a);
+    public ArrayList<String> getDeck() {
+        return deck;
     }
 
     public Deck() {
-        Create_deck();
-        create_card_Values_HashMap();
+        if (!deckCreated) { // make sure there is only one deck
+            Create_deck();
+            create_card_Values_HashMap();
+            deckCreated = true;
+        }
         // test1();
     }
 }

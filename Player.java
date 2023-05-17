@@ -1,5 +1,6 @@
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player extends Card {
     private ArrayList<String> hand = new ArrayList<>();
@@ -7,6 +8,8 @@ public class Player extends Card {
     private static char[] possibleRank = { 'A', '2', '3', '4', '5', '6', '7',
             '8', '9', 'X', 'J', 'Q', 'K' };
     private int score = 0; // cannot be static as each player has different scores
+    private static Deck deck = new Deck();
+    Scanner input = new Scanner(System.in);
 
     Player() {
     }
@@ -22,14 +25,18 @@ public class Player extends Card {
     }
 
     String checkCard(String cardToCheck) {
-        // check if a card is in hand
+        // check if card is in deck
         boolean cardIsValid = false;
-        for (String card : hand) {
-            while (!cardIsValid) {
-                cardToCheck = generateCard(); // regenerate card when card is in hand
-                if (cardToCheck != card) {
-                    cardIsValid = true; // card is not in hand, hence its valid
+        // if card is not in deck, that means a player took it
+        while (!cardIsValid) {
+            for (String cardInDeck : deck.getDeck()) {
+                if (cardInDeck.equals(cardToCheck)) {
+                    cardIsValid = true;
+                    break;
                 }
+            }
+            if (!cardIsValid) {
+                cardToCheck = generateCard();
             }
         }
         return cardToCheck;
@@ -47,7 +54,9 @@ public class Player extends Card {
 
     // Add card to one player at a time
     public void addCard() {
-        hand.add(checkCard(generateCard()));
+        String cardToAdd = checkCard(generateCard());
+        deck.addCardToHand(cardToAdd);
+        hand.add(cardToAdd);
     }
 
     // get cards on hand for each player

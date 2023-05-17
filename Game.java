@@ -11,6 +11,7 @@ public class Game {
         for (int i = 0; i < 4; i++) {
             players[i] = new Player();
         }
+
         // Deal 1 card to each player at a time
         for (int i = 0; i < 7; i++) {
             // System.out.println(players[0].getHand());
