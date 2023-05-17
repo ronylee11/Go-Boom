@@ -1,10 +1,15 @@
-import java.util.ArrayList;
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class Player extends Card {
-    private ArrayList<String> hand = new ArrayList<>();
+    private static ArrayList<String> hand = new ArrayList<>();
     private static char[] possibleSuite = { 'c', 'h', 'd', 's' };
-    private static char[] possibleRank = { 'A', '2', '3', '4', '5', '6', '7', '8', '9', 'X', 'J', 'Q', 'K' };
+    private static char[] possibleRank = { 'A', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'X', 'J', 'Q', 'K' };
+    private int score = 0; // cannot be static as each player has different scores
+
+    Player() {
+    }
 
     static String generateCard() {
         // generate a card
@@ -17,44 +22,41 @@ public class Player extends Card {
     }
 
     String checkCard(String cardToCheck) {
+        // check if a card is in hand
         boolean cardIsValid = false;
         for (String card : hand) {
             while (!cardIsValid) {
-                cardToCheck = generateCard();
+                cardToCheck = generateCard(); // regenerate card when card is in hand
                 if (cardToCheck != card) {
-                    cardIsValid = true;
+                    cardIsValid = true; // card is not in hand, hence its valid
                 }
             }
         }
         return cardToCheck;
     }
 
-    /* Player() {
-        // repeat 7 times
-        // generate a card that is not in hand // hA
-        // check if card exists in hand, if not, create card
-        for (int i = 0; i < 7; i++) {
-            hand.add(checkCard(generateCard()));
-        }
-        System.out.println(hand);
-        // super();
+    // view player current score
+    int getScore() {
+        return score;
+    }
 
-        // add all 7 cards to hand
-    }*/
-    Player(){}
-    
-    //Add card to one player at a time
-    public void addCard(){
+    // update player score
+    void addScore(int score) {
+        this.score += score;
+    }
+
+    // Add card to one player at a time
+    public void addCard() {
         hand.add(checkCard(generateCard()));
     }
-    
-    //get cards on hand for each player
+
+    // get cards on hand for each player
     public ArrayList<String> getCards() {
         return hand;
     }
-    
+
     // Determine the first player based on the lead card
-     public int determineFirstPlayer(String leadCard) {
+    public int determineFirstPlayer(String leadCard) {
         char rank = leadCard.charAt(1);
 
         if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
@@ -69,5 +71,4 @@ public class Player extends Card {
             return -1; // Invalid lead card
         }
     }
-
 }

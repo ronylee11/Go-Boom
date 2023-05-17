@@ -30,11 +30,15 @@ public class Game {
 
         // Print the center ArrayList
         System.out.println("Center : " + center);
-        deck.Largest_Card(center); //get the largest card
+        deck.Largest_Card(center); // get the largest card
         // Print the remaining deck and score (initially 0 for all players)
         // System.out.println(deck.toString());
-        System.out.println(
-                "Score: Player1 = 0 | Player2 = 0 | Player3 = 0 | Player4 = 0");
+        System.out.print("Score: ");
+        for (int i = 0; i < 4; i++) {
+            System.out.print(
+                    String.format("Player%d = %d | ", i + 1, players[i].getScore()));
+        }
+        System.out.println();
 
         // Determine the first player based on the lead card
         int firstPlayer = player.determineFirstPlayer(leadCard);
