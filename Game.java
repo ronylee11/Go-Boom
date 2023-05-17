@@ -8,6 +8,7 @@ public class Game {
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
     Scanner input = new Scanner(System.in);
     static boolean gameStarted = false;
+    static int trickNumber = 1;
 
     public void start() {
         // Start game
@@ -32,7 +33,7 @@ public class Game {
 
         while (gameStarted) { // Game loop
             // Print the trick number
-            System.out.println("Trick #1");
+            System.out.println("Trick #" + trickNumber);
             // Print each player's hand
             for (int i = 0; i < 4; i++) {
                 System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
