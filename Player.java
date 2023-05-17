@@ -2,7 +2,7 @@ import java.lang.Math;
 import java.util.ArrayList;
 
 public class Player extends Card {
-    private static ArrayList<String> hand = new ArrayList<>();
+    private ArrayList<String> hand = new ArrayList<>();
     private static char[] possibleSuite = { 'c', 'h', 'd', 's' };
     private static char[] possibleRank = { 'A', '2', '3', '4', '5', '6', '7',
             '8', '9', 'X', 'J', 'Q', 'K' };
