@@ -68,6 +68,15 @@ public class Deck {
         // System.out.println("Largest Card : " + largest_card);
     }
 
+    //Spliting Card's rank and suite
+    public ArrayList<String> Spliting(ArrayList<String>cunnysplit){
+        for (String C_card : cunnysplit){
+            String [] ArraySplit = C_card.split("");
+            cunnysplit.addAll(Arrays.asList(ArraySplit));
+        }
+        return cunnysplit;
+    }
+
     // Shuffles the deck
     public ArrayList<String> shuffleCards() {
         Collections.shuffle(deck);
