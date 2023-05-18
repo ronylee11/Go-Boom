@@ -58,7 +58,7 @@ public class Game {
             int currentPlayer = determineFirstPlayer(leadCard);
 
             // Print the current player
-            System.out.println("Turn: Player" + currentPlayer);
+            System.out.println("Turn: Player" + (currentPlayer + 1));
 
             System.out.print("> ");
             String command = input.nextLine();
@@ -83,6 +83,7 @@ public class Game {
                     break;
                 }
             }
+            System.out.println();
         }
     }
 
@@ -91,13 +92,13 @@ public class Game {
         char rank = leadCard.charAt(1);
 
         if (rank == 'A' || rank == '5' || rank == '9' || rank == 'K') {
-            return 1; // Player1
+            return 0; // Player1
         } else if (rank == '2' || rank == '6' || rank == 'X') {
-            return 2; // Player2
+            return 1; // Player2
         } else if (rank == '3' || rank == '7' || rank == 'J') {
-            return 3; // Player3
+            return 2; // Player3
         } else if (rank == '4' || rank == '8' || rank == 'Q') {
-            return 4; // Player4
+            return 3; // Player4
         } else {
             return -1; // Invalid lead card
         }
