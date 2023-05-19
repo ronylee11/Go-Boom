@@ -37,52 +37,63 @@ public class Game {
         center.add(leadCard); // Add the lead card to the center
 
         while (gameStarted) { // Game loop
-            System.out.println("Trick #" + trickNumber);
-            for (int i = 0; i < 4; i++) {
-                System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
-            }
-
-            System.out.println("Center : " + center);
-            deck.Largest_Card(center); // get the largest card
-
-            // Print remaining deck
-            System.out.println(deck.toString());
-
-            System.out.print("Score  : ");
-            for (int i = 0; i < 4; i++) {
-                System.out.print(
-                        String.format("Player%d = %d | ", i + 1, players[i].getScore()));
-            }
+            printGameState();
+            handlePlayerTurn();
+          
             System.out.println();
+        }
+    }
 
-            // Determine the first player based on the lead card
-            int currentPlayer = determineFirstPlayer(leadCard);
-            System.out.println("Turn: Player" + (currentPlayer + 1));
+    public void printGameState() {   // Print the game interface
+        System.out.println("Trick #" + trickNumber);
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
+        }
 
-            System.out.print("> ");
-            String command = input.nextLine();
+        System.out.println("Center : " + center);
+        deck.Largest_Card(center); // get the largest card
 
-            switch (command.toLowerCase()) {
-                case "s": // restart game
-                    restart(); // STILL BROKEN!!!
-                    break;
-                case "d": // draw a card
-                    players[currentPlayer].addCard();
-                    break;
-                case "x": // quit game
-                    gameStarted = false;
-                    break;
+        // Print remaining deck
+        System.out.println(deck.toString());
+
+        System.out.print("Score  : ");
+        for (int i = 0; i < 4; i++) {
+            System.out.print(String.format("Player%d = %d | ", i + 1, players[i].getScore()));
+        }
+        System.out.println();
+    }
+
+    public void playCard(int currentPlayer, String command) {    
+        for (String cardsInHand : players[currentPlayer].getCards()) {
+            if (command.equals(cardsInHand)) {
+                players[currentPlayer].removeCard(cardsInHand);
+                center.add(cardsInHand);
+                break;
             }
+        }
+    }
 
-            for (String cardsInHand : players[currentPlayer]
-                    .getCards()) { // play card from hand // BROKEN!!!
-                if (command.equals(cardsInHand)) {
-                    players[currentPlayer].removeCard(cardsInHand);
-                    center.add(cardsInHand);
-                    break;
-                }
-            }
-            System.out.println();
+    public void handlePlayerTurn() {
+        // Determine the first player based on the lead card
+        int currentPlayer = determineFirstPlayer(center.get(0));
+        System.out.println("Turn: Player" + (currentPlayer + 1));
+
+        System.out.print("> ");
+        String command = input.nextLine();
+
+        switch (command.toLowerCase()) {
+            case "s": // restart game
+                restart();
+                break;
+            case "d": // draw a card
+                players[currentPlayer].addCard();
+                break;
+            case "x": // quit game
+                gameStarted = false;
+                break;
+            default: // play card from hand
+                playCard(currentPlayer, command);
+                break;
         }
     }
 
