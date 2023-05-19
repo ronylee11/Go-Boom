@@ -10,43 +10,44 @@ public class Game {
     static boolean gameStarted = false;
     static int trickNumber = 1;
 
-    public void start() {
-        // Start game
-        gameStarted = true;
-
-        // Create 4 players
+    public void initializeGame() {
         for (int i = 0; i < 4; i++) {
             players[i] = new Player();
         }
 
         // Deal 1 card to each player at a time
         for (int i = 0; i < 7; i++) {
-            // System.out.println(players[0].getHand());
             for (int j = 0; j < 4; j++) {
                 players[j].addCard();
             }
         }
-
-        String leadCard = shuffledDeck.remove(
-                0); // Remove the first card from the shuffled deck as the lead card
+    }
+    public void restart(){
+        //deck.resetDeck();
+            for (int j = 0; j < 4; j++) {
+                players[j].resetHand();;
+            }
+        start();
+        
+    }
+    public void start() {
+        gameStarted = true;
+        initializeGame();
+        String leadCard = shuffledDeck.remove(0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
 
         while (gameStarted) { // Game loop
-            // Print the trick number
             System.out.println("Trick #" + trickNumber);
-            // Print each player's hand
             for (int i = 0; i < 4; i++) {
                 System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
             }
 
-            // Print the center ArrayList
             System.out.println("Center : " + center);
             deck.Largest_Card(center); // get the largest card
 
-            // Print the remaining deck
+            // Print remaining deck
             System.out.println(deck.toString());
 
-            // Print the current scores for all players
             System.out.print("Score  : ");
             for (int i = 0; i < 4; i++) {
                 System.out.print(
@@ -56,8 +57,6 @@ public class Game {
 
             // Determine the first player based on the lead card
             int currentPlayer = determineFirstPlayer(leadCard);
-
-            // Print the current player
             System.out.println("Turn: Player" + (currentPlayer + 1));
 
             System.out.print("> ");
@@ -65,7 +64,7 @@ public class Game {
 
             switch (command.toLowerCase()) {
                 case "s": // restart game
-                    start(); // BROKEN!!!
+                    restart(); // STILL BROKEN!!!
                     break;
                 case "d": // draw a card
                     players[currentPlayer].addCard();
