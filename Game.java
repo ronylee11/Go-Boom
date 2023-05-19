@@ -74,28 +74,39 @@ public class Game {
     }
 
     public void handlePlayerTurn() {
-        // Determine the first player based on the lead card
         int currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
-
-        System.out.print("> ");
-        String command = input.nextLine();
-
-        switch (command.toLowerCase()) {
-            case "s": // restart game
-                restart();
-                break;
-            case "d": // draw a card
-                players[currentPlayer].addCard();
-                break;
-            case "x": // quit game
-                gameStarted = false;
-                break;
-            default: // play card from hand
-                playCard(currentPlayer, command);
-                break;
+    
+        while (gameStarted) {
+            System.out.print("> ");
+            String command = input.nextLine();
+    
+            switch (command.toLowerCase()) {
+                case "s": // restart game
+                    restart();
+                    return; // Exit the method to avoid moving to the next player
+                case "d": // draw a card
+                    players[currentPlayer].addCard();
+                    break;
+                case "x": // quit game
+                    gameStarted = false;
+                    return; // Exit the method to avoid moving to the next player
+                default: // play card from hand
+                    playCard(currentPlayer, command);
+                    break;
+            }
+    
+            currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+    
+            if (gameStarted) {
+                printGameState();
+                System.out.println();
+                System.out.println("Turn: Player" + (currentPlayer + 1));
+            }
         }
     }
+    
+    
 
     // Determine the first player based on the lead card
     public int determineFirstPlayer(String leadCard) {
