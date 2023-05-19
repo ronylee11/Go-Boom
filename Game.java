@@ -76,7 +76,7 @@ public class Game {
 
             for (String cardsInHand : players[currentPlayer]
                     .getCards()) { // play card from hand // BROKEN!!!
-                if (command.toLowerCase().equals(cardsInHand)) {
+                if (command.equals(cardsInHand)) {
                     players[currentPlayer].removeCard(cardsInHand);
                     center.add(cardsInHand);
                     break;
