@@ -67,4 +67,7 @@ public class Player extends Card {
     void removeCard(String card) {
         hand.remove(card);
     }
+    public void resetHand() {
+        hand.clear();
+    }
 }
