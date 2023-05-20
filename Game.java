@@ -8,6 +8,7 @@ public class Game {
     Scanner input = new Scanner(System.in);
     static boolean gameStarted = false;
     static int trickNumber = 1;
+    private static int trickCounter = 1;
 
     public void initializeGame() {
         for (int i = 0; i < 4; i++) {
@@ -105,11 +106,17 @@ public class Game {
             }
     
             currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+            trickCounter++;
     
             if (gameStarted) {
                 printGameState();
                 System.out.println();
                 System.out.println("Turn: Player" + (currentPlayer + 1));
+            }
+            
+            if (trickCounter == 4) {
+                trickNumber++;
+                trickCounter = 1;
             }
         }
     }
