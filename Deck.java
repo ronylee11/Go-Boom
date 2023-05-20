@@ -29,6 +29,7 @@ public class Deck {
      *         to their values.
      */
     HashMap<String, Integer> Hash_value = new HashMap<>();
+    HashMap<String, Integer> Score_value = new HashMap<>();
 
     public HashMap<String, Integer> create_card_Values_HashMap() {
         Hash_value.put("2", 1);
@@ -46,6 +47,23 @@ public class Deck {
         Hash_value.put("A", 13);
         // System.out.println(Hash_value);
         return Hash_value;
+    }
+    public HashMap<String, Integer> create_score_Values_HashMap() {
+        Score_value.put("A", 1);
+        Score_value.put("2", 2);
+        Score_value.put("3", 3);
+        Score_value.put("4", 4);
+        Score_value.put("5", 5);
+        Score_value.put("6", 6);
+        Score_value.put("7", 7);
+        Score_value.put("8", 8);
+        Score_value.put("9", 9);
+        Score_value.put("X", 10);
+        Score_value.put("J", 10);
+        Score_value.put("Q", 10);
+        Score_value.put("K", 10);
+        // System.out.println(Score_value);
+        return Score_value;
     }
 
     public void Largest_Card(

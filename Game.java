@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class Game {
     Deck deck = new Deck();
@@ -109,7 +110,7 @@ public class Game {
         resetCenter();
         trickCounter++;
     }
-    
+    HashMap<Integer, String> Player_played = new HashMap<>();
     public void handlePlayerTurn() {
         int currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
@@ -132,22 +133,24 @@ public class Game {
                     return; // Exit the method to avoid moving to the next player
                 default: // play card from hand
                     isValidCard = playCard(currentPlayer, command);
+                    Player_played.put(currentPlayer, command);
+                    System.out.println(Player_played);
                     break;
-            }
-    
-            if (isValidCard) {
-                currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
-            }
-    
-            if (gameStarted) {
-                printGameState();
-                System.out.println();
-                System.out.println("Turn: Player" + (currentPlayer + 1));
-            }
-
-            if (trickCounter == 4) {
-                trickNumber++;
-                trickCounter = 1;
+                }
+                
+                if (isValidCard) {
+                    currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+                }
+                
+                if (gameStarted) {
+                    printGameState();
+                    System.out.println();
+                    System.out.println("Turn: Player" + (currentPlayer + 1));
+                }
+                
+                if (trickCounter == 4) {
+                    trickNumber++;
+                    trickCounter = 1;
             }
         }
     }
