@@ -66,7 +66,7 @@ public class Deck {
         return Score_value;
     }
 
-    public void Largest_Card(
+    public String Largest_Card(
             ArrayList<String> holding) { // to get the largest card from the arraylist
         String largest_card = holding.get(0); // to the get the first card from the randomize list
         int largest_value = Hash_value.get(largest_card.substring(
@@ -83,6 +83,7 @@ public class Deck {
                 largest_value = cardValue;
             }
         }
+        return largest_card;
         // System.out.println("Largest Card : " + largest_card);
     }
 

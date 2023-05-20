@@ -89,6 +89,7 @@ public class Game {
                 if (command.toLowerCase().equals(card.toLowerCase())) {
                     players[currentPlayer].removeCard(card);
                     center.add(card);
+                    trickCounter++;
                     return true; // Card played successfully
                 }
             }
@@ -104,13 +105,14 @@ public class Game {
     
     }
     
-    public void winner_of_trick(int player_num){
-        deck.Largest_Card(center);
-        System.out.println("Player" + player_num + " wins the trick!");
+    public void winner_of_trick(){
+        String large = deck.Largest_Card(center);
+        int player_num = Player_played.get(large.toLowerCase());
+        System.out.println("Player" + (player_num + 1) + " wins the trick!");
         resetCenter();
-        trickCounter++;
     }
-    HashMap<Integer, String> Player_played = new HashMap<>();
+
+    HashMap<String, Integer> Player_played = new HashMap<>();
     public void handlePlayerTurn() {
         int currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
@@ -133,8 +135,8 @@ public class Game {
                     return; // Exit the method to avoid moving to the next player
                 default: // play card from hand
                     isValidCard = playCard(currentPlayer, command);
-                    Player_played.put(currentPlayer, command);
-                    System.out.println(Player_played);
+                    Player_played.put(command.toLowerCase(), currentPlayer);
+                    //System.out.println(Player_played);
                     break;
                 }
                 
@@ -142,18 +144,21 @@ public class Game {
                     currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
                 }
                 
+                if (trickCounter == 5) {
+                    trickNumber++;
+                    trickCounter = 1;
+                    winner_of_trick();
+                    gameStarted = false;
+                }
                 if (gameStarted) {
                     printGameState();
                     System.out.println();
                     System.out.println("Turn: Player" + (currentPlayer + 1));
                 }
                 
-                if (trickCounter == 4) {
-                    trickNumber++;
-                    trickCounter = 1;
             }
         }
-    }
+    
     
     
 
