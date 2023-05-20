@@ -72,16 +72,38 @@ public class Game {
         System.out.println();
     }
 
-    public void playCard(int currentPlayer, String command) {    
-        for (String cardsInHand : players[currentPlayer].getCards()) {
-            if (command.equals(cardsInHand)) {
-                players[currentPlayer].removeCard(cardsInHand);
-                center.add(cardsInHand);
-                break;
+    public boolean playCard(int currentPlayer, String command) {
+        String leadCard = center.get(0);
+        char leadSuit = leadCard.charAt(0);
+        char leadRank = leadCard.charAt(1);
+    
+        String suit = command.charAt(0) + "";
+        char rank = command.charAt(1);
+    
+        boolean isSameSuit = suit.equalsIgnoreCase(Character.toString(leadSuit));
+        boolean isSameRank = rank == leadRank;
+    
+        if (!isSameSuit || !isSameRank) {
+            for (String card : players[currentPlayer].getCards()) {
+                if (command.equals(card)) {
+                    players[currentPlayer].removeCard(card);
+                    center.add(card);
+                    return true; // Card played successfully
+                }
             }
+            System.out.println("Invalid card! Card not found in your hand.");
+            return false; // Card is invalid
         }
+    
+        System.out.println("Invalid card! You must change either the suit or rank.");
+        return false;
     }
+    
 
+    
+    
+    
+    
     public void handlePlayerTurn() {
         int currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
@@ -89,6 +111,8 @@ public class Game {
         while (gameStarted) {
             System.out.print("> ");
             String command = input.nextLine();
+    
+            boolean isValidCard = false;
     
             switch (command.toLowerCase()) {
                 case "s": // restart game
@@ -101,22 +125,18 @@ public class Game {
                     gameStarted = false;
                     return; // Exit the method to avoid moving to the next player
                 default: // play card from hand
-                    playCard(currentPlayer, command);
+                    isValidCard = playCard(currentPlayer, command);
                     break;
             }
     
-            currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
-            trickCounter++;
+            if (isValidCard) {
+                currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+            }
     
             if (gameStarted) {
                 printGameState();
                 System.out.println();
                 System.out.println("Turn: Player" + (currentPlayer + 1));
-            }
-            
-            if (trickCounter == 4) {
-                trickNumber++;
-                trickCounter = 1;
             }
         }
     }
