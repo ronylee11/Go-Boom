@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Game {
     Deck deck = new Deck();
-    ArrayList<String> shuffledDeck = deck.shuffleCards();
     Player[] players = new Player[4];
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
     Scanner input = new Scanner(System.in);
@@ -22,17 +21,26 @@ public class Game {
             }
         }
     }
+    
     public void restart(){
-        //deck.resetDeck();
             for (int j = 0; j < 4; j++) {
                 players[j].resetHand();;
             }
+        deck.resetDeck();
+        Deck.Create_deck();
+        resetCenter
         start();
         
     }
+    
+    public void resetCenter() {
+        center.clear();
+    }
+    
     public void start() {
         gameStarted = true;
         initializeGame();
+        ArrayList<String> shuffledDeck = deck.shuffleCards();
         String leadCard = shuffledDeck.remove(0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
 
