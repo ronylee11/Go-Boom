@@ -135,7 +135,7 @@ public class Game {
         while (gameStarted) {
             System.out.print("> ");
             String command = input.nextLine();
-
+            
             boolean isValidCard = false;
 
             switch (command.toLowerCase()) {
