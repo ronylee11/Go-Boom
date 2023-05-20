@@ -74,39 +74,40 @@ public class Game {
 
     public boolean playCard(int currentPlayer, String command) {
         String leadCard = center.get(0);
-        char leadSuit = leadCard.charAt(0);
-        char leadRank = leadCard.charAt(1);
+        char leadSuit = leadCard.toLowerCase().charAt(0);
+        char leadRank = leadCard.toLowerCase().charAt(1);
     
-        String suit = command.charAt(0) + "";
-        char rank = command.charAt(1);
+        String suit = command.toLowerCase().charAt(0) + "";
+        char rank = command.toLowerCase().charAt(1);
     
         boolean isSameSuit = suit.equalsIgnoreCase(Character.toString(leadSuit));
         boolean isSameRank = rank == leadRank;
     
-        if (!isSameSuit || !isSameRank) {
+        if (isSameSuit || isSameRank) {
             for (String card : players[currentPlayer].getCards()) {
-                if (command.equals(card)) {
-                    char cardSuit = card.charAt(0);
-                    char cardRank = card.charAt(1);
-                    boolean isCardSuitChanged = !suit.equalsIgnoreCase(Character.toString(cardSuit));
-                    boolean isCardRankChanged = rank != cardRank;
-                    if (!(isCardSuitChanged && isCardRankChanged)) {
-                        players[currentPlayer].removeCard(card);
-                        center.add(card);
-                        return true; // Card played successfully
-                    } else {
-                        System.out.println("Invalid card! You can only change either the suit or the rank.");
-                        return false; // Card is invalid
-                    }
+                if (command.toLowerCase().equals(card.toLowerCase())) {
+                    players[currentPlayer].removeCard(card);
+                    center.add(card);
+                    return true; // Card played successfully
                 }
             }
-    
+
             System.out.println("Invalid card! Card not found in your hand.");
             return false; // Card is invalid
         }
+        else{
+            System.out.println("Invalid card! You must change either the suit or rank.");
+            return false;
+
+        }
     
-        System.out.println("Invalid card! You must change either the suit or rank.");
-        return false;
+    }
+    
+    public void winner_of_trick(int player_num){
+        deck.Largest_Card(center);
+        System.out.println("Player" + player_num + " wins the trick!");
+        resetCenter();
+        trickCounter++;
     }
     
     public void handlePlayerTurn() {
