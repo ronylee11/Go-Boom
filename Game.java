@@ -28,7 +28,7 @@ public class Game {
             }
         deck.resetDeck();
         Deck.Create_deck();
-        resetCenter
+        resetCenter();
         start();
         
     }
