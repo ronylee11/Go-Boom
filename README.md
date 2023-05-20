@@ -7,7 +7,7 @@
 | 1   | 1221302735 | Ho Jing Lu            |                   |
 | 2   | 1211311027 | Lee Rong Yi           |                   |
 | 3   | 1211102270 | Yap Choo Kath Moon    |Done No 2, 7       |
-| 4   | 1211201553 | Nicholas Chik Zi Jian |                   |
+| 4   | 1211201553 | Nicholas Chik Zi Jian |Done No 3,4,6      |
 
 ## B. Feature Completion
 
