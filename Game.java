@@ -82,41 +82,41 @@ public class Game {
     }
 
     public boolean playCard(int currentPlayer, String command) {
-        String leadCard = "";
-        if (center.isEmpty()){
-            leadCard = command;
-        }
-        else {
-            leadCard = center.get(0);
-        }
+        String leadCard = center.get(0);
         char leadSuit = leadCard.toLowerCase().charAt(0);
         char leadRank = leadCard.toLowerCase().charAt(1);
-
+    
         String suit = command.toLowerCase().charAt(0) + "";
         char rank = command.toLowerCase().charAt(1);
-
+    
         boolean isSameSuit = suit.equalsIgnoreCase(Character.toString(leadSuit));
         boolean isSameRank = rank == leadRank;
-
+    
         if (isSameSuit || isSameRank) {
             for (String card : players[currentPlayer].getCards()) {
-                if (command.toLowerCase().equals(card.toLowerCase())) {
+                char cardSuit = card.toLowerCase().charAt(0);
+                char cardRank = card.toLowerCase().charAt(1);
+                
+                boolean canChangeSuit = (cardSuit != leadSuit) && (rank == leadRank);
+                boolean canChangeRank = (cardRank != leadRank) && (suit.equalsIgnoreCase(Character.toString(leadSuit)));
+    
+                if ((canChangeSuit || canChangeRank) && command.toLowerCase().equals(card.toLowerCase())) {
                     players[currentPlayer].removeCard(card);
                     center.add(card);
                     trickCounter++;
                     return true; // Card played successfully
                 }
             }
-
+    
             System.out.println("Invalid card! Card not found in your hand.");
             return false; // Card is invalid
         } else {
             System.out.println("Invalid card! You must change either the suit or rank.");
             return false;
-
         }
-
     }
+    
+    
 
     public void winner_of_trick() {
         String large = deck.Largest_Card(center);
