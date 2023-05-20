@@ -86,11 +86,21 @@ public class Game {
         if (!isSameSuit || !isSameRank) {
             for (String card : players[currentPlayer].getCards()) {
                 if (command.equals(card)) {
-                    players[currentPlayer].removeCard(card);
-                    center.add(card);
-                    return true; // Card played successfully
+                    char cardSuit = card.charAt(0);
+                    char cardRank = card.charAt(1);
+                    boolean isCardSuitChanged = !suit.equalsIgnoreCase(Character.toString(cardSuit));
+                    boolean isCardRankChanged = rank != cardRank;
+                    if (!(isCardSuitChanged && isCardRankChanged)) {
+                        players[currentPlayer].removeCard(card);
+                        center.add(card);
+                        return true; // Card played successfully
+                    } else {
+                        System.out.println("Invalid card! You can only change either the suit or the rank.");
+                        return false; // Card is invalid
+                    }
                 }
             }
+    
             System.out.println("Invalid card! Card not found in your hand.");
             return false; // Card is invalid
         }
@@ -98,6 +108,27 @@ public class Game {
         System.out.println("Invalid card! You must change either the suit or rank.");
         return false;
     }
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     
