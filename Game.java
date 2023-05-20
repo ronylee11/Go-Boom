@@ -10,6 +10,8 @@ public class Game {
     static boolean gameStarted = false;
     static int trickNumber = 1;
     private static int trickCounter = 1;
+    private static int player_num = 0;
+    private static int currentPlayer = 0;
 
     public void initializeGame() {
         for (int i = 0; i < 4; i++) {
@@ -23,22 +25,23 @@ public class Game {
             }
         }
     }
-    
-    public void restart(){
-            for (int j = 0; j < 4; j++) {
-                players[j].resetHand();;
-            }
+
+    public void restart() {
+        for (int j = 0; j < 4; j++) {
+            players[j].resetHand();
+            ;
+        }
         deck.resetDeck();
         Deck.Create_deck();
         resetCenter();
         start();
-        
+
     }
-    
+
     public void resetCenter() {
         center.clear();
     }
-     
+
     public void start() {
         gameStarted = true;
         initializeGame();
@@ -49,19 +52,24 @@ public class Game {
         while (gameStarted) { // Game loop
             printGameState();
             handlePlayerTurn();
-          
+
             System.out.println();
         }
     }
 
-    public void printGameState() {   // Print the game interface
+    public void printGameState() { // Print the game interface
         System.out.println("Trick #" + trickNumber);
         for (int i = 0; i < 4; i++) {
             System.out.println("Player" + (i + 1) + ": " + players[i].getCards());
         }
+        if (trickNumber == 1) {
+            System.out.println("Center : " + center);
+            deck.Largest_Card(center); // get the largest card
+        }
+        else {
+            System.out.println("Center : " + center);
+        }
 
-        System.out.println("Center : " + center);
-        deck.Largest_Card(center); // get the largest card
 
         // Print remaining deck
         System.out.println(deck.toString());
@@ -74,16 +82,22 @@ public class Game {
     }
 
     public boolean playCard(int currentPlayer, String command) {
-        String leadCard = center.get(0);
+        String leadCard = "";
+        if (center.isEmpty()){
+            leadCard = command;
+        }
+        else {
+            leadCard = center.get(0);
+        }
         char leadSuit = leadCard.toLowerCase().charAt(0);
         char leadRank = leadCard.toLowerCase().charAt(1);
-    
+
         String suit = command.toLowerCase().charAt(0) + "";
         char rank = command.toLowerCase().charAt(1);
-    
+
         boolean isSameSuit = suit.equalsIgnoreCase(Character.toString(leadSuit));
         boolean isSameRank = rank == leadRank;
-    
+
         if (isSameSuit || isSameRank) {
             for (String card : players[currentPlayer].getCards()) {
                 if (command.toLowerCase().equals(card.toLowerCase())) {
@@ -96,33 +110,34 @@ public class Game {
 
             System.out.println("Invalid card! Card not found in your hand.");
             return false; // Card is invalid
-        }
-        else{
+        } else {
             System.out.println("Invalid card! You must change either the suit or rank.");
             return false;
 
         }
-    
+
     }
-    
-    public void winner_of_trick(){ 
+
+    public void winner_of_trick() {
         String large = deck.Largest_Card(center);
-        int player_num = Player_played.get(large.toLowerCase());
+        player_num = Player_played.get(large.toLowerCase());
         System.out.println("Player" + (player_num + 1) + " wins the trick!");
-        resetCenter();
+        currentPlayer = player_num;
+
     }
 
     HashMap<String, Integer> Player_played = new HashMap<>();
+
     public void handlePlayerTurn() {
-        int currentPlayer = determineFirstPlayer(center.get(0));
+        currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
-    
+
         while (gameStarted) {
             System.out.print("> ");
             String command = input.nextLine();
-    
+
             boolean isValidCard = false;
-    
+
             switch (command.toLowerCase()) {
                 case "s": // restart game
                     restart();
@@ -136,31 +151,27 @@ public class Game {
                 default: // play card from hand
                     isValidCard = playCard(currentPlayer, command);
                     Player_played.put(command.toLowerCase(), currentPlayer);
-                    //System.out.println(Player_played);
+                    // System.out.println(Player_played);
                     break;
-                }
-                
-                if (isValidCard) {
-                    currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
-                }
-                
-                if (trickCounter == 5) {
-                    trickNumber++;
-                    trickCounter = 1;
-                    winner_of_trick();
-                    gameStarted = false;
-                }
-                if (gameStarted) {
-                    printGameState();
-                    System.out.println();
-                    System.out.println("Turn: Player" + (currentPlayer + 1));
-                }
-                
             }
+
+            if (isValidCard) {
+                currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+            }
+
+            if (trickCounter == 5) {
+                trickNumber++;
+                trickCounter = 1;
+                winner_of_trick();
+                resetCenter();
+            }
+            if (gameStarted) {
+                printGameState();
+                System.out.println("Turn: Player" + (currentPlayer + 1));
+            }
+
         }
-    
-    
-    
+    }
 
     // Determine the first player based on the lead card
     public int determineFirstPlayer(String leadCard) {
