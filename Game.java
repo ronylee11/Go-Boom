@@ -38,7 +38,7 @@ public class Game {
     public void resetCenter() {
         center.clear();
     }
-    
+     
     public void start() {
         gameStarted = true;
         initializeGame();
