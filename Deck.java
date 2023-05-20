@@ -102,4 +102,7 @@ public class Deck {
             deckCreated = true;
         }
     }
+    public void resetDeck() {
+        deck.clear();
+    }
 }
