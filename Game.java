@@ -105,7 +105,7 @@ public class Game {
     
     }
     
-    public void winner_of_trick(){
+    public void winner_of_trick(){ 
         String large = deck.Largest_Card(center);
         int player_num = Player_played.get(large.toLowerCase());
         System.out.println("Player" + (player_num + 1) + " wins the trick!");
