@@ -138,6 +138,11 @@ public class Game {
                 System.out.println();
                 System.out.println("Turn: Player" + (currentPlayer + 1));
             }
+
+            if (trickCounter == 4) {
+                trickNumber++;
+                trickCounter = 1;
+            }
         }
     }
     
