@@ -48,8 +48,8 @@ public class Player extends Card {
     }
 
     // update player score
-    void addScore(int score) {
-        this.score += score;
+    void addScore() {
+        score++;
     }
 
     // Add card to one player at a time
