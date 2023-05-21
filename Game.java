@@ -123,7 +123,13 @@ public class Game {
         player_num = Player_played.get(large.toLowerCase());
         System.out.println("Player" + (player_num + 1) + " wins the trick!");
         currentPlayer = player_num;
+        updateScore();
 
+    }
+    
+    public void updateScore() {
+        int winnerOfTrick = player_num;
+        players[winnerOfTrick].addScore();
     }
 
     HashMap<String, Integer> Player_played = new HashMap<>();
