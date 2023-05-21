@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Game {
     Deck deck = new Deck();
@@ -35,7 +35,6 @@ public class Game {
         Deck.Create_deck();
         resetCenter();
         start();
-
     }
 
     public void resetCenter() {
@@ -46,7 +45,8 @@ public class Game {
         gameStarted = true;
         initializeGame();
         ArrayList<String> shuffledDeck = deck.shuffleCards();
-        String leadCard = shuffledDeck.remove(0); // Remove the first card from the shuffled deck as the lead card
+        String leadCard = shuffledDeck.remove(
+                0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
 
         while (gameStarted) { // Game loop
@@ -65,28 +65,26 @@ public class Game {
         if (trickNumber == 1) {
             System.out.println("Center : " + center);
             deck.Largest_Card(center); // get the largest card
-        }
-        else {
+        } else {
             System.out.println("Center : " + center);
         }
-
 
         // Print remaining deck
         System.out.println(deck.toString());
 
         System.out.print("Score  : ");
         for (int i = 0; i < 4; i++) {
-            System.out.print(String.format("Player%d = %d | ", i + 1, players[i].getScore()));
+            System.out.print(
+                    String.format("Player%d = %d | ", i + 1, players[i].getScore()));
         }
         System.out.println();
     }
 
     public boolean playCard(int currentPlayer, String command) {
         String leadCard = "";
-        if (center.isEmpty()){
+        if (center.isEmpty()) {
             leadCard = command;
-        }
-        else {
+        } else {
             leadCard = center.get(0);
         }
         char leadSuit = leadCard.toLowerCase().charAt(0);
@@ -104,29 +102,33 @@ public class Game {
                     players[currentPlayer].removeCard(card);
                     center.add(card);
                     trickCounter++;
+                    if (trickCounter != 5) {
+                        System.out.println();
+                    }
                     return true; // Card played successfully
                 }
             }
 
-            System.out.println("Invalid card! Card not found in your hand.");
+            System.out.println("Invalid card! Card not found in your hand.\n");
             return false; // Card is invalid
         } else {
-            System.out.println("Invalid card! You must change either the suit or rank.");
+            System.out.println(
+                    "Invalid card! You must change either the suit or rank.\n");
             return false;
-
         }
-
     }
 
     public void winner_of_trick() {
         String large = deck.Largest_Card(center);
         player_num = Player_played.get(large.toLowerCase());
-        System.out.println("Player" + (player_num + 1) + " wins the trick!");
+        if (player_num == 0) {
+            player_num = currentPlayer;
+        }
+        System.out.println("Player" + (player_num + 1) + " wins the trick!\n");
         currentPlayer = player_num;
         updateScore();
-
     }
-    
+
     public void updateScore() {
         int winnerOfTrick = player_num;
         players[winnerOfTrick].addScore();
@@ -141,7 +143,7 @@ public class Game {
         while (gameStarted) {
             System.out.print("> ");
             String command = input.nextLine();
-            
+
             boolean isValidCard = false;
 
             switch (command.toLowerCase()) {
@@ -175,7 +177,6 @@ public class Game {
                 printGameState();
                 System.out.println("Turn: Player" + (currentPlayer + 1));
             }
-
         }
     }
 
