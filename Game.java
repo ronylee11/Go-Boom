@@ -119,6 +119,9 @@ public class Game {
     }
 
     public void winner_of_trick() {
+        if(trickNumber == 2){
+            center.remove(0);
+        }
         String large = deck.Largest_Card(center);
         player_num = Player_played.get(large.toLowerCase());
         if (player_num == 0) {
