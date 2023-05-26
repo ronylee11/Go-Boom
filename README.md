@@ -35,5 +35,5 @@ https://drive.google.com/file/d/1rO1p65mG7wWz_-mbA34g-EFYixsFK9dK/view?usp=share
 How to run the code?
 
 ```
-javac Card.java Deck.java Main.java Player.java Game.java && java Main
+javac *.java && java Main
 ```
