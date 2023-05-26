@@ -26,9 +26,7 @@ Mark Y for complete, N for incomplete.
 
 ## C. Link to Video Presentation
 
-Upload your video presentation to your Google drive or YouTube, then paste the link below. Give your lab lecturer the permission to view the video.
-
-https://drive.google.com/file/d/1rO1p65mG7wWz_-mbA34g-EFYixsFK9dK/view?usp=share_link
+[PART 1 Presentation Video](https://drive.google.com/file/d/1rO1p65mG7wWz_-mbA34g-EFYixsFK9dK/view?usp=share_link)
 
 ## D. Compilation Instructions
 
