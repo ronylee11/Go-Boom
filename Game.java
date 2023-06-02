@@ -139,22 +139,47 @@ public class Game {
 
     HashMap<String, Integer> Player_played = new HashMap<>();
 
+    public boolean canPlayOnCenter(String card) {
+        if (center.isEmpty()) {
+            return true; // Any card can be played on an empty center
+        }
+
+        String leadCard = center.get(0);
+        char leadSuit = leadCard.toLowerCase().charAt(0);
+        char leadRank = leadCard.toLowerCase().charAt(1);
+
+        char suit = card.toLowerCase().charAt(0);
+        char rank = card.toLowerCase().charAt(1);
+
+        boolean isSameSuit = suit == leadSuit;
+        boolean isSameRank = rank == leadRank;
+
+        return isSameSuit || isSameRank;
+    }
+
     public void handlePlayerTurn() {
         currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
-
+    
         while (gameStarted) {
             System.out.print("> ");
             String command = input.nextLine();
-
+    
             boolean isValidCard = false;
-
+    
             switch (command.toLowerCase()) {
                 case "s": // restart game
                     restart();
                     return; // Exit the method to avoid moving to the next player
                 case "d": // draw a card
-                    players[currentPlayer].addCard();
+                    while (true) {
+                        players[currentPlayer].addCard();
+                        String lastCard = players[currentPlayer].getLastCard();
+                        if (canPlayOnCenter(lastCard)) {
+                            isValidCard = false;
+                            break; // Exit the loop and move to the next player
+                        }
+                    }
                     break;
                 case "x": // quit game
                     gameStarted = false;
@@ -162,14 +187,28 @@ public class Game {
                 default: // play card from hand
                     isValidCard = playCard(currentPlayer, command);
                     Player_played.put(command.toLowerCase(), currentPlayer);
-                    // System.out.println(Player_played);
                     break;
             }
-
+    
             if (isValidCard) {
                 currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
             }
-
+    
+            if (deck.isEmpty()) {
+                boolean canPlay = false;
+                for (String card : players[currentPlayer].getCards()) {
+                    if (canPlayOnCenter(card)) {
+                        canPlay = true;
+                        break;
+                    }
+                }
+    
+                if (!canPlay) {
+                    System.out.println("Player" + (currentPlayer + 1) + " cannot play. Skipping turn.\n");
+                    currentPlayer = (currentPlayer + 1) % 4;
+                }
+            }
+    
             if (trickCounter == 5) {
                 trickNumber++;
                 trickCounter = 1;
@@ -182,6 +221,9 @@ public class Game {
             }
         }
     }
+    
+    
+    
 
     // Determine the first player based on the lead card
     public int determineFirstPlayer(String leadCard) {
