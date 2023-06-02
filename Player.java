@@ -70,4 +70,9 @@ public class Player extends Card {
     public void resetHand() {
         hand.clear();
     }
+
+    public String getLastCard() {
+        int lastIndex = hand.size() - 1;
+        return hand.get(lastIndex);
+    }
 }

@@ -124,4 +124,9 @@ public class Deck {
     public void resetDeck() {
         deck.clear();
     }
+
+    public boolean isEmpty() {
+        return deck.isEmpty();
+    }
+    
 }
