@@ -3,23 +3,34 @@ import java.awt.*;
 
 public class DeckGUI {
 
-    private void buildFrame(){
-        JFrame frame = new JFrame();
+    JFrame frame = new JFrame();
+    JLabel label = new JLabel();
+    JPanel panel1 = new JPanel();
+    public void Menu(){
+        label.setText("Menu");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.TOP);
+        label.setFont(new Font("Times New Roman",Font.BOLD,100));
+        frame.add(label);
+        //Set the title of the window and the size of the frame
         frame.setTitle("GO-BOOM!!");
         frame.setSize(1200,700);
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
+        //Set the icon of the frame
         ImageIcon logo = new ImageIcon("Image/logo.png");
         frame.setIconImage(logo.getImage());
-
+        
+        //set the background color of the frame
         frame.getContentPane().setBackground(new Color(0x095D0A));
         
-
+        
+        frame.setVisible(true);
     }
 
+
     DeckGUI(){
-        buildFrame();
+        Menu();
     }
 
     public static void main(String[] args) {
