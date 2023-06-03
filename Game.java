@@ -172,13 +172,24 @@ public class Game {
                     restart();
                     return; // Exit the method to avoid moving to the next player
                 case "d": // draw a card
-                    while (true) {
+                    boolean foundValidCard = false;
+                    boolean validCardDrawn = false; // Flag to track if a valid card was drawn
+                    while (!foundValidCard) {
+                        if (deck.isEmpty()) {
+                            System.out.println("Deck is empty and no valid card to be play!");
+                            break; // Exit the loop and move to the next player
+                        }
+    
                         players[currentPlayer].addCard();
                         String lastCard = players[currentPlayer].getLastCard();
                         if (canPlayOnCenter(lastCard)) {
                             isValidCard = false;
+                            validCardDrawn = true;
                             break; // Exit the loop and move to the next player
                         }
+                    }
+                    if (validCardDrawn) {
+                        break; // Exit the switch and continue to the next iteration of the outer loop
                     }
                     break;
                 case "x": // quit game
