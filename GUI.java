@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -35,7 +37,7 @@ public class GUI extends Application{
         launch(args);
     }
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         
         Group root = new Group();
         StackPane pane = new StackPane();
@@ -57,6 +59,18 @@ public class GUI extends Application{
         whitestuff.setStrokeWidth(2);
         whitestuff.setTranslateY(-250);
         pane.getChildren().add(whitestuff);
+
+        Button playBtn = new Button("Play");
+        playBtn.setPrefSize(100, 50);
+        playBtn.setTranslateY(-100);
+        playBtn.setStyle("-fx-background-color: #FFFFF; -fx-text-fill: #000000; -fx-font-size: 20px;");
+        playBtn.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Button clicked!");
+            }
+        });
+        pane.getChildren().add(playBtn);
 
         
         stage.setScene(scene);
