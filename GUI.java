@@ -67,10 +67,22 @@ public class GUI extends Application{
         playBtn.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Button clicked!");
+                System.out.println("Play Button clicked!");
             }
         });
         pane.getChildren().add(playBtn);
+
+        Button resumeBtn = new Button("Resume");
+        resumeBtn.setPrefSize(100, 50);
+        resumeBtn.setTranslateY(0);
+        resumeBtn.setStyle("-fx-background-color: #FFFFF; -fx-text-fill: #000000; -fx-font-size: 20px;");
+        resumeBtn.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Resume Button clicked!");
+            }
+        });
+        pane.getChildren().add(resumeBtn);
 
         
         stage.setScene(scene);
