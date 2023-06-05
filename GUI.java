@@ -43,10 +43,10 @@ public class GUI extends Application{
         StackPane pane = new StackPane();
         Scene scene = new Scene(pane, 1080, 720);
         
-        Image icon = new Image("Image/logo.png");
-        Image bg = new Image("Image/bg.jpg");
+        Image icon = new Image("Image/Go Boom Logo.png");
+        Image bg = new Image("Image/Go Boom Background.png");
         stage.getIcons().add(icon);
-        BackgroundImage background = new BackgroundImage(bg, BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundImage background = new BackgroundImage(bg, null,null,null,null);
         Background bg1 = new Background(background);
         pane.setBackground(bg1);
         stage.setTitle("GO-BOOM!!");
