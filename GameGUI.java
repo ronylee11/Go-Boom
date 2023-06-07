@@ -22,7 +22,9 @@ public class GameGUI extends Pane {
         this.stage = stage;
         this.mainMenuScene = mainMenuScene;
 
-        content = new VBox();
+        content = new VBox(10); // Set spacing between cards
+        content.setMaxWidth(200); // Set the maximum width of the card container
+        content.setTranslateX((1080 - content.getMaxWidth()) / 2); // Center the card container horizontally
         scrollPane = new ScrollPane(content);
         scrollPane.setLayoutX(30);
         scrollPane.setLayoutY(460);
@@ -39,10 +41,11 @@ public class GameGUI extends Pane {
         Button returnBtn = createButton("Return", 14, 28, 130, 60);
         Button button2 = createButton("Save", 920, 28, 130, 60);
         Button button3 = createButton("Draw", 350, 200, 130, 210);
-        Button imageButton = createImageButton("Image/sA.png", 500, 200, 200, 200);
+        Button imageButton = createImageButton("Image/sA.png",0, 0, 200, 200);
+        Button imageButton1 = createImageButton("Image/s2.png",0, 0, 200, 200);
 
         pane2.getChildren().addAll(returnBtn, button2, button3);
-        content.getChildren().addAll(imageButton);
+        content.getChildren().addAll(imageButton, imageButton1);
         getChildren().addAll(scrollPane, pane2);
     }
 
@@ -59,16 +62,15 @@ public class GameGUI extends Pane {
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
-        button.setOnAction(event -> {
-            
-                System.out.println("Image button clicked!");
-               
+        button.setOnAction(event -> {          
+                System.out.println("Image button clicked!");              
         });
 
         Image image = new Image(imagePath);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(minWidth);
         imageView.setFitHeight(minHeight);
+
 
         button.setGraphic(imageView);
 
