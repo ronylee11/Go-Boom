@@ -5,9 +5,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -44,9 +46,11 @@ public class GameGUI extends Pane {
         Button imageButton = createImageButton("Image/sA.png",0, 0, 200, 200);
         Button imageButton1 = createImageButton("Image/s2.png",0, 0, 200, 200);
 
+        imageButton.setLayoutX(100);
         pane2.getChildren().addAll(returnBtn, button2, button3);
         content.getChildren().addAll(imageButton, imageButton1);
         getChildren().addAll(scrollPane, pane2);
+        pane2.getChildren().add(player1Hand());
     }
 
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
@@ -75,5 +79,29 @@ public class GameGUI extends Pane {
         button.setGraphic(imageView);
 
         return button;
+    }
+
+    HBox player1Hand() {
+        Image cardImage1 = new Image(getClass().getResourceAsStream("Image/hA.png"));
+        ImageView cardView1 = new ImageView(cardImage1);
+        cardView1.setFitHeight(100);
+        cardView1.setFitWidth(75);
+        HBox.setMargin(cardView1, new Insets(0,-20,0,20));
+        cardView1.setOnMouseClicked((event) -> {
+            System.out.println("Play hA!");
+        });
+
+        Image cardImage2 = new Image(getClass().getResourceAsStream("Image/sA.png"));
+        ImageView cardView2 = new ImageView(cardImage2);
+        cardView2.setFitHeight(100);
+        cardView2.setFitWidth(75);
+        HBox.setMargin(cardView2, new Insets(0,-20,0,0));
+        cardView2.setOnMouseClicked((event) -> {
+            System.out.println("Play sA!");
+        });
+
+        HBox hBox = new HBox(cardView1,cardView2);
+        return hBox;
+
     }
 }
