@@ -31,6 +31,7 @@ public class Game {
             players[j].resetHand();
             ;
         }
+        trickNumber = 1;
         deck.resetDeck();
         Deck.Create_deck();
         resetCenter();
@@ -176,7 +177,7 @@ public class Game {
                     boolean validCardDrawn = false; // Flag to track if a valid card was drawn
                     while (!foundValidCard) {
                         if (deck.isEmpty()) {
-                            System.out.println("Deck is empty and no valid card to be play!");
+                            System.out.println("Deck is empty!");
                             break; // Exit the loop and move to the next player
                         }
     
