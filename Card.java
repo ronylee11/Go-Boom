@@ -27,4 +27,7 @@ public class Card{
     void setSuit(char suit) {
         this.suit = suit;
     }
+
+    public void setOnMouseClicked(Object object) {
+    }
 }
