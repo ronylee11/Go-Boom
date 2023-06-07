@@ -37,8 +37,10 @@ public class GameGUI extends Pane {
         Button returnBtn = createButton("Return", 14, 28, 130, 60);
         Button button2 = createButton("Save", 920, 28, 130, 60);
         Button button3 = createButton("Draw", 350, 200, 130, 210);
+        Button newButton = createButton("New Button", 550, 120, 130, 60);
 
         pane2.getChildren().addAll(returnBtn, button2, button3);
+        content.getChildren().addAll(newButton);
         getChildren().addAll(scrollPane, pane2);
     }
 
