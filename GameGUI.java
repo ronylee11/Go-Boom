@@ -48,9 +48,9 @@ public class GameGUI extends Pane {
 
         imageButton.setLayoutX(100);
         pane2.getChildren().addAll(returnBtn, button2, button3);
-        content.getChildren().addAll(imageButton, imageButton1);
+        //content.getChildren().addAll(imageButton, imageButton1);
         getChildren().addAll(scrollPane, pane2);
-        pane2.getChildren().add(player1Hand());
+        content.getChildren().add(player1Hand());
     }
 
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
