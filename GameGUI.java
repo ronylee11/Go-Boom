@@ -46,6 +46,7 @@ public class GameGUI extends AnchorPane {
         getChildren().addAll(scrollPane, pane2);
 
         // Create player hand HBox instances
+        //for testing purposes
         HBox player1HandBox = createPlayerHandBox(player1Hand);
         HBox player2HandBox = createPlayerHandBox(player2Hand);
         HBox player3HandBox = createPlayerHandBox(player3Hand);
