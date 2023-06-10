@@ -85,13 +85,4 @@ public class GUI extends Application {
         return button;
     }
 
-    private Scene createGameScene(Stage stage) {
-        // Create the game GUI scene here (you can customize it based on your requirements)
-        // For example:
-        StackPane gamePane = new StackPane();
-        Scene gameScene = new Scene(gamePane, 1080, 720);
-        // Add game-related elements to the gamePane
-        
-        return gameScene;
-    }
 }
