@@ -43,7 +43,7 @@ public class GameGUI extends AnchorPane {
         Button button2 = createButton("Save", 920, 28, 130, 60);
         
 
-        pane2.getChildren().addAll(returnBtn, button2, button3);
+        pane2.getChildren().addAll(returnBtn, button2);
         getChildren().addAll(scrollPane, pane2);
 
         // Create player hand HBox instances
@@ -71,7 +71,7 @@ public class GameGUI extends AnchorPane {
         // Scroll to the bottom of the ScrollPane when the content changes
         scrollPane.vvalueProperty().bind(content.heightProperty());
 
-        pane2.getChildren().add(createdrawView);
+        pane2.getChildren().add(createdrawView());
     }
 
         //code below is to get current player's card and display but haven't found a way to connect game to GUI, scrap if not useful
