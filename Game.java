@@ -26,6 +26,10 @@ public class Game {
             }
         }
     }
+    
+    public Player[] getPlayers() {
+        return players;
+    }
 
     public void restart() {
         for (int j = 0; j < 4; j++) {
