@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -40,7 +41,7 @@ public class GameGUI extends AnchorPane {
 
         Button returnBtn = createButton("Return", 14, 28, 130, 60);
         Button button2 = createButton("Save", 920, 28, 130, 60);
-        Button button3 = createButton("Draw", 350, 200, 130, 210);
+        
 
         pane2.getChildren().addAll(returnBtn, button2, button3);
         getChildren().addAll(scrollPane, pane2);
@@ -69,8 +70,44 @@ public class GameGUI extends AnchorPane {
 
         // Scroll to the bottom of the ScrollPane when the content changes
         scrollPane.vvalueProperty().bind(content.heightProperty());
+
+        pane2.getChildren().add(createdrawView);
     }
 
+        //code below is to get current player's card and display but haven't found a way to connect game to GUI, scrap if not useful
+    /* HBox createPlayerHandBox() {
+            HBox hBox = new HBox(10); // Set spacing between cards
+            hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
+            String playerCards = game.getCurrentPlayer().stream().map(Object::toString).collect(Collectors.joining(","));
+            String[] cardNames = playerCards.split(",");
+            ArrayList<String>cardIds = new ArrayList<>(Arrays.asList(cardNames));
+            
+                Image cardImage = new Image(Main.class.getResourceAsStream("Image/" + card + ".png"));
+                ImageView cardView2 = new ImageView(cardImage);
+                cardView2.setFitHeight(100);
+                cardView2.setFitWidth(75);
+                HBox.setMargin(cardView2, new Insets(0,-20,0,0));
+                //ImageView cardView = createCardImageView(card);
+                hBox.getChildren().add(cardView2);
+
+        }
+        return hBox;
+    } */
+
+    //image view of draw
+    private ImageView createdrawView() {
+        Image drawImage = new Image(Main.class.getResourceAsStream("Image/back side of card.png"));
+        ImageView drawView = new ImageView(drawImage);
+        drawView.setFitHeight(150);
+        drawView.setFitWidth(107);
+        drawView.setLayoutX(350);
+        drawView.setLayoutY(250);
+        drawView.setOnMouseClicked((event) -> {
+            System.out.println("player drew card!");
+        });
+
+        return drawView;
+    }
 
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
         Button button = new Button(buttonText);
