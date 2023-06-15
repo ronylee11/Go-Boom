@@ -206,7 +206,7 @@ public class Game {
             }
 
             if (isValidCard) {
-                currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+                nextPlayer(); // Move to the next player
             }
 
             // check if any player has no more cards in hand, if yes, end the game
@@ -232,7 +232,7 @@ public class Game {
 
                 if (!canPlay) {
                     System.out.println("Player" + (currentPlayer + 1) + " cannot play. Skipping turn.\n");
-                    currentPlayer = (currentPlayer + 1) % 4;
+                    nextPlayer();
                     skippedCount++;
                     if (skippedCount == 4) {
                         // when four players skipped in a row, the game is over
@@ -266,6 +266,10 @@ public class Game {
         }
     }
 
+    public void nextPlayer() {
+        currentPlayer = (currentPlayer + 1) % 4;
+    }
+
     public void drawCards() {
         boolean foundValidCard = false;
         boolean validCardDrawn = false; // Flag to track if a valid card was drawn
@@ -283,7 +287,7 @@ public class Game {
             }
         }
         if (!validCardDrawn) {
-            currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+            nextPlayer();
         }
     }
 
