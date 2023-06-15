@@ -82,13 +82,11 @@ public class GameGUI extends AnchorPane {
         pane2.getChildren().add(createdrawView());
         pane2.getChildren().add(createGCenterBox());
 
-        
-        
     }
 
     // Image view of draw
     private ImageView createdrawView() {
-        Image drawImage = new Image(Main.class.getResourceAsStream("Image/back side of card.png"));
+        Image drawImage = new Image(Main.class.getResourceAsStream("Image/back side of card1.jpg"));
         ImageView drawView = new ImageView(drawImage);
         drawView.setFitHeight(150);
         drawView.setFitWidth(107);
