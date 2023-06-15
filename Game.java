@@ -258,7 +258,6 @@ public class Game {
 
     public void drawCards() {
         boolean foundValidCard = false;
-        boolean isValidCard = false;
         boolean validCardDrawn = false; // Flag to track if a valid card was drawn
         while (!foundValidCard) {
             if (deck.isEmpty()) {
@@ -269,7 +268,6 @@ public class Game {
             players[currentPlayer].addCard();
             String lastCard = players[currentPlayer].getLastCard();
             if (canPlayOnCenter(lastCard)) {
-                isValidCard = false;
                 validCardDrawn = true;
                 break; // Exit the loop and move to the next player
             }
