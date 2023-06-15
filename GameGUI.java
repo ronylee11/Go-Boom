@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,11 +24,15 @@ public class GameGUI extends AnchorPane {
     private Pane pane2 = new Pane();
     private Stage stage;
     private Scene mainMenuScene;
-    Game game = new Game();
+    private Game game = new Game();
+    private List<HBox> playerHandBoxes;
+    private int currentPlayerIndex;
 
     public GameGUI(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
         this.mainMenuScene = mainMenuScene;
+        this.playerHandBoxes = new ArrayList<>();
+        this.currentPlayerIndex = 0;
 
         content = new VBox(10); // Set spacing between cards
 
@@ -40,7 +45,6 @@ public class GameGUI extends AnchorPane {
 
         Button returnBtn = createButton("Return", 14, 28, 130, 60);
         Button button2 = createButton("Save", 920, 28, 130, 60);
-        
 
         pane2.getChildren().addAll(returnBtn, button2);
         getChildren().addAll(scrollPane, pane2);
@@ -66,7 +70,7 @@ public class GameGUI extends AnchorPane {
         pane2.getChildren().add(createdrawView());
     }
 
-    //image view of draw
+    // Image view of draw
     private ImageView createdrawView() {
         Image drawImage = new Image(Main.class.getResourceAsStream("Image/back side of card.png"));
         ImageView drawView = new ImageView(drawImage);
@@ -75,11 +79,37 @@ public class GameGUI extends AnchorPane {
         drawView.setLayoutX(350);
         drawView.setLayoutY(250);
         drawView.setOnMouseClicked((event) -> {
-            System.out.println("player drew card!");
+            System.out.println("Player " + currentPlayerIndex + " draws a card!");
         });
 
         return drawView;
     }
+
+    private void handleCardClick() {
+        // Get the current player's hand
+        HBox currentPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
+    
+        // Clear the current player's hand
+        currentPlayerHandBox.getChildren().clear();
+    
+        // Rotate to the next player
+        currentPlayerIndex = (currentPlayerIndex + 1) % playerHandBoxes.size();
+    
+        // Get the next player's hand
+        HBox nextPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
+    
+        // Add the next player's hand to the content VBox
+        content.getChildren().set(0, nextPlayerHandBox);
+    
+        // Check if all players have taken their turns
+        if (currentPlayerIndex == 0) {
+            // All players have taken their turns, go back to the first player
+            currentPlayerIndex = 0;
+            HBox firstPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
+            content.getChildren().set(0, firstPlayerHandBox);
+        }
+    }
+    
 
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
         Button button = new Button(buttonText);
@@ -97,17 +127,20 @@ public class GameGUI extends AnchorPane {
         for (int i = 0; i < 4; i++) {
             ArrayList<String> playerHand = playerCards.get(i);
             HBox playerHandBox = createPlayerHandBox(playerHand, i);
-           content.getChildren().add(playerHandBox);
+            playerHandBoxes.add(playerHandBox);
         }
+
+        // Add the first player's hand to the content VBox
+        content.getChildren().add(playerHandBoxes.get(0));
     }
-    
-    private static HBox createPlayerHandBox(ArrayList<String> hand, int players) {
+
+    private HBox createPlayerHandBox(ArrayList<String> hand, int players) {
         HBox hBox = new HBox(10); // Set spacing between cards
         hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
 
         for (String card : hand) {
             // Create ImageView for each card
-            ImageView cardView = createCardImageView(card , players);
+            ImageView cardView = createCardImageView(card, players);
 
             // Add cardView to the HBox
             hBox.getChildren().add(cardView);
@@ -116,7 +149,7 @@ public class GameGUI extends AnchorPane {
         return hBox;
     }
 
-    private static ImageView createCardImageView(String card , int player) {
+    private ImageView createCardImageView(String card, int player) {
         String imagePath = "Image/" + card + ".png";
         Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
         ImageView cardView = new ImageView(cardImage);
@@ -125,7 +158,8 @@ public class GameGUI extends AnchorPane {
         HBox.setMargin(cardView, new Insets(0, -20, 0, -30));
 
         cardView.setOnMouseClicked((event) -> {
-            System.out.println("Player "+ player + "Play " + card + "!");
+            System.out.println("Player " + player + " plays " + card + "!");
+            handleCardClick();
         });
 
         return cardView;
