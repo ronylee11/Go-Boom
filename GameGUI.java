@@ -25,6 +25,7 @@ public class GameGUI extends AnchorPane {
     private Pane pane2 = new Pane();
     private Stage stage;
     private Scene mainMenuScene;
+    Game game = new Game();
 
     public GameGUI(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
@@ -46,15 +47,8 @@ public class GameGUI extends AnchorPane {
         pane2.getChildren().addAll(returnBtn, button2);
         getChildren().addAll(scrollPane, pane2);
 
-        // Create player hand HBox instances
-        //for testing purposes
-        HBox player1HandBox = createPlayerHandBox(player1Hand);
-        HBox player2HandBox = createPlayerHandBox(player2Hand);
-        HBox player3HandBox = createPlayerHandBox(player3Hand);
-        HBox player4HandBox = createPlayerHandBox(player4Hand);
-
         // Add player hand HBox instances to the content VBox
-        content.getChildren().addAll(player1HandBox, player2HandBox, player3HandBox, player4HandBox);
+        setupPlayerHands();
 
         // Anchor the scrollPane to the bottom of the AnchorPane
         AnchorPane.setBottomAnchor(scrollPane, 0.0);
@@ -73,26 +67,6 @@ public class GameGUI extends AnchorPane {
 
         pane2.getChildren().add(createdrawView());
     }
-
-        //code below is to get current player's card and display but haven't found a way to connect game to GUI, scrap if not useful
-    /* HBox createPlayerHandBox() {
-            HBox hBox = new HBox(10); // Set spacing between cards
-            hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
-            String playerCards = game.getCurrentPlayer().stream().map(Object::toString).collect(Collectors.joining(","));
-            String[] cardNames = playerCards.split(",");
-            ArrayList<String>cardIds = new ArrayList<>(Arrays.asList(cardNames));
-            
-                Image cardImage = new Image(Main.class.getResourceAsStream("Image/" + card + ".png"));
-                ImageView cardView2 = new ImageView(cardImage);
-                cardView2.setFitHeight(100);
-                cardView2.setFitWidth(75);
-                HBox.setMargin(cardView2, new Insets(0,-20,0,0));
-                //ImageView cardView = createCardImageView(card);
-                hBox.getChildren().add(cardView2);
-
-        }
-        return hBox;
-    } */
 
     //image view of draw
     private ImageView createdrawView() {
@@ -118,20 +92,24 @@ public class GameGUI extends AnchorPane {
         return button;
     }
 
+    private void setupPlayerHands() {
+        game.initializeGame();
+        ArrayList<ArrayList<String>> playerCards = game.getPlayerCards();
 
-    // for testing purposes
-    ArrayList<String> player1Hand = new ArrayList<>(Arrays.asList("hA", "sA", "h2", "sQ", "d4", "s5", "s9", "d7", "h8"));
-    ArrayList<String> player2Hand = new ArrayList<>(Arrays.asList("h2", "sA", "c2", "s3", "d4", "d5", "d6", "s7", "s8", "s9", "sX", "sJ", "sQ", "sK"));
-    ArrayList<String> player3Hand = new ArrayList<>(Arrays.asList("sA", "cA", "sK", "c3", "sJ", "sX", "sX"));
-    ArrayList<String> player4Hand = new ArrayList<>(Arrays.asList("dA", "sK", "s2", "cJ", "c4", "sQ", "s6", "d7", "dX", "sA", "cA"));
-
-    private static HBox createPlayerHandBox(ArrayList<String> hand) {
+        for (int i = 0; i < 4; i++) {
+            ArrayList<String> playerHand = playerCards.get(i);
+            HBox playerHandBox = createPlayerHandBox(playerHand, i);
+           content.getChildren().add(playerHandBox);
+        }
+    }
+    
+    private static HBox createPlayerHandBox(ArrayList<String> hand, int players) {
         HBox hBox = new HBox(10); // Set spacing between cards
         hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
 
         for (String card : hand) {
             // Create ImageView for each card
-            ImageView cardView = createCardImageView(card);
+            ImageView cardView = createCardImageView(card , players);
 
             // Add cardView to the HBox
             hBox.getChildren().add(cardView);
@@ -140,7 +118,7 @@ public class GameGUI extends AnchorPane {
         return hBox;
     }
 
-    private static ImageView createCardImageView(String card) {
+    private static ImageView createCardImageView(String card , int player) {
         String imagePath = "Image/" + card + ".png";
         Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
         ImageView cardView = new ImageView(cardImage);
@@ -149,7 +127,7 @@ public class GameGUI extends AnchorPane {
         HBox.setMargin(cardView, new Insets(0, -20, 0, -30));
 
         cardView.setOnMouseClicked((event) -> {
-            System.out.println("Play " + card + "!");
+            System.out.println("Player "+ player + "Play " + card + "!");
         });
 
         return cardView;

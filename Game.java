@@ -27,8 +27,12 @@ public class Game {
         }
     }
     
-    public Player[] getPlayers() {
-        return players;
+    public ArrayList<ArrayList<String>> getPlayerCards() {
+        ArrayList<ArrayList<String>> playerCards = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            playerCards.add(players[i].getCards());
+        }
+        return playerCards;
     }
 
     public void restart() {
@@ -197,7 +201,7 @@ public class Game {
         }
 
         if (isValidCard) {
-            currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
+            currentPlayer = (currentPlayer + 1) % 4; // Move to the next player  
         } 
         
 

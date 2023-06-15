@@ -12,7 +12,6 @@ import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 public class GUI extends Application {
 
     public static void main(String[] args) {
