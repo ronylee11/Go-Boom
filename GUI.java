@@ -80,6 +80,28 @@ public class GUI extends Application {
         button.setGraphic(imageView);
         button.setContentDisplay(ContentDisplay.LEFT);
         button.setPrefSize(200, 50);
+
+        button.setOnMouseEntered(event -> {
+            button.setScaleX(1.1);
+            button.setScaleY(1.1);
+        });
+
+        button.setOnMouseExited(event -> {
+        button.setScaleX(1.0);
+        button.setScaleY(1.0);
+        });
+
+        button.setOnMouseClicked(event -> {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), button);
+        scaleTransition.setFromX(1.0);
+        scaleTransition.setFromY(1.0);
+        scaleTransition.setToX(0.8);
+        scaleTransition.setToY(0.8);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.setCycleCount(2);
+        scaleTransition.play(); 
+    });
+        
         return button;
     }
 
