@@ -154,7 +154,12 @@ public class Game {
 
     public void updateScore() {
         int winnerOfTrick = player_num;
-        players[winnerOfTrick].addScore();
+        // update score for losers of the trick
+        for (int i = 0; i < 4; i++) {
+            if (i != winnerOfTrick) {
+                players[i].addScore();
+            }
+        }
     }
 
     HashMap<String, Integer> Player_played = new HashMap<>();

@@ -49,7 +49,51 @@ public class Player extends Card {
 
     // update player score
     void addScore() {
-        score++;
+        // for each card in hand, add respective score
+        for (String card : hand) {
+            char rank = card.charAt(1);
+            switch (rank) {
+                case 'A':
+                    score += 1;
+                    break;
+                case '2':
+                    score += 2;
+                    break;
+                case '3':
+                    score += 3;
+                    break;
+                case '4':
+                    score += 4;
+                    break;
+                case '5':
+                    score += 5;
+                    break;
+                case '6':
+                    score += 6;
+                    break;
+                case '7':
+                    score += 7;
+                    break;
+                case '8':
+                    score += 8;
+                    break;
+                case '9':
+                    score += 9;
+                    break;
+                case 'X':
+                    score += 10;
+                    break;
+                case 'J':
+                    score += 10;
+                    break;
+                case 'Q':
+                    score += 10;
+                    break;
+                case 'K':
+                    score += 10;
+                    break;
+            }
+        }
     }
 
     // Add card to one player at a time
@@ -67,6 +111,7 @@ public class Player extends Card {
     void removeCard(String card) {
         hand.remove(card);
     }
+
     public void resetHand() {
         hand.clear();
     }
