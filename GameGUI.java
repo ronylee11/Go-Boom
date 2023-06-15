@@ -7,6 +7,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -38,7 +39,7 @@ public class GameGUI extends AnchorPane {
         this.playerHandBoxes = new ArrayList<>();
         
         content = new VBox(10); // Set spacing between cards
-        
+        StackPane stackPane = new StackPane();
         scrollPane = new ScrollPane();
         scrollPane.setContent(content);
         scrollPane.setFitToWidth(true);
@@ -75,7 +76,14 @@ public class GameGUI extends AnchorPane {
         // Scroll to the bottom of the ScrollPane when the content changes
         scrollPane.vvalueProperty().bind(content.heightProperty());
 
+        
+        AnchorPane.setTopAnchor(stackPane, 10.0);
+
         pane2.getChildren().add(createdrawView());
+        pane2.getChildren().add(createGCenterBox());
+
+        
+        
     }
 
     // Image view of draw
@@ -95,7 +103,17 @@ public class GameGUI extends AnchorPane {
 
     private HBox createGCenterBox() {
     HBox hbox = new HBox(10);  // Set spacing between cards
-    // Set alignment and other properties for the hbox as needed
+    hbox.setAlignment(Pos.CENTER);
+    String examplePath = "Image/sA.png";
+    //the imageview is for testing purposes only
+        Image exImage = new Image(Main.class.getResourceAsStream(examplePath));
+        ImageView exView = new ImageView(exImage);
+        exView.setFitHeight(150);
+        exView.setFitWidth(107);
+        hbox.getChildren().add(exView);
+        hbox.setLayoutX(500);
+        hbox.setLayoutY(250);
+
     return hbox;
 }
 
@@ -169,8 +187,8 @@ public class GameGUI extends AnchorPane {
         String imagePath = "Image/" + card + ".png";
         Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
         ImageView cardView = new ImageView(cardImage);
-        cardView.setFitHeight(120);
-        cardView.setFitWidth(95);
+        cardView.setFitHeight(150);
+        cardView.setFitWidth(107);
         HBox.setMargin(cardView, new Insets(0, -20, 0, -30));
     
         cardView.setOnMouseClicked((event) -> {
