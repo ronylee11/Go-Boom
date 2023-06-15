@@ -246,7 +246,7 @@ public class Game {
         }
     }
 
-    }
+    
 
     public int getNextPlayer() {
         return currentPlayer = (currentPlayer + 1) % 4;
@@ -321,3 +321,5 @@ public class Game {
         }
     }
 }
+    
+
