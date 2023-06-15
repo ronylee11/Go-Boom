@@ -85,7 +85,9 @@ public class GameGUI extends AnchorPane {
         return drawView;
     }
 
-    private void handleCardClick() {
+    private void handleCardClick() {    //to the rotation it supposed to be just use handleplayerturn in game
+                                        //but rn I don't know how to do it
+                                        //this is a very glitchy way to do it
         // Get the current player's hand
         HBox currentPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
     
@@ -116,25 +118,30 @@ public class GameGUI extends AnchorPane {
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
-        button.setOnAction(event -> stage.setScene(mainMenuScene));
+        button.setOnAction(event -> {
+            stage.setScene(mainMenuScene); // need a way to quit the game after 
+                                            // clicking the return button
+        });
         return button;
     }
-
+    
+    //get the player card from game
     private void setupPlayerHands() {
-        game.initializeGame();
-        ArrayList<ArrayList<String>> playerCards = game.getPlayerCards();
-
-        for (int i = 0; i < 4; i++) {
-            ArrayList<String> playerHand = playerCards.get(i);
-            HBox playerHandBox = createPlayerHandBox(playerHand, i);
-            playerHandBoxes.add(playerHandBox);
-        }
+        game.initializeGame();  // generate the cards
+        ArrayList<ArrayList<String>> playerCards = game.getPlayerCards(); //pass it into a 2d arraylist
+                                                                        //might not need this
+        for (int i = 0; i < 4; i++) { //loop through the 2d arraylist and generate the card
+            ArrayList<String> playerHand = playerCards.get(i); //get the player hand
+            HBox playerHandBox = createPlayerHandBox(playerHand, i); //create the player hand box
+            playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist
+        }   //this need to connect to handleplayerturn in game but rn
+            //I don't know how to do it
 
         // Add the first player's hand to the content VBox
         content.getChildren().add(playerHandBoxes.get(0));
     }
 
-    private HBox createPlayerHandBox(ArrayList<String> hand, int players) {
+    private HBox createPlayerHandBox(ArrayList<String> hand, int players) { //create the player hand box
         HBox hBox = new HBox(10); // Set spacing between cards
         hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
 
@@ -149,7 +156,7 @@ public class GameGUI extends AnchorPane {
         return hBox;
     }
 
-    private ImageView createCardImageView(String card, int player) {
+    private ImageView createCardImageView(String card, int player) { //create the card image view
         String imagePath = "Image/" + card + ".png";
         Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
         ImageView cardView = new ImageView(cardImage);

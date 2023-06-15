@@ -50,13 +50,17 @@ public class Game {
         center.clear();
     }
 
-    public void start() {
-        gameStarted = true;
-        initializeGame();
+    public void generateCenter() {
         ArrayList<String> shuffledDeck = deck.shuffleCards();
         String leadCard = shuffledDeck.remove(
                 0); // Remove the first card from the shuffled deck as the lead card
         center.add(leadCard); // Add the lead card to the center
+    }
+
+    public void start() {
+        gameStarted = true;
+        initializeGame();
+        generateCenter();
 
         while (gameStarted) { // Game loop
             printGameState();
