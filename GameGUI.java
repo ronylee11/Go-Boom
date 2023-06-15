@@ -25,21 +25,17 @@ public class GameGUI extends AnchorPane {
     private Pane pane2 = new Pane();
     private Stage stage;
     private Scene mainMenuScene;
-    Game game = new Game();
     private List<HBox> playerHandBoxes;
     private int currentPlayerIndex;
-    static boolean gameStarted = false;
-    static boolean gameEnded = false;
-    static int trickNumber = 1;
-    private static int trickCounter = 1;
-    private static int player_num = 0;
+    private HBox gcenterBox;
+    Game game = new Game();
     ArrayList<ArrayList<String>> playerCards;
-    
+    ArrayList<String> gcenter = new ArrayList<>();
+
     public GameGUI(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
         this.mainMenuScene = mainMenuScene;
         this.playerHandBoxes = new ArrayList<>();
-        this.currentPlayerIndex = 0;
         
         content = new VBox(10); // Set spacing between cards
         
@@ -58,7 +54,10 @@ public class GameGUI extends AnchorPane {
         
         // Add player hand HBox instances to the content VBox
         game.initializeGame();
+        game.generateCenter();
         playerCards = game.getPlayerCards();
+        gcenter = game.center;
+        this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
         setupPlayerHands();
 
         // Anchor the scrollPane to the bottom of the AnchorPane
@@ -94,12 +93,19 @@ public class GameGUI extends AnchorPane {
         return drawView;
     }
 
+    private HBox createGCenterBox() {
+    HBox hbox = new HBox(10);  // Set spacing between cards
+    // Set alignment and other properties for the hbox as needed
+    return hbox;
+}
+
+
     private void handleCardClick() {
         HBox currentPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
         
         currentPlayerHandBox.getChildren().clear();
         
-        currentPlayerIndex = (currentPlayerIndex + 1) % playerHandBoxes.size();
+        currentPlayerIndex = (currentPlayerIndex + 1) % 4;
         
         HBox nextPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
         
@@ -119,9 +125,6 @@ public class GameGUI extends AnchorPane {
                         .collect(Collectors.toList())
         );
     }
-    
-    
-    
 
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
         Button button = new Button(buttonText);
@@ -136,15 +139,12 @@ public class GameGUI extends AnchorPane {
     }
     
     //get the player card from game
-    
-
     private void setupPlayerHands() { 
         for (int i = 0; i < 4; i++) { //loop through the 2d arraylist and generate the card
             ArrayList<String> playerHand = playerCards.get(i); //get the player hand
             HBox playerHandBox = createPlayerHandBox(playerHand, i); //create the player hand box
             playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist
-        }   //this need to connect to handleplayerturn in game but rn
-            //I don't know how to do it
+        }   
 
         // Add the first player's hand to the content VBox
         content.getChildren().add(playerHandBoxes.get(0));
