@@ -1,3 +1,4 @@
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.text.Font;
@@ -29,7 +31,7 @@ public class GUI extends Application {
 
         // Set background for the menu
         Image icon = new Image("Image/Go Boom Logo.png");
-        Image bg = new Image("Image/Go Boom Background.png");
+        Image bg = new Image("Image/Go Boom Background3.jpg");
         stage.getIcons().add(icon);
         BackgroundImage background = new BackgroundImage(bg, null, null, null, null);
         Background bg1 = new Background(background);
@@ -39,13 +41,24 @@ public class GUI extends Application {
 
         // Load font
         Font font = Font.loadFont(getClass().getResourceAsStream("Font/PokerInOctoberDemo.otf"), 100);
+        
 
         // Set text for the game
         Text text = new Text();
         text.setText("MENU");
         text.setFont(font);
+        text.setFill(Color.WHITE);
         text.setTranslateY(-200);
         pane.getChildren().add(text);
+
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(Duration.millis(5000));
+        fade.setFromValue(0.1);
+        fade.setToValue(10.0);
+        fade.setCycleCount(1000);
+        fade.setAutoReverse(true);
+        fade.setNode(text);
+        fade.play();
 
         // Set buttons for the menu
         ImageView playImg = new ImageView(new Image("Image/bomb icon.png"));
