@@ -10,7 +10,7 @@ public class Game {
     static boolean gameStarted = false;
     static boolean gameEnded = false;
     static int trickNumber = 1;
-    private static int trickCounter = 1;
+    private static int roundInATrick = 1;
     private static int player_num = 0;
     private static int currentPlayer = 0;
 
@@ -114,8 +114,8 @@ public class Game {
                 if (command.toLowerCase().equals(card.toLowerCase())) {
                     players[currentPlayer].removeCard(card);
                     center.add(card);
-                    trickCounter++;
-                    if (trickCounter != 5) {
+                    roundInATrick++;
+                    if (roundInATrick != 5) {
                         System.out.println();
                     }
                     Player_played.put(card.toLowerCase(), currentPlayer); // Update the Player_played hashmap
@@ -146,7 +146,6 @@ public class Game {
 
         System.out.println("Player" + (winnerIndex + 1) + " wins the trick!\n");
         currentPlayer = winnerIndex;
-        updateScore();
     }
 
     public void updateScore() {
@@ -210,6 +209,18 @@ public class Game {
                 currentPlayer = (currentPlayer + 1) % 4; // Move to the next player
             }
 
+            // check if any player has no more cards in hand, if yes, end the game
+            for (int i = 0; i < 4; i++) {
+                if (players[i].getCards().isEmpty()) {
+                    gameStarted = false;
+                    updateScore();
+                    break;
+                }
+            }
+
+            // check if deck is empty, if yes, check if any player can play on the center,
+            // players that cant play the card will skip their turn, players that can play
+            // will keep playing
             if (deck.isEmpty()) {
                 boolean canPlay = false;
                 for (String card : players[currentPlayer].getCards()) {
@@ -223,30 +234,29 @@ public class Game {
                     System.out.println("Player" + (currentPlayer + 1) + " cannot play. Skipping turn.\n");
                     currentPlayer = (currentPlayer + 1) % 4;
                     skippedCount++;
-                    if (skippedCount >= 2) {
-                        trickNumber++;
-                        trickCounter = 1;
-                        winner_of_trick();
-                        resetCenter();
-                        if (gameEnded) {
-                            System.out.println("Game has ended!");
-                            return; // End the program
+                    if (skippedCount == 4) {
+                        // when four players skipped in a row, the game is over
+                        updateScore();
+                        // check if any of the players exceed score of 100, if not, restart game
+                        for (int i = 0; i < 4; i++) {
+                            if (players[i].getScore() >= 100) {
+                                System.out.println("Player" + (i + 1) + " wins the game!");
+                                gameStarted = false;
+                                return;
+                            }
                         }
-                        currentPlayer = player_num;
-                        skippedCount = 0; // Reset the skipped count
+                        restart();
                     }
                 }
             }
 
-            if (trickCounter == 5) {
+            // if all the players played their cards, start a new trick, the player with
+            // highest value card wins the trick
+            if (roundInATrick == 5) {
                 trickNumber++;
-                trickCounter = 1;
+                roundInATrick = 1;
                 winner_of_trick();
                 resetCenter();
-                if (gameEnded) {
-                    System.out.println("Game has ended!");
-                    return; // End the program
-                }
             }
 
             if (gameStarted) {
