@@ -7,7 +7,7 @@ public class Game {
     Player[] players = new Player[4];
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
     Scanner input = new Scanner(System.in);
-    static boolean gameStarted = false;
+     boolean gameStarted = false;
     static boolean gameEnded = false;
     static int trickNumber = 1;
     private static int roundInATrick = 1;
@@ -209,8 +209,11 @@ public class Game {
         return isSameSuit || isSameRank;
     }
 
-    public void handlePlayerTurn() {
+    public void current_determine(){
         currentPlayer = determineFirstPlayer(center.get(0));
+    }
+
+    public void handlePlayerTurn() {
         System.out.println("Turn: Player" + (currentPlayer + 1));
 
         int skippedCount = 0; // Count the number of skipped turns
@@ -343,11 +346,12 @@ public class Game {
     public boolean gui_player_handle(String command) {
         int skippedCount = 0;
         boolean isValidCard = false;
+        gameStarted = true;
     
         switch (command.toLowerCase()) {
             case "r": // restart game
                 restart();
-                start();
+                //start();
                 return false; // Indicate that the turn is not valid, so the GUI can handle it accordingly
             case "d": // draw a card
                 drawCards();
@@ -441,6 +445,14 @@ public class Game {
         nextPlayer();
     }
 }
+
+    public boolean get_gameStarted(){
+        return gameStarted;
+    }
+
+    public void set_gameStarted(boolean gameStarted){
+        this.gameStarted = gameStarted;
+    }
 
 
     public boolean isGameOver() {

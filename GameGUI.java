@@ -74,7 +74,7 @@ public class GameGUI extends AnchorPane {
         game_loop();
         pane2.getChildren().add(createdrawView());
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
-
+        game.setGameStarted(true);
     }
 
     private ImageView createCardImageView(String card) { //create the card image view
@@ -103,12 +103,14 @@ public class GameGUI extends AnchorPane {
         drawView.setLayoutY(250);
         drawView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer()+1) + " draws a card!");
+            game.gui_player_handle("d");
         });
 
         return drawView;
     }
 
     private void create_gcenter() {
+        
         game.generateCenter();
         gcenter = game.center;
         
@@ -194,10 +196,13 @@ public class GameGUI extends AnchorPane {
         // Add player hand HBox instances to the content VBox
         game.initializeGame();
         create_gcenter();
+        game.current_determine();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
         //this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
         setupPlayerHands();
+        // while(game.get_gameStarted()){
+        // }
 
     }
     // private void handleCardClick() {
