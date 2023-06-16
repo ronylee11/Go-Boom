@@ -74,7 +74,7 @@ public class Game {
         deck.resetDeck();
         Deck.Create_deck();
         resetCenter();
-        //start();
+        // start();
     }
 
     public void resetCenter() {
@@ -339,11 +339,12 @@ public class Game {
             return -1; // Invalid lead card
         }
     }
-    //don't remove it I want to use it for GUI
+
+    // don't remove it I want to use it for GUI
     public boolean gui_player_handle(String command) {
         int skippedCount = 0;
         boolean isValidCard = false;
-    
+
         switch (command.toLowerCase()) {
             case "r": // restart game
                 restart();
@@ -356,27 +357,28 @@ public class Game {
                 gameStarted = false;
                 return false; // Exit the method to avoid moving to the next player
             case "s": // save game
-                //saveGame();
+                // saveGame();
                 gameStarted = false;
                 return false;
             default: // play card from hand
                 isValidCard = playCard(currentPlayer, command);
                 break;
         }
-    
+
         if (isValidCard) {
             nextPlayer(); // Move to the next player
         }
-    
+
         // check if any player has no more cards in hand, if yes, end the game
         for (int i = 0; i < 4; i++) {
             if (players[i].getCards().isEmpty()) {
                 gameStarted = false;
                 updateScore();
-                return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle it accordingly
+                return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle
+                             // it accordingly
             }
         }
-    
+
         // check if deck is empty, if yes, check if any player can play on the center,
         // players that cant play the card will skip their turn, players that can play
         // will keep playing
@@ -388,7 +390,7 @@ public class Game {
                     break;
                 }
             }
-    
+
             if (!canPlay) {
                 nextPlayer();
                 skippedCount++;
@@ -400,14 +402,15 @@ public class Game {
                         if (players[i].getScore() >= 100) {
                             System.out.println("Player" + (i + 1) + " wins the game!");
                             gameStarted = false;
-                            return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle it accordingly
+                            return true; // Indicate that the turn is valid and the game has ended, so the GUI can
+                                         // handle it accordingly
                         }
                     }
                     restart();
                 }
             }
         }
-    
+
         // if all the players played their cards, start a new trick, the player with
         // highest value card wins the trick
         if (roundInATrick == 5) {
@@ -416,32 +419,31 @@ public class Game {
             winner_of_trick();
             resetCenter();
         }
-    
-        return true; // Indicate that the turn is valid and the game is still ongoing, so the GUI can handle it accordingly
+
+        return true; // Indicate that the turn is valid and the game is still ongoing, so the GUI can
+                     // handle it accordingly
     }
-    
 
     public void drawCard(int currentPlayer) {
-    boolean foundValidCard = false;
-    boolean validCardDrawn = false; // Flag to track if a valid card was drawn
-    while (!foundValidCard) {
-        if (deck.isEmpty()) {
-            System.out.println("Deck is empty! And Player" + (currentPlayer + 1) + " cannot play. Skipping turn.");
-            break; // Exit the loop and move to the next player
-        }
+        boolean foundValidCard = false;
+        boolean validCardDrawn = false; // Flag to track if a valid card was drawn
+        while (!foundValidCard) {
+            if (deck.isEmpty()) {
+                System.out.println("Deck is empty! And Player" + (currentPlayer + 1) + " cannot play. Skipping turn.");
+                break; // Exit the loop and move to the next player
+            }
 
-        players[currentPlayer].addCard();
-        String lastCard = players[currentPlayer].getLastCard();
-        if (canPlayOnCenter(lastCard)) {
-            validCardDrawn = true;
-            break; // Exit the loop and move to the next player
+            players[currentPlayer].addCard();
+            String lastCard = players[currentPlayer].getLastCard();
+            if (canPlayOnCenter(lastCard)) {
+                validCardDrawn = true;
+                break; // Exit the loop and move to the next player
+            }
+        }
+        if (!validCardDrawn) {
+            nextPlayer();
         }
     }
-    if (!validCardDrawn) {
-        nextPlayer();
-    }
-}
-
 
     public boolean isGameOver() {
         for (int i = 0; i < 4; i++) {
