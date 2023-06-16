@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Properties;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.Writer;
+import java.io.Reader;
 
 public class Game {
     Deck deck = new Deck();
@@ -74,7 +81,7 @@ public class Game {
         deck.resetDeck();
         Deck.Create_deck();
         resetCenter();
-        //start();
+        // start();
     }
 
     public void resetCenter() {
@@ -99,6 +106,59 @@ public class Game {
 
             System.out.println();
         }
+    }
+
+    public void load() {
+        start();
+
+        // Load File
+        Properties AppProps = new Properties();
+
+        // Specify output file name
+        Path PropertyFile = Paths.get("MyApp.properties");
+
+        // Read data from file
+        try {
+            Reader PropReader = Files.newBufferedReader(PropertyFile);
+            AppProps.load(PropReader);
+        } catch (IOException e) {
+            System.out.println("IO Exception: " + e.getMessage());
+        }
+
+        // Get data from file and set them to the game
+        // Get the trick number
+        trickNumber = Integer.parseInt(AppProps.getProperty("trickNumber"));
+        // Get the round number
+        roundInATrick = Integer.parseInt(AppProps.getProperty("roundInATrick"));
+        // Get the current player
+        currentPlayer = Integer.parseInt(AppProps.getProperty("currentPlayer"));
+        // Get the center
+        String centerString = AppProps.getProperty("center");
+        String[] centerArray = centerString.split(",");
+        for (String card : centerArray) {
+            center.add(card);
+        }
+        // Get the deck
+        String deckString = AppProps.getProperty("deck");
+        String[] deckArray = deckString.split(",");
+        deck.resetDeck();
+        for (String card : deckArray) {
+            deck.loadCard(card);
+        }
+        // Get the player cards
+        for (int i = 0; i < 4; i++) {
+            String playerString = AppProps.getProperty("Player" + (i + 1));
+            String[] playerArray = playerString.split(",");
+            players[i].resetHand();
+            for (String card : playerArray) {
+                players[i].loadCard(card);
+            }
+        }
+        // Get the player scores
+        for (int i = 0; i < 4; i++) {
+            players[i].setScore(Integer.parseInt(AppProps.getProperty("Player" + (i + 1) + "Score")));
+        }
+
     }
 
     public void printGameState() { // Print the game interface
@@ -225,7 +285,7 @@ public class Game {
             boolean isValidCard = false;
 
             switch (command.toLowerCase()) {
-                case "s": // restart game
+                case "r": // restart game
                     restart();
                     start();
                     return; // Exit the method to avoid moving to the next player
@@ -235,6 +295,10 @@ public class Game {
                 case "x": // quit game
                     gameStarted = false;
                     return; // Exit the method to avoid moving to the next player
+                case "s": // save game
+                    saveGame();
+                    gameStarted = false;
+                    return;
                 default: // play card from hand
                     isValidCard = playCard(currentPlayer, command);
                     break;
@@ -342,7 +406,8 @@ public class Game {
             return -1; // Invalid lead card
         }
     }
-    //don't remove it I want to use it for GUI
+
+    // don't remove it I want to use it for GUI
     public boolean gui_player_handle(String command) {
         int skippedCount = 0;
         boolean isValidCard = false;
@@ -360,27 +425,28 @@ public class Game {
                 gameStarted = false;
                 return false; // Exit the method to avoid moving to the next player
             case "s": // save game
-                //saveGame();
+                saveGame();
                 gameStarted = false;
                 return false;
             default: // play card from hand
                 isValidCard = playCard(currentPlayer, command);
                 break;
         }
-    
+
         if (isValidCard) {
             nextPlayer(); // Move to the next player
         }
-    
+
         // check if any player has no more cards in hand, if yes, end the game
         for (int i = 0; i < 4; i++) {
             if (players[i].getCards().isEmpty()) {
                 gameStarted = false;
                 updateScore();
-                return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle it accordingly
+                return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle
+                             // it accordingly
             }
         }
-    
+
         // check if deck is empty, if yes, check if any player can play on the center,
         // players that cant play the card will skip their turn, players that can play
         // will keep playing
@@ -392,7 +458,7 @@ public class Game {
                     break;
                 }
             }
-    
+
             if (!canPlay) {
                 nextPlayer();
                 skippedCount++;
@@ -404,14 +470,15 @@ public class Game {
                         if (players[i].getScore() >= 100) {
                             System.out.println("Player" + (i + 1) + " wins the game!");
                             gameStarted = false;
-                            return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle it accordingly
+                            return true; // Indicate that the turn is valid and the game has ended, so the GUI can
+                                         // handle it accordingly
                         }
                     }
                     restart();
                 }
             }
         }
-    
+
         // if all the players played their cards, start a new trick, the player with
         // highest value card wins the trick
         if (roundInATrick == 5) {
@@ -420,29 +487,30 @@ public class Game {
             winner_of_trick();
             resetCenter();
         }
-    
-        return true; // Indicate that the turn is valid and the game is still ongoing, so the GUI can handle it accordingly
+
+        return true; // Indicate that the turn is valid and the game is still ongoing, so the GUI can
+                     // handle it accordingly
     }
-    
 
     public void drawCard(int currentPlayer) {
-    boolean foundValidCard = false;
-    boolean validCardDrawn = false; // Flag to track if a valid card was drawn
-    while (!foundValidCard) {
-        if (deck.isEmpty()) {
-            System.out.println("Deck is empty! And Player" + (currentPlayer + 1) + " cannot play. Skipping turn.");
-            break; // Exit the loop and move to the next player
-        }
+        boolean foundValidCard = false;
+        boolean validCardDrawn = false; // Flag to track if a valid card was drawn
+        while (!foundValidCard) {
+            if (deck.isEmpty()) {
+                System.out.println("Deck is empty! And Player" + (currentPlayer + 1) + " cannot play. Skipping turn.");
+                break; // Exit the loop and move to the next player
+            }
 
-        players[currentPlayer].addCard();
-        String lastCard = players[currentPlayer].getLastCard();
-        if (canPlayOnCenter(lastCard)) {
-            validCardDrawn = true;
-            break; // Exit the loop and move to the next player
+            players[currentPlayer].addCard();
+            String lastCard = players[currentPlayer].getLastCard();
+            if (canPlayOnCenter(lastCard)) {
+                validCardDrawn = true;
+                break; // Exit the loop and move to the next player
+            }
         }
-    }
-    if (!validCardDrawn) {
-        nextPlayer();
+        if (!validCardDrawn) {
+            nextPlayer();
+        }
     }
 }
 
@@ -462,5 +530,50 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public void saveGame() {
+        // Save File
+        Properties AppProps = new Properties();
+
+        // save the cards in each player hand
+        for (int i = 0; i < 4; i++) {
+            String cards = "";
+            for (String card : players[i].getCards()) {
+                cards += card + ",";
+            }
+            AppProps.setProperty("Player " + (i + 1), cards);
+        }
+
+        // save trick number
+        AppProps.setProperty("Trick Number", Integer.toString(trickNumber));
+        // save cards in the center
+        for (String card : getCenter()) {
+            AppProps.setProperty("Center", card);
+        }
+        // save deck cards
+        for (String card : deck.getDeck()) {
+            AppProps.setProperty("Deck", card);
+        }
+        // save player scores
+        for (int i = 0; i < 4; i++) {
+            AppProps.setProperty("Player " + (i + 1) + " Score", Integer.toString(players[i].getScore()));
+        }
+        // save player turn
+        AppProps.setProperty("Current Player", Integer.toString(currentPlayer));
+        // save round in a trick
+        AppProps.setProperty("Round in a Trick", Integer.toString(roundInATrick));
+
+        // Specify output file name
+        Path PropertyFile = Paths.get("savefile.properties");
+
+        try {
+            // Write data to file
+            Writer PropWriter = Files.newBufferedWriter(PropertyFile);
+            AppProps.store(PropWriter, "Save File");
+            PropWriter.close();
+        } catch (IOException e) {
+            System.out.println("IO Exception: " + e.getMessage());
+        }
     }
 }

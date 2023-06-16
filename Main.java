@@ -12,15 +12,15 @@ public class Main {
         System.out.print("> ");
 
         int choice = input.nextInt();
+        Game game = new Game();
 
         switch (choice) {
             case 1:
                 System.out.println("");
-                Game game = new Game();
                 game.start();
                 break;
             case 2:
-                // load game
+                game.load();
             case 3:
                 System.exit(0);
                 break;

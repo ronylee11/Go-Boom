@@ -128,5 +128,10 @@ public class Deck {
     public boolean isEmpty() {
         return deck.isEmpty();
     }
+
+    public void loadCard(String card) {
+        // only for load file only
+        deck.add(card);
+    }
     
 }
