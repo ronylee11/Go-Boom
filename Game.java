@@ -1,6 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Properties;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.Writer;
+import java.io.Reader;
 
 public class Game {
     Deck deck = new Deck();
@@ -222,7 +229,7 @@ public class Game {
             boolean isValidCard = false;
 
             switch (command.toLowerCase()) {
-                case "s": // restart game
+                case "r": // restart game
                     restart();
                     start();
                     return; // Exit the method to avoid moving to the next player
@@ -232,6 +239,10 @@ public class Game {
                 case "x": // quit game
                     gameStarted = false;
                     return; // Exit the method to avoid moving to the next player
+                case "s": // save game
+                    saveGame();
+                    gameStarted = false;
+                    return;
                 default: // play card from hand
                     isValidCard = playCard(currentPlayer, command);
                     break;
@@ -452,5 +463,51 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public void saveGame() {
+        // Save File
+        Properties AppProps = new Properties();
+        // AppProps.setProperty("Backcolor", "White");
+        // AppProps.setProperty("Forecolor", "Blue");
+        // AppProps.setProperty("FontSize", "12");
+
+        // save the cards in each player hand
+        for (int i = 0; i < 4; i++) {
+            String cards = "";
+            for (String card : players[i].getCards()) {
+                cards += card + ",";
+            }
+            AppProps.setProperty("Player " + (i + 1), cards);
+        }
+
+        // save trick number
+        AppProps.setProperty("Trick Number", Integer.toString(trickNumber));
+        // save cards in the center
+        for (String card : getCenter()) {
+            AppProps.setProperty("Center", card);
+        }
+        // save deck cards
+        for (String card : deck.getDeck()) {
+            AppProps.setProperty("Deck", card);
+        }
+        // save player scores
+        for (int i = 0; i < 4; i++) {
+            AppProps.setProperty("Player " + (i + 1) + " Score", Integer.toString(players[i].getScore()));
+        }
+        // save player turn
+        AppProps.setProperty("Current Player", Integer.toString(currentPlayer));
+
+        // Specify output file name
+        Path PropertyFile = Paths.get("savefile.properties");
+
+        try {
+            // Write data to file
+            Writer PropWriter = Files.newBufferedWriter(PropertyFile);
+            AppProps.store(PropWriter, "Save File");
+            PropWriter.close();
+        } catch (IOException e) {
+            System.out.println("IO Exception: " + e.getMessage());
+        }
     }
 }
