@@ -51,6 +51,11 @@ public class Game {
         return roundInATrick == 5;
     }
 
+    public int get_currentplayer() {
+        currentPlayer = determineFirstPlayer(center.get(0));
+        return currentPlayer;
+    }
+
     public void startNewTrick() {
         trickNumber++;
         roundInATrick = 1;
@@ -335,19 +340,21 @@ public class Game {
         }
     }
     //don't remove it I want to use it for GUI
-    public boolean playTurn(int currentPlayer, String command) {
+    public boolean gui_player_handle(String command) {
+        int skippedCount = 0;
         boolean isValidCard = false;
     
         switch (command.toLowerCase()) {
             case "s": // restart game
                 restart();
-                return false; // Exit the method to avoid moving to the next player
+                start();
+                return false; // Indicate that the turn is not valid, so the GUI can handle it accordingly
             case "d": // draw a card
-                drawCard(currentPlayer);
+                drawCards();
                 break;
             case "x": // quit game
                 gameStarted = false;
-                return false; // Exit the method to avoid moving to the next player
+                return false; // Indicate that the turn is not valid, so the GUI can handle it accordingly
             default: // play card from hand
                 isValidCard = playCard(currentPlayer, command);
                 break;
@@ -358,14 +365,47 @@ public class Game {
         }
     
         // check if any player has no more cards in hand, if yes, end the game
-        if (isGameOver()) {
-            gameStarted = false;
-            updateScore();
-            return false;
+        for (int i = 0; i < 4; i++) {
+            if (players[i].getCards().isEmpty()) {
+                gameStarted = false;
+                updateScore();
+                return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle it accordingly
+            }
+        }
+    
+        // check if deck is empty, if yes, check if any player can play on the center,
+        // players that cant play the card will skip their turn, players that can play
+        // will keep playing
+        if (deck.isEmpty()) {
+            boolean canPlay = false;
+            for (String card : players[currentPlayer].getCards()) {
+                if (canPlayOnCenter(card)) {
+                    canPlay = true;
+                    break;
+                }
+            }
+    
+            if (!canPlay) {
+                nextPlayer();
+                skippedCount++;
+                if (skippedCount == 4) {
+                    // when four players skipped in a row, the game is over
+                    updateScore();
+                    // check if any of the players exceed score of 100, if not, restart game
+                    for (int i = 0; i < 4; i++) {
+                        if (players[i].getScore() >= 100) {
+                            System.out.println("Player" + (i + 1) + " wins the game!");
+                            gameStarted = false;
+                            return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle it accordingly
+                        }
+                    }
+                    restart();
+                }
+            }
         }
     
         // if all the players played their cards, start a new trick, the player with
-        // the highest value card wins the trick
+        // highest value card wins the trick
         if (roundInATrick == 5) {
             trickNumber++;
             roundInATrick = 1;
@@ -373,18 +413,9 @@ public class Game {
             resetCenter();
         }
     
-        if (gameStarted) {
-            printGameState();
-            System.out.println("Turn: Player" + (currentPlayer + 1));
-        }
-    
-        return isValidCard;
+        return true; // Indicate that the turn is valid and the game is still ongoing, so the GUI can handle it accordingly
     }
     
-
-    public int getCurrentPlayerIndex() {
-        return currentPlayer;
-    }
 
     public void drawCard(int currentPlayer) {
     boolean foundValidCard = false;

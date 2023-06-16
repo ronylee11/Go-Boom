@@ -28,7 +28,6 @@ public class GameGUI extends AnchorPane {
     private Stage stage;
     private Scene mainMenuScene;
     private List<HBox> playerHandBoxes;
-    private int currentPlayerIndex;
     private HBox gcenterBox;
     Game game = new Game();
     ArrayList<ArrayList<String>> playerCards;
@@ -53,14 +52,6 @@ public class GameGUI extends AnchorPane {
         
         pane2.getChildren().addAll(returnBtn, button2);
         getChildren().addAll(scrollPane, pane2);
-        
-        // Add player hand HBox instances to the content VBox
-        game.initializeGame();
-        create_gcenter();
-        playerCards = game.getPlayerCards();
-        gcenter = game.center;
-        this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
-        setupPlayerHands();
 
         // Anchor the scrollPane to the bottom of the AnchorPane
         AnchorPane.setBottomAnchor(scrollPane, 0.0);
@@ -80,13 +71,13 @@ public class GameGUI extends AnchorPane {
         
         AnchorPane.setTopAnchor(stackPane, 10.0);
 
+        game_loop();
         pane2.getChildren().add(createdrawView());
-        content.getChildren().add(1, showPlayerTurn(currentPlayerIndex));
-
+        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
 
     }
 
-    private ImageView createCardImageView(String card, int player) { //create the card image view
+    private ImageView createCardImageView(String card) { //create the card image view
         String imagePath = "Image/" + card + ".png";
         Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
         ImageView cardView = new ImageView(cardImage);
@@ -95,8 +86,8 @@ public class GameGUI extends AnchorPane {
         HBox.setMargin(cardView, new Insets(0, -20, 0, -30));
     
         cardView.setOnMouseClicked((event) -> {
-            System.out.println("Player " + player + " plays " + card + "!");
-            handleCardClick();
+            System.out.println("Player " + (game.get_currentplayer() + 1) + " plays " + card + "!");
+            game.gui_player_handle(card);
         });
     
         return cardView;
@@ -111,7 +102,7 @@ public class GameGUI extends AnchorPane {
         drawView.setLayoutX(350);
         drawView.setLayoutY(250);
         drawView.setOnMouseClicked((event) -> {
-            System.out.println("Player " + currentPlayerIndex + " draws a card!");
+            System.out.println("Player " + (game.get_currentplayer()+1) + " draws a card!");
         });
 
         return drawView;
@@ -148,13 +139,13 @@ public class GameGUI extends AnchorPane {
     
     
 
-    private HBox createPlayerHandBox(ArrayList<String> hand, int players) { //create the player hand box
+    private HBox createPlayerHandBox(ArrayList<String> hand) { //create the player hand box
         HBox hBox = new HBox(10); // Set spacing between cards
         hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
 
         for (String card : hand) {
             // Create ImageView for each card
-            ImageView cardView = createCardImageView(card, players);
+            ImageView cardView = createCardImageView(card);
 
             // Add cardView to the HBox
             hBox.getChildren().add(cardView);
@@ -186,44 +177,52 @@ public class GameGUI extends AnchorPane {
         return playerText;
     }
 
-    //get the player card from game
+    //get the current Player card from game
     private void setupPlayerHands() { 
-        for (int i = 0; i < 4; i++) { //loop through the 2d arraylist and generate the card
-            ArrayList<String> playerHand = playerCards.get(i); //get the player hand
-            HBox playerHandBox = createPlayerHandBox(playerHand, i); //create the player hand box
-            playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist
-        }   
-
-        // Add the first player's hand to the content VBox
+        ArrayList<String> playerHand = playerCards.get(game.get_currentplayer()); //get the player hand
+        HBox playerHandBox = createPlayerHandBox(playerHand); //create the player hand box
+        playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist  
         content.getChildren().add(playerHandBoxes.get(0));
     }
 
-
-    private void handleCardClick() {
-        HBox currentPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
-        currentPlayerHandBox.getChildren().clear();
-        currentPlayerIndex = (currentPlayerIndex + 1) % 4;
-        HBox nextPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
-        content.getChildren().set(0, nextPlayerHandBox);
-
-        Text currentPlayerText = showPlayerTurn(currentPlayerIndex);
-        content.getChildren().set(1, currentPlayerText);
-        //I got the text to rotate between players but player's turn between
-        // the GUI and the text in the terminal doesn't match
-        
-        if (currentPlayerIndex == 0) {
-            currentPlayerIndex = 0;
-            HBox firstPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
-            content.getChildren().set(0, firstPlayerHandBox);
-        }
-    
-        // Update the current player's hand in the GUI
-        ArrayList<String> currentPlayerCards = playerCards.get(currentPlayerIndex);
-        currentPlayerHandBox.getChildren().addAll(
-                currentPlayerCards.stream()
-                        .map(card -> createCardImageView(card, (currentPlayerIndex)))
-                        .collect(Collectors.toList())
-        );
+    public void cleaner(){
+        pane2.getChildren().clear();
+        content.getChildren().clear();
     }
+
+    public void game_loop(){
+        // Add player hand HBox instances to the content VBox
+        game.initializeGame();
+        create_gcenter();
+        playerCards = game.getPlayerCards();
+        gcenter = game.center;
+        //this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
+        setupPlayerHands();
+
+    }
+    // private void handleCardClick() {
+    //     HBox currentPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
+    //     currentPlayerHandBox.getChildren().clear();
+    //     currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+    //     HBox nextPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
+    //     content.getChildren().set(0, nextPlayerHandBox);
+    
+    //     Text currentPlayerText = showPlayerTurn(currentPlayerIndex);
+    //     content.getChildren().set(1, currentPlayerText);
+    
+    //     if (currentPlayerIndex == 0) {
+    //         currentPlayerIndex = 0;
+    //         HBox firstPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
+    //         content.getChildren().set(0, firstPlayerHandBox);
+    //     }
+    
+    //     ArrayList<String> currentPlayerCards = playerCards.get(currentPlayerIndex);
+    //     currentPlayerHandBox.getChildren().addAll(
+    //             currentPlayerCards.stream()
+    //                     .map(this::createCardImageView)
+    //                     .collect(Collectors.toList())
+    //     );
+    // }
+    
    
 }
