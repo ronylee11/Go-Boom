@@ -35,6 +35,32 @@ public class Game {
         return playerCards;
     }
 
+    public ArrayList<String> getCenter() {
+        return center;
+    }
+
+    public int getPlayerScore(int playerIndex) {
+        return players[playerIndex].getScore();
+    }
+
+    public void setGameStarted(boolean started) {
+        gameStarted = started;
+    }
+
+    public boolean isRoundOver() {
+        return roundInATrick == 5;
+    }
+
+    public void startNewTrick() {
+        trickNumber++;
+        roundInATrick = 1;
+        resetCenter();
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
     public void restart() {
         for (int j = 0; j < 4; j++) {
             players[j].resetHand();
@@ -306,5 +332,87 @@ public class Game {
         } else {
             return -1; // Invalid lead card
         }
+    }
+    //don't remove it I want to use it for GUI
+    public boolean playTurn(int currentPlayer, String command) {
+        boolean isValidCard = false;
+    
+        switch (command.toLowerCase()) {
+            case "s": // restart game
+                restart();
+                return false; // Exit the method to avoid moving to the next player
+            case "d": // draw a card
+                drawCard(currentPlayer);
+                break;
+            case "x": // quit game
+                gameStarted = false;
+                return false; // Exit the method to avoid moving to the next player
+            default: // play card from hand
+                isValidCard = playCard(currentPlayer, command);
+                break;
+        }
+    
+        if (isValidCard) {
+            nextPlayer(); // Move to the next player
+        }
+    
+        // check if any player has no more cards in hand, if yes, end the game
+        if (isGameOver()) {
+            gameStarted = false;
+            updateScore();
+            return false;
+        }
+    
+        // if all the players played their cards, start a new trick, the player with
+        // the highest value card wins the trick
+        if (roundInATrick == 5) {
+            trickNumber++;
+            roundInATrick = 1;
+            winner_of_trick();
+            resetCenter();
+        }
+    
+        if (gameStarted) {
+            printGameState();
+            System.out.println("Turn: Player" + (currentPlayer + 1));
+        }
+    
+        return isValidCard;
+    }
+    
+
+    public int getCurrentPlayerIndex() {
+        return currentPlayer;
+    }
+
+    public void drawCard(int currentPlayer) {
+    boolean foundValidCard = false;
+    boolean validCardDrawn = false; // Flag to track if a valid card was drawn
+    while (!foundValidCard) {
+        if (deck.isEmpty()) {
+            System.out.println("Deck is empty! And Player" + (currentPlayer + 1) + " cannot play. Skipping turn.");
+            break; // Exit the loop and move to the next player
+        }
+
+        players[currentPlayer].addCard();
+        String lastCard = players[currentPlayer].getLastCard();
+        if (canPlayOnCenter(lastCard)) {
+            validCardDrawn = true;
+            break; // Exit the loop and move to the next player
+        }
+    }
+    if (!validCardDrawn) {
+        nextPlayer();
+    }
+}
+
+
+    public boolean isGameOver() {
+        for (int i = 0; i < 4; i++) {
+            if (players[i].getCards().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
