@@ -1,9 +1,31 @@
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
-        game.start();
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Welcome to the game of Go-Boom!");
+        System.out.println("1. Start New Game");
+        System.out.println("2. Load Game");
+        System.out.println("3. Exit");
+        System.out.print("> ");
+
+        int choice = input.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println("");
+                Game game = new Game();
+                game.start();
+                break;
+            case 2:
+                // load game
+            case 3:
+                System.exit(0);
+                break;
+        }
+        input.close();
 
         // clearScreen();
         // System.out.println("Game Over! " + text);

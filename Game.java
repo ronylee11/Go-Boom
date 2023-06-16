@@ -345,7 +345,7 @@ public class Game {
         boolean isValidCard = false;
     
         switch (command.toLowerCase()) {
-            case "s": // restart game
+            case "r": // restart game
                 restart();
                 start();
                 return false; // Indicate that the turn is not valid, so the GUI can handle it accordingly
@@ -354,7 +354,11 @@ public class Game {
                 break;
             case "x": // quit game
                 gameStarted = false;
-                return false; // Indicate that the turn is not valid, so the GUI can handle it accordingly
+                return false; // Exit the method to avoid moving to the next player
+            case "s": // save game
+                //saveGame();
+                gameStarted = false;
+                return false;
             default: // play card from hand
                 isValidCard = playCard(currentPlayer, command);
                 break;
