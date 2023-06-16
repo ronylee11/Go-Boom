@@ -120,4 +120,13 @@ public class Player extends Card {
         int lastIndex = hand.size() - 1;
         return hand.get(lastIndex);
     }
+
+    public void loadCard(String card) {
+        // only for load file only
+        hand.add(card);
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

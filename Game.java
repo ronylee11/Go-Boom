@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.Writer;
+import java.io.Reader;
 
 public class Game {
     Deck deck = new Deck();
@@ -105,6 +106,59 @@ public class Game {
 
             System.out.println();
         }
+    }
+
+    public void load() {
+        start();
+
+        // Load File
+        Properties AppProps = new Properties();
+
+        // Specify output file name
+        Path PropertyFile = Paths.get("MyApp.properties");
+
+        // Read data from file
+        try {
+            Reader PropReader = Files.newBufferedReader(PropertyFile);
+            AppProps.load(PropReader);
+        } catch (IOException e) {
+            System.out.println("IO Exception: " + e.getMessage());
+        }
+
+        // Get data from file and set them to the game
+        // Get the trick number
+        trickNumber = Integer.parseInt(AppProps.getProperty("trickNumber"));
+        // Get the round number
+        roundInATrick = Integer.parseInt(AppProps.getProperty("roundInATrick"));
+        // Get the current player
+        currentPlayer = Integer.parseInt(AppProps.getProperty("currentPlayer"));
+        // Get the center
+        String centerString = AppProps.getProperty("center");
+        String[] centerArray = centerString.split(",");
+        for (String card : centerArray) {
+            center.add(card);
+        }
+        // Get the deck
+        String deckString = AppProps.getProperty("deck");
+        String[] deckArray = deckString.split(",");
+        deck.resetDeck();
+        for (String card : deckArray) {
+            deck.loadCard(card);
+        }
+        // Get the player cards
+        for (int i = 0; i < 4; i++) {
+            String playerString = AppProps.getProperty("Player" + (i + 1));
+            String[] playerArray = playerString.split(",");
+            players[i].resetHand();
+            for (String card : playerArray) {
+                players[i].loadCard(card);
+            }
+        }
+        // Get the player scores
+        for (int i = 0; i < 4; i++) {
+            players[i].setScore(Integer.parseInt(AppProps.getProperty("Player" + (i + 1) + "Score")));
+        }
+
     }
 
     public void printGameState() { // Print the game interface
@@ -493,6 +547,8 @@ public class Game {
         }
         // save player turn
         AppProps.setProperty("Current Player", Integer.toString(currentPlayer));
+        // save round in a trick
+        AppProps.setProperty("Round in a Trick", Integer.toString(roundInATrick));
 
         // Specify output file name
         Path PropertyFile = Paths.get("savefile.properties");
