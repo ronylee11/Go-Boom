@@ -339,7 +339,7 @@ public class Game {
         boolean isValidCard = false;
     
         switch (command.toLowerCase()) {
-            case "s": // restart game
+            case "r": // restart game
                 restart();
                 return false; // Exit the method to avoid moving to the next player
             case "d": // draw a card
@@ -348,6 +348,10 @@ public class Game {
             case "x": // quit game
                 gameStarted = false;
                 return false; // Exit the method to avoid moving to the next player
+            case "s": // save game
+                //saveGame();
+                gameStarted = false;
+                return false;
             default: // play card from hand
                 isValidCard = playCard(currentPlayer, command);
                 break;
