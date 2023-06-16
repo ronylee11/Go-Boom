@@ -32,7 +32,7 @@ public class GameGUI extends AnchorPane {
     private HBox gcenterBox;
     Game game = new Game();
     ArrayList<ArrayList<String>> playerCards;
-    ArrayList<String> gcenter = new ArrayList<>();
+    ArrayList<String> gcenter;
 
     public GameGUI(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
@@ -56,7 +56,7 @@ public class GameGUI extends AnchorPane {
         
         // Add player hand HBox instances to the content VBox
         game.initializeGame();
-        game.generateCenter();
+        create_gcenter();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
         this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
@@ -81,7 +81,6 @@ public class GameGUI extends AnchorPane {
         AnchorPane.setTopAnchor(stackPane, 10.0);
 
         pane2.getChildren().add(createdrawView());
-        pane2.getChildren().add(createGCenterBox());
         content.getChildren().add(1, showPlayerTurn(currentPlayerIndex));
 
 
@@ -118,21 +117,36 @@ public class GameGUI extends AnchorPane {
         return drawView;
     }
 
-    private HBox createGCenterBox() {
-    HBox centerbox = new HBox(10);  // Set spacing between cards
-    centerbox.setAlignment(Pos.CENTER);
-    String examplePath = "Image/sA.png";
-    //the imageview is for testing purposes only
-        Image exImage = new Image(Main.class.getResourceAsStream(examplePath));
-        ImageView exView = new ImageView(exImage);
-        exView.setFitHeight(150);
-        exView.setFitWidth(107);
-        centerbox.getChildren().add(exView);
+    private void create_gcenter() {
+        game.generateCenter();
+        gcenter = game.center;
+        
+        createGCenterBox(gcenter);
+    }
+    
+    private HBox createGCenterBox(ArrayList<String> cunny_card) {
+        HBox centerbox = new HBox(10); // Set spacing between cards
+        centerbox.setAlignment(Pos.CENTER);
+        
+        for (String card : cunny_card) {
+            String imagePath = "Image/" + card + ".png";
+            Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
+            ImageView cardView = new ImageView(cardImage);
+            cardView.setFitHeight(150);
+            cardView.setFitWidth(107);
+            centerbox.getChildren().add(cardView);
+        }
+        
         centerbox.setLayoutX(500);
         centerbox.setLayoutY(250);
-
-    return centerbox;
+        
+        pane2.getChildren().add(centerbox); // Add centerbox to the pane2
+        
+        return centerbox;
     }
+    
+    
+    
 
     private HBox createPlayerHandBox(ArrayList<String> hand, int players) { //create the player hand box
         HBox hBox = new HBox(10); // Set spacing between cards
@@ -208,13 +222,5 @@ public class GameGUI extends AnchorPane {
                         .collect(Collectors.toList())
         );
     }
-
-    
-    
-    
-
-    
-
-    
-    
+   
 }
