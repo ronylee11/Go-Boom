@@ -69,7 +69,7 @@ public class Game {
         deck.resetDeck();
         Deck.Create_deck();
         resetCenter();
-        start();
+        //start();
     }
 
     public void resetCenter() {
@@ -219,6 +219,7 @@ public class Game {
             switch (command.toLowerCase()) {
                 case "s": // restart game
                     restart();
+                    start();
                     return; // Exit the method to avoid moving to the next player
                 case "d": // draw a card
                     drawCards();

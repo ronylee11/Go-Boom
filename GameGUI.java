@@ -169,6 +169,9 @@ public class GameGUI extends AnchorPane {
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
         button.setOnAction(event -> {
+            pane2.getChildren().clear();
+            content.getChildren().clear();
+            game.restart();
             stage.setScene(mainMenuScene); // need a way to quit the game after 
                                             // clicking the return button
         });
