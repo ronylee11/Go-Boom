@@ -41,8 +41,8 @@ Mark Y for Complete, P for Partial done, N for Not implemented.
 
 ## D. Link to Video Presentation
 
-[PART 1 Presentation Video](https://drive.google.com/file/d/1rO1p65mG7wWz_-mbA34g-EFYixsFK9dK/view?usp=share_link)
-[PART 2 Presentation Video](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+[PART 1 Presentation Video](https://drive.google.com/file/d/1rO1p65mG7wWz_-mbA34g-EFYixsFK9dK/view?usp=share_link) <br />
+[PART 2 Presentation Video](https://www.youtube.com/watch?v=dQw4w9WgXcQ) <br />
 
 ## E. Compilation Instructions
 
