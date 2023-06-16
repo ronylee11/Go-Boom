@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.Writer;
-import java.io.Reader;
 
 public class Game {
     Deck deck = new Deck();
@@ -368,7 +367,7 @@ public class Game {
                 gameStarted = false;
                 return false; // Exit the method to avoid moving to the next player
             case "s": // save game
-                // saveGame();
+                saveGame();
                 gameStarted = false;
                 return false;
             default: // play card from hand
@@ -468,9 +467,6 @@ public class Game {
     public void saveGame() {
         // Save File
         Properties AppProps = new Properties();
-        // AppProps.setProperty("Backcolor", "White");
-        // AppProps.setProperty("Forecolor", "Blue");
-        // AppProps.setProperty("FontSize", "12");
 
         // save the cards in each player hand
         for (int i = 0; i < 4; i++) {
