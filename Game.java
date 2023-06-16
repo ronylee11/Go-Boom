@@ -512,7 +512,6 @@ public class Game {
             nextPlayer();
         }
     }
-}
 
     public boolean get_gameStarted(){
         return gameStarted;
