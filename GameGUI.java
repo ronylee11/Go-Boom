@@ -27,6 +27,7 @@ public class GameGUI extends AnchorPane {
     private Stage stage;
     private Scene mainMenuScene;
     private List<HBox> playerHandBoxes;
+    private HBox centerbox;
     Game game = new Game();
     ArrayList<ArrayList<String>> playerCards;
     ArrayList<String> gcenter;
@@ -88,6 +89,8 @@ public class GameGUI extends AnchorPane {
             game.gui_player_handle(card);
             if(Game.isValidCard){
                 player_cleaner();
+                center_cleaner();
+                create_gcenter();
                 setupPlayerHands();
                 //game_loop();
             }
@@ -107,6 +110,8 @@ public class GameGUI extends AnchorPane {
         drawView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer()+1) + " draws a card!");
             game.gui_player_handle("d");
+            player_cleaner();
+            setupPlayerHands();
         });
 
         return drawView;
@@ -120,9 +125,14 @@ public class GameGUI extends AnchorPane {
         createGCenterBox(gcenter);
         game.get_firstplayer();
     }
+
+    public void create_gcenter() {
+        gcenter = game.center;
+        createGCenterBox(gcenter);
+    }
     
     private HBox createGCenterBox(ArrayList<String> cunny_card) {
-        HBox centerbox = new HBox(10); // Set spacing between cards
+        centerbox = new HBox(-10); // Set spacing between cards
         centerbox.setAlignment(Pos.CENTER);
         
         for (String card : cunny_card) {
@@ -140,6 +150,11 @@ public class GameGUI extends AnchorPane {
         pane2.getChildren().add(centerbox); // Add centerbox to the pane2
         
         return centerbox;
+    }
+
+    public void center_cleaner() {
+        pane2.getChildren().remove(centerbox); // Remove the centerbox from the pane2
+        centerbox.getChildren().clear(); // Clear the ImageView(s) from the centerbox
     }
     
     private HBox createPlayerHandBox(ArrayList<String> hand) { //create the player hand box
@@ -198,6 +213,7 @@ public class GameGUI extends AnchorPane {
         playerHandBoxes.clear(); // clear the player hand box
         content.getChildren().clear();
     }
+
 
     public void game_loop(){
         // Add player hand HBox instances to the content VBox
