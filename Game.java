@@ -16,6 +16,7 @@ public class Game {
     Scanner input = new Scanner(System.in);
     static boolean gameStarted = false;
     static boolean gameEnded = false;
+    static boolean isValidCard = false;
     static int trickNumber = 1;
     private static int roundInATrick = 1;
     private static int player_num = 0;
@@ -273,6 +274,10 @@ public class Game {
         currentPlayer = determineFirstPlayer(center.get(0));
     }
 
+    public void set_validCard(boolean validCard){
+        isValidCard = validCard;
+    }
+
     public void handlePlayerTurn() {
         System.out.println("Turn: Player" + (currentPlayer + 1));
 
@@ -434,6 +439,7 @@ public class Game {
         }
 
         if (isValidCard) {
+            set_validCard(isValidCard);
             nextPlayer(); // Move to the next player
         }
 

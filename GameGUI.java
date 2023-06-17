@@ -72,7 +72,7 @@ public class GameGUI extends AnchorPane {
         game_loop();
         pane2.getChildren().add(createdrawView());
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
-        game.gameStarted = true;
+        Game.gameStarted = true;
     }
 
     private ImageView createCardImageView(String card) { //create the card image view
@@ -86,6 +86,10 @@ public class GameGUI extends AnchorPane {
         cardView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer() + 1) + " plays " + card + "!");
             game.gui_player_handle(card);
+            if(Game.isValidCard){
+                player_cleaner();
+                //game_loop();
+            }
         });
     
         return cardView;
@@ -136,9 +140,6 @@ public class GameGUI extends AnchorPane {
         return centerbox;
     }
     
-    
-    
-
     private HBox createPlayerHandBox(ArrayList<String> hand) { //create the player hand box
         HBox hBox = new HBox(10); // Set spacing between cards
         hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
@@ -187,6 +188,11 @@ public class GameGUI extends AnchorPane {
 
     public void cleaner(){
         pane2.getChildren().clear();
+        content.getChildren().clear();
+    }
+
+    public void player_cleaner(){
+        playerHandBoxes.clear(); // clear the player hand box
         content.getChildren().clear();
     }
 
