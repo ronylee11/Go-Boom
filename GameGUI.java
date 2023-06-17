@@ -149,8 +149,10 @@ public class GameGUI extends AnchorPane {
 
         // Create and position the "Scoreboard" text
         Text scoreLabel = new Text("Scoreboard");
+        Font scoreFont = Font.loadFont(getClass().getResourceAsStream("Font/Aleo-Bold.otf"), 42);
+        Font playerScoreFont = Font.loadFont(getClass().getResourceAsStream("Font/Aleo-Bold.otf"), 24);
         scoreLabel.setFill(Color.BLACK);
-        scoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 42));
+        scoreLabel.setFont(scoreFont);
         scoreLabel.setTranslateY(37);
         scoreLabel.setTranslateX(218);
         scoreboard.getChildren().add(scoreLabel);
@@ -159,7 +161,7 @@ public class GameGUI extends AnchorPane {
         for (int i = 0; i < playerScores.length; i++) {
             Text playerScore = playerScores[i];
             playerScore.setFill(Color.BLACK);
-            playerScore.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+            playerScore.setFont(playerScoreFont);
             playerScore.setTranslateY(80);
             playerScore.setTranslateX(25 + 170 * i);
             scoreboard.getChildren().add(playerScore);
@@ -237,6 +239,9 @@ public class GameGUI extends AnchorPane {
 
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
         Button button = new Button(buttonText);
+        Font font = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 24);
+        //button.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
+        button.setFont(font);;
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
@@ -253,12 +258,20 @@ public class GameGUI extends AnchorPane {
         return button;
     }
     // Show the current player's turn as text
-    private Text showPlayerTurn(int currentPlayerIndex) {
+    //trying hbox instead of text to create a border, still in progress
+    private HBox showPlayerTurn(int currentPlayerIndex) {
+        Font playerFont = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 16);
         Text playerText = new Text("Player " + (currentPlayerIndex + 1));
-        playerText.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
-        playerText.setTranslateY(-150);
-        playerText.setTranslateX(20);
-        return playerText;
+        HBox playerTurnBox = new HBox(0.0,playerText);
+        playerTurnBox.setPrefWidth(100);
+        playerTurnBox.setPrefHeight(20);
+        playerTurnBox.setStyle("-fx-border-color: red;");
+        
+        
+        playerText.setFont(playerFont);
+        //playerText.setTranslateY(-150);
+        //playerText.setTranslateX(20);
+        return playerTurnBox;
     }
 
     //get the current Player card from game
@@ -308,6 +321,8 @@ public class GameGUI extends AnchorPane {
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
     }
+
+
 
     
 }

@@ -91,7 +91,8 @@ public class GUI extends Application {
 
     private Button createButton(String buttonText, ImageView imageView) {
         Button button = new Button(buttonText);
-        button.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
+        Font btnFont = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 18);
+        button.setFont(btnFont);
         button.setGraphic(imageView);
         button.setContentDisplay(ContentDisplay.LEFT);
         button.setPrefSize(200, 50);
