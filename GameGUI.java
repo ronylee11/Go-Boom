@@ -29,6 +29,7 @@ public class GameGUI extends AnchorPane {
     private List<HBox> playerHandBoxes;
     private HBox centerbox;
     Game game = new Game();
+    Deck decks = new Deck();
     ArrayList<ArrayList<String>> playerCards;
     ArrayList<String> gcenter;
 
@@ -117,6 +118,9 @@ public class GameGUI extends AnchorPane {
         drawView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer()+1) + " draws a card!");
             game.gui_player_handle("d");
+            if(decks.isEmpty()){
+                pane2.getChildren().remove(drawView);
+            }
             player_cleaner();
             setupPlayerHands();
         });
@@ -243,6 +247,7 @@ public class GameGUI extends AnchorPane {
         gcenter = game.center;
         setupPlayerHands();
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
+        pane2.getChildren().add(createdrawView());
 
     }
     // private void handleCardClick() {
