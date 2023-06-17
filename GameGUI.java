@@ -88,6 +88,7 @@ public class GameGUI extends AnchorPane {
             game.gui_player_handle(card);
             if(Game.isValidCard){
                 player_cleaner();
+                setupPlayerHands();
                 //game_loop();
             }
         });
