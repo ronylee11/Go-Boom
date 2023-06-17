@@ -94,8 +94,10 @@ public class GameGUI extends AnchorPane {
                     content.getChildren().clear();
                     player_cleaner();
                     gcenter.clear();
+                    playerCards.clear();
+                    center_cleaner();
                     game.restart();
-                    game_loop();
+                    loop_this();
 
                 }
             }
@@ -204,7 +206,7 @@ public class GameGUI extends AnchorPane {
 
     //get the current Player card from game
     private void setupPlayerHands() { 
-        game.printGameState();
+        //game.printGameState();
         ArrayList<String> playerHand = playerCards.get(game.get_currentplayer()); //get the player hand
         HBox playerHandBox = createPlayerHandBox(playerHand); //create the player hand box
         playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist  
@@ -231,6 +233,13 @@ public class GameGUI extends AnchorPane {
         gcenter = game.center;
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
+        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
+
+    }
+
+    public void loop_this(){
+        game.initializeGame();
+        setupPlayerHands();
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
 
     }

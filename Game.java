@@ -172,7 +172,7 @@ public class Game {
         }
         if (trickNumber == 1) {
             System.out.println("Center : " + center);
-            deck.Largest_Card(center); // get the largest card
+            //deck.Largest_Card(center); // get the largest card
         } else {
             System.out.println("Center : " + center);
         }
@@ -290,6 +290,7 @@ public class Game {
     }
 
     public void handlePlayerTurn() {
+        currentPlayer = determineFirstPlayer(center.get(0));
         System.out.println("Turn: Player" + (currentPlayer + 1));
 
         int skippedCount = 0; // Count the number of skipped turns
@@ -534,7 +535,7 @@ public class Game {
         }
     }
 
-    public boolean isGameOver() {
+    public boolean isJoever() {
         for (int i = 0; i < 4; i++) {
             if (players[i].getCards().isEmpty()) {
                 return true;
