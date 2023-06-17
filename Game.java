@@ -19,7 +19,6 @@ public class Game {
     static boolean isValidCard = false;
     static int trickNumber = 1;
     private static int roundInATrick = 1;
-    private static int player_num = 0;
     private static int currentPlayer = 0;
 
     public void initializeGame() {
