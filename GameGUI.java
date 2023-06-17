@@ -71,9 +71,6 @@ public class GameGUI extends AnchorPane {
         AnchorPane.setTopAnchor(stackPane, 10.0);
 
         game_loop();
-        pane2.getChildren().add(createdrawView());
-        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
-        Game.gameStarted = true;
     }
 
     private ImageView createCardImageView(String card) { //create the card image view
@@ -92,7 +89,15 @@ public class GameGUI extends AnchorPane {
                 center_cleaner();
                 create_gcenter();
                 setupPlayerHands();
-                //game_loop();
+                while(!Game.gameStarted){
+                    Game.gameStarted = true;
+                    content.getChildren().clear();
+                    player_cleaner();
+                    gcenter.clear();
+                    game.restart();
+                    game_loop();
+
+                }
             }
         });
     
@@ -180,6 +185,8 @@ public class GameGUI extends AnchorPane {
         button.setOnAction(event -> {
             pane2.getChildren().clear();
             content.getChildren().clear();
+            player_cleaner();
+            gcenter.clear();
             game.restart();
             stage.setScene(mainMenuScene); // need a way to quit the game after 
                                             // clicking the return button
@@ -207,6 +214,7 @@ public class GameGUI extends AnchorPane {
     public void cleaner(){
         pane2.getChildren().clear();
         content.getChildren().clear();
+        game.restart();
     }
 
     public void player_cleaner(){
@@ -216,16 +224,14 @@ public class GameGUI extends AnchorPane {
 
 
     public void game_loop(){
-        // Add player hand HBox instances to the content VBox
         game.initializeGame();
         create_first_gcenter();
         game.current_determine();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
-        //this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
         setupPlayerHands();
-        // while(){
-        // }
+        pane2.getChildren().add(createdrawView());
+        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
 
     }
     // private void handleCardClick() {

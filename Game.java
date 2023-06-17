@@ -281,6 +281,10 @@ public class Game {
         isValidCard = validCard;
     }
 
+    public void set_gameStart(boolean gameStart){
+        gameStarted = gameStart;
+    }
+
     public void set_currentPlayer(int GuicurrentPlayer){
         currentPlayer = GuicurrentPlayer;
     }
@@ -440,6 +444,7 @@ public class Game {
             case "s": // save game
                 saveGame();
                 gameStarted = false;
+                setGameStarted(gameStarted);
                 return false;
             default: // play card from hand
                 isValidCard = playCard(currentPlayer, command);
@@ -455,6 +460,7 @@ public class Game {
         for (int i = 0; i < 4; i++) {
             if (players[i].getCards().isEmpty()) {
                 gameStarted = false;
+                set_gameStart(gameStarted);
                 updateScore();
                 return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle
                              // it accordingly
@@ -484,6 +490,7 @@ public class Game {
                         if (players[i].getScore() >= 100) {
                             System.out.println("Player" + (i + 1) + " wins the game!");
                             gameStarted = false;
+                            set_gameStart(gameStarted);
                             return true; // Indicate that the turn is valid and the game has ended, so the GUI can
                                          // handle it accordingly
                         }
