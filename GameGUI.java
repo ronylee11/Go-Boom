@@ -112,12 +112,13 @@ public class GameGUI extends AnchorPane {
         return drawView;
     }
 
-    private void create_gcenter() {
+    private void create_first_gcenter() {
         
         game.generateCenter();
         gcenter = game.center;
         
         createGCenterBox(gcenter);
+        game.get_firstplayer();
     }
     
     private HBox createGCenterBox(ArrayList<String> cunny_card) {
@@ -181,6 +182,7 @@ public class GameGUI extends AnchorPane {
 
     //get the current Player card from game
     private void setupPlayerHands() { 
+        game.printGameState();
         ArrayList<String> playerHand = playerCards.get(game.get_currentplayer()); //get the player hand
         HBox playerHandBox = createPlayerHandBox(playerHand); //create the player hand box
         playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist  
@@ -200,7 +202,7 @@ public class GameGUI extends AnchorPane {
     public void game_loop(){
         // Add player hand HBox instances to the content VBox
         game.initializeGame();
-        create_gcenter();
+        create_first_gcenter();
         game.current_determine();
         playerCards = game.getPlayerCards();
         gcenter = game.center;

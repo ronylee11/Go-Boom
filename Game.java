@@ -59,8 +59,11 @@ public class Game {
         return roundInATrick == 5;
     }
 
-    public int get_currentplayer() {
+    public void get_firstplayer() {
         currentPlayer = determineFirstPlayer(center.get(0));
+    }
+
+    public int get_currentplayer() {
         return currentPlayer;
     }
 
@@ -278,6 +281,10 @@ public class Game {
         isValidCard = validCard;
     }
 
+    public void set_currentPlayer(int GuicurrentPlayer){
+        currentPlayer = GuicurrentPlayer;
+    }
+
     public void handlePlayerTurn() {
         System.out.println("Turn: Player" + (currentPlayer + 1));
 
@@ -372,6 +379,7 @@ public class Game {
 
     public void nextPlayer() {
         currentPlayer = (currentPlayer + 1) % 4;
+        set_currentPlayer(currentPlayer);
     }
 
     public void drawCards() {
