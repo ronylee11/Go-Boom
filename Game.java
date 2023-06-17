@@ -14,7 +14,7 @@ public class Game {
     Player[] players = new Player[4];
     ArrayList<String> center = new ArrayList<>(); // Center ArrayList to store the lead card
     Scanner input = new Scanner(System.in);
-     boolean gameStarted = false;
+    static boolean gameStarted = false;
     static boolean gameEnded = false;
     static int trickNumber = 1;
     private static int roundInATrick = 1;
@@ -512,15 +512,6 @@ public class Game {
             nextPlayer();
         }
     }
-
-    public boolean get_gameStarted(){
-        return gameStarted;
-    }
-
-    public void set_gameStarted(boolean gameStarted){
-        this.gameStarted = gameStarted;
-    }
-
 
     public boolean isGameOver() {
         for (int i = 0; i < 4; i++) {

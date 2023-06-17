@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,7 +27,6 @@ public class GameGUI extends AnchorPane {
     private Stage stage;
     private Scene mainMenuScene;
     private List<HBox> playerHandBoxes;
-    private HBox gcenterBox;
     Game game = new Game();
     ArrayList<ArrayList<String>> playerCards;
     ArrayList<String> gcenter;
@@ -74,7 +72,7 @@ public class GameGUI extends AnchorPane {
         game_loop();
         pane2.getChildren().add(createdrawView());
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
-        game.setGameStarted(true);
+        game.gameStarted = true;
     }
 
     private ImageView createCardImageView(String card) { //create the card image view
@@ -201,7 +199,7 @@ public class GameGUI extends AnchorPane {
         gcenter = game.center;
         //this.currentPlayerIndex = game.determineFirstPlayer(gcenter.get(0));
         setupPlayerHands();
-        // while(game.get_gameStarted()){
+        // while(){
         // }
 
     }
