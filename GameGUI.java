@@ -239,6 +239,8 @@ public class GameGUI extends AnchorPane {
 
     public void loop_this(){
         game.initializeGame();
+        playerCards = game.getPlayerCards();
+        gcenter = game.center;
         setupPlayerHands();
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
 
