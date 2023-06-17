@@ -118,7 +118,11 @@ public class Deck {
         if (!deckCreated) { // make sure there is only one deck
             Create_deck();
             create_card_Values_HashMap();
+            create_score_Values_HashMap();
             deckCreated = true;
+        }else{
+            create_card_Values_HashMap();
+            create_score_Values_HashMap();
         }
     }
     public void resetDeck() {

@@ -243,6 +243,7 @@ public class GameGUI extends AnchorPane {
         button.setOnAction(event -> {
             pane2.getChildren().clear();
             content.getChildren().clear();
+            scoreboard.getChildren().clear();
             player_cleaner();
             gcenter.clear();
             game.restart();
