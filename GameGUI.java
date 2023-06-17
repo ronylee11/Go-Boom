@@ -35,6 +35,7 @@ public class GameGUI extends AnchorPane {
     Deck decks = new Deck();
     ArrayList<ArrayList<String>> playerCards;
     ArrayList<String> gcenter;
+    int[] totalScore = new int[4];
     private Text[] playerScores;
 
     public GameGUI(Stage stage, Scene mainMenuScene) {
@@ -168,8 +169,10 @@ public class GameGUI extends AnchorPane {
     // Update the player scores
     public void updateScores() {
         // Update player scores in the playerScores array
-        for (int i = 0; i < playerScores.length; i++) {
-            playerScores[i].setText(String.format("Player %d: %d", i + 1, game.getPlayerScore(i)));
+        for (int i = 0; i < totalScore.length; i++) {
+            totalScore[i] = totalScore[i] + game.getPlayerScore(i); //get the player score
+            int j = i + 1;
+            playerScores[i].setText(String.format("Player %d: %d", j, totalScore[i]));
         }
 
         // Update the scoreboard display
@@ -306,29 +309,5 @@ public class GameGUI extends AnchorPane {
         pane2.getChildren().add(createdrawView());
 
     }
-    // private void handleCardClick() {
-    //     HBox currentPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
-    //     currentPlayerHandBox.getChildren().clear();
-    //     currentPlayerIndex = (currentPlayerIndex + 1) % 4;
-    //     HBox nextPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
-    //     content.getChildren().set(0, nextPlayerHandBox);
     
-    //     Text currentPlayerText = showPlayerTurn(currentPlayerIndex);
-    //     content.getChildren().set(1, currentPlayerText);
-    
-    //     if (currentPlayerIndex == 0) {
-    //         currentPlayerIndex = 0;
-    //         HBox firstPlayerHandBox = playerHandBoxes.get(currentPlayerIndex);
-    //         content.getChildren().set(0, firstPlayerHandBox);
-    //     }
-    
-    //     ArrayList<String> currentPlayerCards = playerCards.get(currentPlayerIndex);
-    //     currentPlayerHandBox.getChildren().addAll(
-    //             currentPlayerCards.stream()
-    //                     .map(this::createCardImageView)
-    //                     .collect(Collectors.toList())
-    //     );
-    // }
-    
-   
 }
