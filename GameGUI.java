@@ -300,7 +300,7 @@ public class GameGUI extends AnchorPane {
     }
 
     // Restart the game loop
-    public void loop_this(){
+    public void loop_this(){ //might have some error from time to time
         updateScores();
         game.initializeGame();
         playerCards = game.getPlayerCards();

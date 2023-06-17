@@ -244,7 +244,7 @@ public class Game {
     }
 
     public void updateScore() {
-        int winnerOfTrick = player_num;
+        int winnerOfTrick = prevPlayer();;
         // update score for losers of the trick
         for (int i = 0; i < 4; i++) {
             if (i != winnerOfTrick) {
@@ -329,6 +329,7 @@ public class Game {
             for (int i = 0; i < 4; i++) {
                 if (players[i].getCards().isEmpty()) {
                     gameStarted = false;
+                    prevPlayer();
                     updateScore();
                     break;
                 }
@@ -380,6 +381,12 @@ public class Game {
                 System.out.println("Turn: Player" + (currentPlayer + 1));
             }
         }
+    }
+
+    public int prevPlayer(){
+        currentPlayer = (currentPlayer - 1) % 4;
+        set_currentPlayer(currentPlayer);
+        return currentPlayer;
     }
 
     public void nextPlayer() {
@@ -480,7 +487,7 @@ public class Game {
                 }
             }
 
-            if (!canPlay) {
+            if (!canPlay) { // found a potential infite loop here
                 nextPlayer();
                 skippedCount++;
                 if (skippedCount == 4) {
