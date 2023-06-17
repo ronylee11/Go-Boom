@@ -268,6 +268,7 @@ public class GameGUI extends AnchorPane {
         HBox playerHandBox = createPlayerHandBox(playerHand); //create the player hand box
         playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist  
         content.getChildren().add(playerHandBoxes.get(0));
+        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
     }
     // Clear the content and player hand boxes
     public void cleaner(){
@@ -295,10 +296,9 @@ public class GameGUI extends AnchorPane {
         gcenter = game.center;
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
-        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
         updateScores();
-
     }
+
     // Restart the game loop
     public void loop_this(){
         updateScores();
@@ -306,9 +306,8 @@ public class GameGUI extends AnchorPane {
         playerCards = game.getPlayerCards();
         gcenter = game.center;
         setupPlayerHands();
-        content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
         pane2.getChildren().add(createdrawView());
-
     }
+
     
 }
