@@ -68,12 +68,12 @@ public class GameGUI extends AnchorPane {
         // Scroll to the bottom of the ScrollPane when the content changes
         scrollPane.vvalueProperty().bind(content.heightProperty());
 
-        
+        // Scroll to the bottom of the ScrollPane when the content changes
         AnchorPane.setTopAnchor(stackPane, 10.0);
-
+        // Create the initial game setup
         game_loop();
     }
-
+    // Create an ImageView for a card
     private ImageView createCardImageView(String card) { //create the card image view
         String imagePath = "Image/" + card + ".png";
         Image cardImage = new Image(Main.class.getResourceAsStream(imagePath));
@@ -81,7 +81,7 @@ public class GameGUI extends AnchorPane {
         cardView.setFitHeight(150);
         cardView.setFitWidth(107);
         HBox.setMargin(cardView, new Insets(0, -20, 0, -30));
-    
+        // Handle mouse click event on a card
         cardView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer() + 1) + " plays " + card + "!");
             game.gui_player_handle(card);
@@ -127,7 +127,7 @@ public class GameGUI extends AnchorPane {
 
         return drawView;
     }
-
+    // Create the initial gcenter (centerbox) with cards
     private void create_first_gcenter() {
         
         game.generateCenter();
@@ -136,14 +136,14 @@ public class GameGUI extends AnchorPane {
         createGCenterBox(gcenter);
         game.get_firstplayer();
     }
-
+    // Create the gcenter (centerbox) with cards
     public void create_gcenter() {
         gcenter = game.center;
         createGCenterBox(gcenter);
     }
-    
+    // Create the centerbox and add cards to it
     private HBox createGCenterBox(ArrayList<String> cunny_card) {
-        centerbox = new HBox(-10); // Set spacing between cards
+        centerbox = new HBox(-30); // Set spacing between cards
         centerbox.setAlignment(Pos.CENTER);
         
         for (String card : cunny_card) {
@@ -162,12 +162,12 @@ public class GameGUI extends AnchorPane {
         
         return centerbox;
     }
-
+    // Clear the centerbox and remove it from pane2
     public void center_cleaner() {
         pane2.getChildren().remove(centerbox); // Remove the centerbox from the pane2
         centerbox.getChildren().clear(); // Clear the ImageView(s) from the centerbox
     }
-    
+    // Create the player hand box and add cards to it
     private HBox createPlayerHandBox(ArrayList<String> hand) { //create the player hand box
         HBox hBox = new HBox(10); // Set spacing between cards
         hBox.setAlignment(Pos.CENTER); // Center the cards horizontally within the HBox
@@ -199,7 +199,7 @@ public class GameGUI extends AnchorPane {
         });
         return button;
     }
-
+    // Show the current player's turn as text
     private Text showPlayerTurn(int currentPlayerIndex) {
         Text playerText = new Text("Player " + (currentPlayerIndex + 1));
         playerText.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
@@ -216,19 +216,19 @@ public class GameGUI extends AnchorPane {
         playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist  
         content.getChildren().add(playerHandBoxes.get(0));
     }
-
+    // Clear the content and player hand boxes
     public void cleaner(){
         pane2.getChildren().clear();
         content.getChildren().clear();
         game.restart();
     }
-
+    // Clear the player hand boxes and content
     public void player_cleaner(){
         playerHandBoxes.clear(); // clear the player hand box
         content.getChildren().clear();
     }
 
-
+    // Main game loop
     public void game_loop(){
         game.initializeGame();
         create_first_gcenter();
@@ -240,7 +240,7 @@ public class GameGUI extends AnchorPane {
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
 
     }
-
+    // Restart the game loop
     public void loop_this(){
         game.initializeGame();
         playerCards = game.getPlayerCards();
