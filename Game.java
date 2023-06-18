@@ -38,10 +38,6 @@ public class Game {
         players = loadedPlayers;
     }
 
-    public void setCenter(ArrayList<String> loadedCenter) {
-        center = loadedCenter;
-    }
-    
 
     public ArrayList<ArrayList<String>> getPlayerCards() {
         ArrayList<ArrayList<String>> playerCards = new ArrayList<ArrayList<String>>();
@@ -214,7 +210,7 @@ public class Game {
             center.add(card);
         }
         // Set the center
-        setCenter(center);
+        //setCenter(center);
         // Get the deck
         String deckString = AppProps.getProperty("deck");
         String[] deckArray = deckString.split(",");

@@ -346,6 +346,7 @@ public class GameGUI extends AnchorPane {
             playerScores[i] = new Text();
         }
         game.gui_load();
+        updateScores();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
         if(gcenter != null){
