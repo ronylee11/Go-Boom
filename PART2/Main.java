@@ -20,16 +20,20 @@ public class Main {
                 case 1:
                     System.out.println("");
                     game.start();
+                    break;
                 case 2:
                     System.out.println("");
                     game.load();
+                    break;
                 case 3:
                     System.exit(0);
+                    break;
                 default:
-                    System.out.println("Invalid input. Try again (1~3)");
+                    System.out.println("Invalid input! (1~3)");
+                    break;
             }
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Try again (1~3)");
+            System.out.println("Invalid input! (1~3)");
         }
         input.close();
 
