@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -275,11 +275,11 @@ public class GameGUI extends AnchorPane {
     // Show the current player's turn as text
     //trying hbox instead of text to create a border, still in progress
     private HBox showPlayerTurn(int currentPlayerIndex) {
-        Font playerFont = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 16);
+        Font playerFont = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 20);
         Text playerText = new Text("Player " + (currentPlayerIndex + 1));
         HBox playerTurnBox = new HBox(0.0,playerText);
-        playerTurnBox.setPrefWidth(100);
-        playerTurnBox.setPrefHeight(20);
+        playerTurnBox.setMaxWidth(80);
+        playerTurnBox.setPrefHeight(25);
         playerTurnBox.setStyle("-fx-border-color: red;");
         
         
