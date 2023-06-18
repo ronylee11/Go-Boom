@@ -209,8 +209,7 @@ public class Game {
         for (String card : centerArray) {
             center.add(card);
         }
-        // Set the center
-        //setCenter(center);
+        
         // Get the deck
         String deckString = AppProps.getProperty("deck");
         String[] deckArray = deckString.split(",");
