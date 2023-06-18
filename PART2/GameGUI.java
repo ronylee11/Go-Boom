@@ -379,7 +379,7 @@ public class GameGUI extends AnchorPane {
         updateScores();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
-        if(gcenter != null){
+        if(gcenter.size() != 1){
             createGCenterBox(gcenter);
         }
         setupPlayerHands();
