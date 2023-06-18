@@ -76,7 +76,6 @@ public class GUI extends Application {
         ImageView resumeImg = new ImageView(new Image("Image/play icon.png"));
         Button resumeBtn = createButton("Resume", resumeImg);
         resumeBtn.setOnAction(event -> {
-            System.out.println("Resume Button clicked!");
             gamer.setGameStarted(true);
             Scene scene2 = new Scene(new GameGUI(stage, scene), 1080, 720);
             stage.setScene(scene2);

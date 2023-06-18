@@ -371,6 +371,7 @@ public class GameGUI extends AnchorPane {
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
         updateScores();
+        game.printGameState();
     }
     public void load_game_loop(){
         playerScores = new Text[4];
@@ -389,6 +390,7 @@ public class GameGUI extends AnchorPane {
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
         updateScores();
+        game.printGameState();
     }
 
     // Restart the game loop
@@ -399,9 +401,6 @@ public class GameGUI extends AnchorPane {
         gcenter = game.center;
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
+        game.printGameState();
     }
-
-
-
-    
 }

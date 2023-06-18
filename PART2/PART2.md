@@ -6,7 +6,7 @@ No | ID         | Name                  | Task descriptions | Contribution % |
 -- | ---------- | ----------------------| ----------------- | ---------------|
 1  | 1221302735 | Ho Jing Lu            |                   |                |
 2  | 1211311027 | Lee Rong Yi           |                   |                |
-3  | 1211102270 | Yap Choo Kath Moon    |                   |                |
+3  | 1211102270 | Yap Choo Kath Moon    |        7,8        |     100%       |
 4  | 1211201553 | Nicholas Chik Zi Jian |                   |                |
 
 
@@ -38,8 +38,8 @@ No | Feature                                                                    
 4  | Can exit and save the game (use file or database).                                                                                    | Y
 5  | Can resume the game. The state of the game is restored when resuming a game (use file or database).                                   | Y
 6  | Reset the game. All scores become zero. Round and trick number restart from 1.                                                        | Y
-7  | Support GUI playing mode (cards should be faced up or down as in the real game). The GUI can be in JavaFX, Swing, Spring, or Android. | P
-8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                    | P
+7  | Support GUI playing mode (cards should be faced up or down as in the real game). The GUI can be in JavaFX, Swing, Spring, or Android. | Y
+8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                    | Y
 
 
 
