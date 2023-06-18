@@ -45,5 +45,5 @@ No | Feature                                                                    
 
 ## D. Link to Part 2 GitHub Repo
 
-(https://github.com/jl1012/Go-Boom.git)https://github.com/jl1012/Go-Boom.git
+https://github.com/jl1012/Go-Boom.git
 
