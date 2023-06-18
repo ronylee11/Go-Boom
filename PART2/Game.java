@@ -391,7 +391,7 @@ public class Game {
                 case "d": // draw a card
                     drawCards();
                     break;
-                case "q": // quit game
+                case "x": // quit game
                     gameStarted = false;
                     return; // Exit the method to avoid moving to the next player
                 case "s": // save game
@@ -399,16 +399,8 @@ public class Game {
                     gameStarted = false;
                     return;
                 default: // play card from hand
-                    boolean validCommand = checkCommand(command.toLowerCase());
-                    if (validCommand) {
-                        isValidCard = playCard(currentPlayer, command);
-                        break;
-                    }
-                    return;
-            }
-
-            if (gameStarted = false) {
-                break;
+                    isValidCard = playCard(currentPlayer, command);
+                    break;
             }
 
             if (isValidCard) {
@@ -471,17 +463,6 @@ public class Game {
                 System.out.println("Turn: Player" + (currentPlayer + 1));
             }
         }
-    }
-
-    public boolean checkCommand(String command) {
-        // check if command is 2 characters, one alphabet and one number
-        if (command.length() == 2 && Character.isLetter(command.charAt(0))
-                && Character.isDigit(command.charAt(1))) {
-            return true;
-        }
-
-        System.out.println("Invalid command!");
-        return false;
     }
 
     public int prevPlayer() {
@@ -547,7 +528,7 @@ public class Game {
             case "d": // draw a card
                 drawCards();
                 break;
-            case "q": // quit game
+            case "x": // quit game
                 gameStarted = false;
                 return false; // Exit the method to avoid moving to the next player
             case "s": // save game
@@ -556,10 +537,7 @@ public class Game {
                 setGameStarted(gameStarted);
                 return false;
             default: // play card from hand
-                boolean validCommand = checkCommand(command.toLowerCase());
-                if (validCommand) {
-                    isValidCard = playCard(currentPlayer, command);
-                }
+                isValidCard = playCard(currentPlayer, command);
                 break;
         }
 
@@ -701,7 +679,6 @@ public class Game {
             Writer PropWriter = Files.newBufferedWriter(PropertyFile);
             AppProps.store(PropWriter, "Save File");
             PropWriter.close();
-            System.out.println("Game saved.");
         } catch (IOException e) {
             System.out.println("IO Exception: " + e.getMessage());
         }
