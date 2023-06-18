@@ -35,6 +35,14 @@ public class Game {
         }
     }
 
+    public void gui_intialize_for_played(){
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 4; j++) {
+                players[j].addCard();
+            }
+        }
+    }
+
     public int getTrickNumber() {
         return trickNumber;
     }
