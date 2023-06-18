@@ -556,11 +556,7 @@ public class Game {
                 setGameStarted(gameStarted);
                 return false;
             default: // play card from hand
-                boolean validCommand = checkCommand(command.toLowerCase());
-                if (validCommand) {
-                    isValidCard = playCard(currentPlayer, command);
-                }
-                break;
+            isValidCard = playCard(currentPlayer, command);
         }
 
         if (isValidCard) {
