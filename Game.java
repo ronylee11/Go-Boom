@@ -112,13 +112,15 @@ public class Game {
     }
 
     public void load() {
-        start();
+        // start();
+        gameStarted = true;
+        initializeGame();
 
         // Load File
         Properties AppProps = new Properties();
 
         // Specify output file name
-        Path PropertyFile = Paths.get("MyApp.properties");
+        Path PropertyFile = Paths.get("savefile.properties");
 
         // Read data from file
         try {
@@ -150,7 +152,7 @@ public class Game {
         }
         // Get the player cards
         for (int i = 0; i < 4; i++) {
-            String playerString = AppProps.getProperty("Player" + (i + 1));
+            String playerString = AppProps.getProperty("Player " + (i + 1));
             String[] playerArray = playerString.split(",");
             players[i].resetHand();
             for (String card : playerArray) {
@@ -159,7 +161,14 @@ public class Game {
         }
         // Get the player scores
         for (int i = 0; i < 4; i++) {
-            players[i].setScore(Integer.parseInt(AppProps.getProperty("Player" + (i + 1) + "Score")));
+            players[i].setScore(Integer.parseInt(AppProps.getProperty("Player " + (i + 1) + " Score")));
+        }
+
+        while (gameStarted) { // Game loop
+            printGameState();
+            handlePlayerTurn();
+
+            System.out.println();
         }
 
     }
@@ -171,7 +180,7 @@ public class Game {
         }
         if (trickNumber == 1) {
             System.out.println("Center : " + center);
-            //deck.Largest_Card(center); // get the largest card
+            // deck.Largest_Card(center); // get the largest card
         } else {
             System.out.println("Center : " + center);
         }
@@ -243,7 +252,8 @@ public class Game {
     }
 
     public void updateScore() {
-        int winnerOfTrick = prevPlayer();;
+        int winnerOfTrick = prevPlayer();
+        ;
         // update score for losers of the trick
         for (int i = 0; i < 4; i++) {
             if (i != winnerOfTrick) {
@@ -272,19 +282,19 @@ public class Game {
         return isSameSuit || isSameRank;
     }
 
-    public void current_determine(){
+    public void current_determine() {
         currentPlayer = determineFirstPlayer(center.get(0));
     }
 
-    public void set_validCard(boolean validCard){
+    public void set_validCard(boolean validCard) {
         isValidCard = validCard;
     }
 
-    public void set_gameStart(boolean gameStart){
+    public void set_gameStart(boolean gameStart) {
         gameStarted = gameStart;
     }
 
-    public void set_currentPlayer(int GuicurrentPlayer){
+    public void set_currentPlayer(int GuicurrentPlayer) {
         currentPlayer = GuicurrentPlayer;
     }
 
@@ -382,7 +392,7 @@ public class Game {
         }
     }
 
-    public int prevPlayer(){
+    public int prevPlayer() {
         currentPlayer = (currentPlayer - 1) % 4;
         set_currentPlayer(currentPlayer);
         return currentPlayer;
@@ -436,11 +446,11 @@ public class Game {
         int skippedCount = 0;
         boolean isValidCard = false;
         gameStarted = true;
-    
+
         switch (command.toLowerCase()) {
             case "r": // restart game
                 restart();
-                //start();
+                // start();
                 return false; // Indicate that the turn is not valid, so the GUI can handle it accordingly
             case "d": // draw a card
                 drawCards();
@@ -564,23 +574,23 @@ public class Game {
         }
 
         // save trick number
-        AppProps.setProperty("Trick Number", Integer.toString(trickNumber));
+        AppProps.setProperty("trickNumber", Integer.toString(trickNumber));
         // save cards in the center
         for (String card : getCenter()) {
-            AppProps.setProperty("Center", card);
+            AppProps.setProperty("center", card);
         }
         // save deck cards
         for (String card : deck.getDeck()) {
-            AppProps.setProperty("Deck", card);
+            AppProps.setProperty("deck", card);
         }
         // save player scores
         for (int i = 0; i < 4; i++) {
             AppProps.setProperty("Player " + (i + 1) + " Score", Integer.toString(players[i].getScore()));
         }
         // save player turn
-        AppProps.setProperty("Current Player", Integer.toString(currentPlayer));
+        AppProps.setProperty("currentPlayer", Integer.toString(currentPlayer));
         // save round in a trick
-        AppProps.setProperty("Round in a Trick", Integer.toString(roundInATrick));
+        AppProps.setProperty("roundInATrick", Integer.toString(roundInATrick));
 
         // Specify output file name
         Path PropertyFile = Paths.get("savefile.properties");
