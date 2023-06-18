@@ -20,6 +20,7 @@ public class Main {
                 game.start();
                 break;
             case 2:
+                System.out.println("");
                 game.load();
             case 3:
                 System.exit(0);

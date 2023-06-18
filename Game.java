@@ -20,6 +20,7 @@ public class Game {
     static int trickNumber = 1;
     private static int roundInATrick = 1;
     private static int currentPlayer = 0;
+    static boolean loadedGame = false;
 
     public void initializeGame() {
         for (int i = 0; i < 4; i++) {
@@ -33,7 +34,7 @@ public class Game {
             }
         }
     }
-    
+
     public int getTrickNumber() {
         return trickNumber;
     }
@@ -41,7 +42,6 @@ public class Game {
     public void setPlayers(Player[] loadedPlayers) {
         players = loadedPlayers;
     }
-
 
     public ArrayList<ArrayList<String>> getPlayerCards() {
         ArrayList<ArrayList<String>> playerCards = new ArrayList<ArrayList<String>>();
@@ -122,6 +122,7 @@ public class Game {
 
     public void load() {
         gameStarted = true;
+        loadedGame = true;
         initializeGame();
 
         // Load File
@@ -147,9 +148,13 @@ public class Game {
         currentPlayer = Integer.parseInt(AppProps.getProperty("currentPlayer"));
         // Get the center
         String centerString = AppProps.getProperty("center");
-        String[] centerArray = centerString.split(",");
-        for (String card : centerArray) {
-            center.add(card);
+        if (centerString != null) {
+            String[] centerArray = centerString.split(",");
+            for (String card : centerArray) {
+                center.add(card);
+            }
+        } else {
+            center.clear();
         }
         // Get the deck
         String deckString = AppProps.getProperty("deck");
@@ -213,7 +218,7 @@ public class Game {
         for (String card : centerArray) {
             center.add(card);
         }
-        
+
         // Get the deck
         String deckString = AppProps.getProperty("deck");
         String[] deckArray = deckString.split(",");
@@ -365,7 +370,9 @@ public class Game {
     }
 
     public void handlePlayerTurn() {
-        currentPlayer = determineFirstPlayer(center.get(0));
+        if (!loadedGame) {
+            currentPlayer = determineFirstPlayer(center.get(0));
+        }
         System.out.println("Turn: Player" + (currentPlayer + 1));
 
         int skippedCount = 0; // Count the number of skipped turns
@@ -642,11 +649,19 @@ public class Game {
         // save trick number
         AppProps.setProperty("trickNumber", Integer.toString(trickNumber));
         // save cards in the center
-        for (String card : getCenter()) {
-            AppProps.setProperty("center", card);
+        if (getCenter().isEmpty()) {
+            AppProps.setProperty("center", "");
+        } else {
+            for (String card : getCenter()) {
+                AppProps.setProperty("center", card);
+            }
         }
         // save each card in the deck
-        AppProps.setProperty("deck", deck.getDeckInString());
+        String deckString = "";
+        for (int i = 0; i < deck.getDeck().size(); i++) {
+            deckString += deck.getDeck().get(i) + ",";
+        }
+        AppProps.setProperty("deck", deckString);
         // save player scores
         for (int i = 0; i < 4; i++) {
             AppProps.setProperty("Player " + (i + 1) + " Score", Integer.toString(players[i].getScore()));
