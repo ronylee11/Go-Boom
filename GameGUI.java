@@ -255,12 +255,21 @@ public class GameGUI extends AnchorPane {
     private Button createButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
         Button button = new Button(buttonText);
         Font font = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 24);
-        //button.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
         button.setFont(font);
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
-        button.setStyle("-fx-background-color: #EEEEEE; -fx-border-color: black;");
+        button.setStyle("-fx-background-color: #DDDDDD; -fx-border-color: black;");
+        button.setOnMouseEntered(event -> {
+            button.setScaleX(1.1);
+            button.setScaleY(1.1);
+            button.setStyle("-fx-background-color: #EEEEEE; -fx-border-color: black;");
+        });
+        button.setOnMouseExited(event -> {
+            button.setScaleX(1.0);
+            button.setScaleY(1.0);
+            button.setStyle("-fx-background-color: #DDDDDD; -fx-border-color: black;");
+        });
         button.setOnAction(event -> {
             pane2.getChildren().clear();
             content.getChildren().clear();
@@ -281,13 +290,20 @@ public class GameGUI extends AnchorPane {
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
-        button.setStyle("-fx-background-color: #EEEEEE; -fx-border-color: black;");
+        button.setStyle("-fx-background-color: #DDDDDD; -fx-border-color: black;");
         button.setOnAction(event -> {
             game.gui_player_handle("s");
             Platform.exit();
         });
-        button.setOnMouseDragEntered(event -> {
-            
+        button.setOnMouseEntered(event -> {
+            button.setScaleX(1.1);
+            button.setScaleY(1.1);
+            button.setStyle("-fx-background-color: #EEEEEE; -fx-border-color: black;");
+        });
+        button.setOnMouseExited(event -> {
+            button.setScaleX(1.0);
+            button.setScaleY(1.0);
+            button.setStyle("-fx-background-color: #DDDDDD; -fx-border-color: black;");
         });
         return button;
     }
