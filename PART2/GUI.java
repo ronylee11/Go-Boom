@@ -66,6 +66,7 @@ public class GUI extends Application {
         Button playBtn = createButton("Play", playImg);
         playBtn.setOnAction(event -> {
             gamer.setGameStarted(false);
+            gamer.center.clear();
             Scene scene2 = new Scene(new GameGUI(stage, scene), 1080, 720);
             stage.setScene(scene2);
         });

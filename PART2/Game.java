@@ -323,7 +323,7 @@ public class Game {
     }
 
     public void updateScore() {
-        int winnerOfTrick = prevPlayer();
+        int winnerOfTrick = currentPlayer;
         ;
         // update score for losers of the trick
         for (int i = 0; i < 4; i++) {
@@ -515,8 +515,8 @@ public class Game {
     }
 
     // don't remove it I want to use it for GUI
+    int skippedCount = 0;
     public boolean gui_player_handle(String command) {
-        int skippedCount = 0;
         boolean isValidCard = false;
         gameStarted = true;
 
@@ -541,21 +541,22 @@ public class Game {
                 break;
         }
 
+        for (int i = 0; i < 4; i++) {
+            if (players[i].getCards().isEmpty()) {
+                gameStarted = false;
+                set_gameStart(gameStarted);
+                updateScore();
+                isValidCard = false;
+                break; // Indicate that the turn is valid and the game has ended, so the GUI can handle
+                             // it accordingly
+            }
+        }
         if (isValidCard) {
             set_validCard(isValidCard);
             nextPlayer(); // Move to the next player
         }
 
         // check if any player has no more cards in hand, if yes, end the game
-        for (int i = 0; i < 4; i++) {
-            if (players[i].getCards().isEmpty()) {
-                gameStarted = false;
-                set_gameStart(gameStarted);
-                updateScore();
-                return true; // Indicate that the turn is valid and the game has ended, so the GUI can handle
-                             // it accordingly
-            }
-        }
 
         // check if deck is empty, if yes, check if any player can play on the center,
         // players that cant play the card will skip their turn, players that can play
@@ -574,7 +575,6 @@ public class Game {
                 skippedCount++;
                 if (skippedCount == 4) {
                     // when four players skipped in a row, the game is over
-                    updateScore();
                     // check if any of the players exceed score of 100, if not, restart game
                     for (int i = 0; i < 4; i++) {
                         if (players[i].getScore() >= 100) {
@@ -582,10 +582,13 @@ public class Game {
                             gameStarted = false;
                             set_gameStart(gameStarted);
                             return true; // Indicate that the turn is valid and the game has ended, so the GUI can
-                                         // handle it accordingly
+                            // handle it accordingly
                         }
                     }
-                    restart();
+                    trickNumber++;
+                    roundInATrick = 1;
+                    winner_of_trick();
+                    resetCenter();
                 }
             }
         }
