@@ -4,10 +4,10 @@
 
 No | ID         | Name                  | Task descriptions | Contribution % |
 -- | ---------- | ----------------------| ----------------- | ---------------|
-1  | 1221302735 | Ho Jing Lu            |                   |                |
-2  | 1211311027 | Lee Rong Yi           |                   |                |
+1  | 1221302735 | Ho Jing Lu            |        7,8        |     100%       |
+2  | 1211311027 | Lee Rong Yi           |                   |     100%       |
 3  | 1211102270 | Yap Choo Kath Moon    |        7,8        |     100%       |
-4  | 1211201553 | Nicholas Chik Zi Jian |                   |                |
+4  | 1211201553 | Nicholas Chik Zi Jian |                   |     100%       |
 
 
 ## B. Part 1 Feature Completion (Latest)
@@ -45,5 +45,5 @@ No | Feature                                                                    
 
 ## D. Link to Part 2 GitHub Repo
 
-https://github.com/jl1012/Go-Boom.git
+https://github.com/jl1012/Go-Boom/tree/97f10b03d9277f55943efb17288afe9256e53b6b/PART2
 
