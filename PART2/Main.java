@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,20 +12,28 @@ public class Main {
         System.out.println("3. Exit");
         System.out.print("> ");
 
-        int choice = input.nextInt();
-        Game game = new Game();
+        try {
+            int choice = input.nextInt();
+            Game game = new Game();
 
-        switch (choice) {
-            case 1:
-                System.out.println("");
-                game.start();
-                break;
-            case 2:
-                System.out.println("");
-                game.load();
-            case 3:
-                System.exit(0);
-                break;
+            switch (choice) {
+                case 1:
+                    System.out.println("");
+                    game.start();
+                    break;
+                case 2:
+                    System.out.println("");
+                    game.load();
+                    break;
+                case 3:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid input! (1~3)");
+                    break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input! (1~3)");
         }
         input.close();
 
