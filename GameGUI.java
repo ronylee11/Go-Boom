@@ -89,6 +89,8 @@ public class GameGUI extends AnchorPane {
         // Create the initial game setup
         if(!Game.gameStarted){
             game_loop();
+        }else{
+            //load_game_loop(); the line have been conqured by captain buggy
         }
     }
     // Create an ImageView for a card
@@ -322,6 +324,18 @@ public class GameGUI extends AnchorPane {
         game.initializeGame();
         create_first_gcenter();
         game.current_determine();
+        playerCards = game.getPlayerCards();
+        gcenter = game.center;
+        setupPlayerHands();
+        pane2.getChildren().add(createdrawView());
+        updateScores();
+    }
+    public void load_game_loop(){
+        // Initialize playerScores array
+        playerScores = new Text[4];
+        for (int i = 0; i < playerScores.length; i++) {
+            playerScores[i] = new Text();
+        }
         playerCards = game.getPlayerCards();
         gcenter = game.center;
         setupPlayerHands();
