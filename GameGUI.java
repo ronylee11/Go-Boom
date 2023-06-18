@@ -50,7 +50,8 @@ public class GameGUI extends AnchorPane {
         scrollPane = new ScrollPane();
         scrollPane.setContent(content);
         scrollPane.setFitToWidth(true);
-        scrollPane.setMaxHeight(240);
+        //scrollPane.setMaxHeight(240);
+        scrollPane.setStyle("-fx-border-color: black");
         BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTBLUE, null, null);
         //scrollPane.setBackground(new Background(backgroundFill));
 
@@ -58,6 +59,7 @@ public class GameGUI extends AnchorPane {
         scoreboard.setPrefWidth(500);
         scoreboard.setPrefHeight(100);
         scoreboard.setBackground(new Background(backgroundFill));
+        scoreboard.setStyle("-fx-border-color: black");
 
         Button returnBtn = createButton("Return", 14, 28, 130, 60);
         Button button2 = saveButton("Save", 920, 28, 130, 60);
@@ -254,10 +256,11 @@ public class GameGUI extends AnchorPane {
         Button button = new Button(buttonText);
         Font font = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 24);
         //button.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
-        button.setFont(font);;
+        button.setFont(font);
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
+        button.setStyle("-fx-background-color: #EEEEEE; -fx-border-color: black;");
         button.setOnAction(event -> {
             pane2.getChildren().clear();
             content.getChildren().clear();
@@ -278,14 +281,17 @@ public class GameGUI extends AnchorPane {
         button.setLayoutX(layoutX);
         button.setLayoutY(layoutY);
         button.setPrefSize(minWidth, minHeight);
+        button.setStyle("-fx-background-color: #EEEEEE; -fx-border-color: black;");
         button.setOnAction(event -> {
             game.gui_player_handle("s");
             Platform.exit();
         });
+        button.setOnMouseDragEntered(event -> {
+            
+        });
         return button;
     }
     // Show the current player's turn as text
-    //trying hbox instead of text to create a border, still in progress
     private HBox showPlayerTurn(int currentPlayerIndex) {
         Font playerFont = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 20);
         Text playerText = new Text("Player " + (currentPlayerIndex + 1));
