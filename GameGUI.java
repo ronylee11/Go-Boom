@@ -49,9 +49,9 @@ public class GameGUI extends AnchorPane {
         scrollPane = new ScrollPane();
         scrollPane.setContent(content);
         scrollPane.setFitToWidth(true);
-        scrollPane.setPrefHeight(240);
+        scrollPane.setMaxHeight(240);
         BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTBLUE, null, null);
-        scrollPane.setBackground(new Background(backgroundFill));
+        //scrollPane.setBackground(new Background(backgroundFill));
 
         // Create scrollboard pane
         scoreboard.setPrefWidth(500);
@@ -65,9 +65,9 @@ public class GameGUI extends AnchorPane {
         getChildren().addAll(scoreboard, scrollPane, pane2);
 
         // Anchor the scrollPane to the bottom of the AnchorPane
-        AnchorPane.setBottomAnchor(scrollPane, 0.0);
-        AnchorPane.setLeftAnchor(scrollPane, 0.0);
-        AnchorPane.setRightAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 50.0);
+        AnchorPane.setLeftAnchor(scrollPane, 50.0);
+        AnchorPane.setRightAnchor(scrollPane, 50.0);
 
         // Anchor the pane2 to the top-right of the AnchorPane
         AnchorPane.setTopAnchor(pane2, 10.0);
@@ -86,6 +86,12 @@ public class GameGUI extends AnchorPane {
 
         // Scroll to the bottom of the ScrollPane when the content changes
         AnchorPane.setTopAnchor(stackPane, 10.0);
+        
+        Image image = new Image(Main.class.getResourceAsStream("Image/Go Boom Background2.png"));
+        BackgroundImage bImage = new BackgroundImage(image, null, null, null, null);
+        Background bg = new Background(bImage);
+        content.setBackground(bg);
+        
         // Create the initial game setup
         if(!Game.gameStarted){
             game_loop();
@@ -93,6 +99,7 @@ public class GameGUI extends AnchorPane {
             //load_game_loop(); the line have been conqured by captain buggy
         }
     }
+    
     // Create an ImageView for a card
     private ImageView createCardImageView(String card) { //create the card image view
         String imagePath = "Image/" + card + ".png";
@@ -100,7 +107,7 @@ public class GameGUI extends AnchorPane {
         ImageView cardView = new ImageView(cardImage);
         cardView.setFitHeight(150);
         cardView.setFitWidth(107);
-        HBox.setMargin(cardView, new Insets(0, -20, 0, -30));
+        HBox.setMargin(cardView, new Insets(30, -20, 0, -30));
         // Handle mouse click event on a card
         cardView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer() + 1) + " plays " + card + "!");
@@ -284,12 +291,8 @@ public class GameGUI extends AnchorPane {
         HBox playerTurnBox = new HBox(0.0,playerText);
         playerTurnBox.setMaxWidth(80);
         playerTurnBox.setPrefHeight(25);
-        playerTurnBox.setStyle("-fx-border-color: red;");
-        
-        
+        playerTurnBox.setStyle("-fx-background-color: #FFFFFF;");
         playerText.setFont(playerFont);
-        //playerText.setTranslateY(-150);
-        //playerText.setTranslateX(20);
         return playerTurnBox;
     }
 
