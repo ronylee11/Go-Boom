@@ -35,7 +35,7 @@ public class Game {
     }
 
     public ArrayList<ArrayList<String>> getPlayerCards() {
-        ArrayList<ArrayList<String>> playerCards = new ArrayList<>();
+        ArrayList<ArrayList<String>> playerCards = new ArrayList<ArrayList<String>>();
         for (int i = 0; i < 4; i++) {
             playerCards.add(players[i].getCards());
         }

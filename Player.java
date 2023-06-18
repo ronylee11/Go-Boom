@@ -126,6 +126,12 @@ public class Player extends Card {
         hand.add(card);
     }
 
+    public String getCardsInString() {
+        String output = "" + hand + "";
+        output = output.substring(1, output.length() - 1);
+        return output;
+    }
+
     public void setScore(int score) {
         this.score = score;
     }

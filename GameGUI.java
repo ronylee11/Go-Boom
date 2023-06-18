@@ -97,7 +97,7 @@ public class GameGUI extends AnchorPane {
         if(!Game.gameStarted){
             game_loop();
         }else{
-            //load_game_loop(); the line have been conqured by captain buggy
+            load_game_loop(); //the line have been conqured by captain buggy
         }
     }
     
@@ -340,6 +340,7 @@ public class GameGUI extends AnchorPane {
         for (int i = 0; i < playerScores.length; i++) {
             playerScores[i] = new Text();
         }
+        game.current_determine();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
         setupPlayerHands();
