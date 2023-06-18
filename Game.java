@@ -33,6 +33,10 @@ public class Game {
             }
         }
     }
+    
+    public int getTrickNumber() {
+        return trickNumber;
+    }
 
     public void setPlayers(Player[] loadedPlayers) {
         players = loadedPlayers;
