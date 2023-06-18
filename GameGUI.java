@@ -58,7 +58,7 @@ public class GameGUI extends AnchorPane {
         scoreboard.setBackground(new Background(backgroundFill));
 
         Button returnBtn = createButton("Return", 14, 28, 130, 60);
-        Button button2 = createButton("Save", 920, 28, 130, 60);
+        Button button2 = saveButton("Save", 920, 28, 130, 60);
 
         pane2.getChildren().addAll(returnBtn, button2);
         getChildren().addAll(scoreboard, scrollPane, pane2);
@@ -252,6 +252,21 @@ public class GameGUI extends AnchorPane {
             player_cleaner();
             gcenter.clear();
             game.restart();
+            stage.setScene(mainMenuScene); // need a way to quit the game after 
+                                            // clicking the return button
+        });
+        return button;
+    }
+    private Button saveButton(String buttonText, double layoutX, double layoutY, double minWidth, double minHeight) {
+        Button button = new Button(buttonText);
+        Font font = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 24);
+        //button.setStyle("-fx-font-family: Arial; -fx-font-size: 14px;");
+        button.setFont(font);;
+        button.setLayoutX(layoutX);
+        button.setLayoutY(layoutY);
+        button.setPrefSize(minWidth, minHeight);
+        button.setOnAction(event -> {
+            game.gui_player_handle("s");
             stage.setScene(mainMenuScene); // need a way to quit the game after 
                                             // clicking the return button
         });
