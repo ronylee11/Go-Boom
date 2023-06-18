@@ -319,6 +319,19 @@ public class GameGUI extends AnchorPane {
         return playerTurnBox;
     }
 
+    //need rearrangment of the HBoxes
+    public HBox displayTrickNumber(int trickNumber) {
+        Font TrickFont = Font.loadFont(getClass().getResourceAsStream("Font/2156-font.otf"), 20);
+        Text trickText = new Text("Trick #" + game.getTrickNumber());
+        HBox trickBox = new HBox(0.0, trickText);
+        trickBox.setStyle("-fx-background-color: #FFFFFF;");
+        trickBox.setMaxHeight(25);
+        trickBox.setMaxWidth(80);
+        trickText.setFont(TrickFont);
+        trickBox.setLayoutX(100);
+        return trickBox;
+    }
+
     //get the current Player card from game
     private void setupPlayerHands() { 
         //game.printGameState();
@@ -327,6 +340,7 @@ public class GameGUI extends AnchorPane {
         playerHandBoxes.add(playerHandBox);                  //add the player hand box to the arraylist  
         content.getChildren().add(playerHandBoxes.get(0));
         content.getChildren().add(1, showPlayerTurn(game.get_currentplayer()));
+        content.getChildren().add(displayTrickNumber(game.getTrickNumber()));
     }
     // Clear the content and player hand boxes
     public void cleaner(){
