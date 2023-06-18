@@ -112,7 +112,6 @@ public class Game {
     }
 
     public void load() {
-        // start();
         gameStarted = true;
         initializeGame();
 
