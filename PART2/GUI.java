@@ -32,7 +32,7 @@ public class GUI extends Application {
 
         // Set background for the menu
         Image icon = new Image("Image/Go Boom Logo.png");
-        Image bg = new Image("Image/Go Boom Background3.jpg");
+        Image bg = new Image("Image/GO BOOM.png");
         stage.getIcons().add(icon);
         BackgroundImage background = new BackgroundImage(bg, null, null, null, null);
         Background bg1 = new Background(background);

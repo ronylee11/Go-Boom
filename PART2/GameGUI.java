@@ -90,10 +90,7 @@ public class GameGUI extends AnchorPane {
         // Scroll to the bottom of the ScrollPane when the content changes
         AnchorPane.setTopAnchor(stackPane, 10.0);
         
-        Image image = new Image(Main.class.getResourceAsStream("Image/Go Boom Background2.png"));
-        BackgroundImage bImage = new BackgroundImage(image, null, null, null, null);
-        Background bg = new Background(bImage);
-        content.setBackground(bg);
+        content.setStyle("-fx-background-color: #005000;");
         
         // Create the initial game setup
         if(!Game.gameStarted){
@@ -143,8 +140,8 @@ public class GameGUI extends AnchorPane {
         ImageView drawView = new ImageView(drawImage);
         drawView.setFitHeight(150);
         drawView.setFitWidth(107);
-        drawView.setLayoutX(350);
-        drawView.setLayoutY(250);
+        drawView.setLayoutX(400);
+        drawView.setLayoutY(200);
         drawView.setOnMouseClicked((event) -> {
             System.out.println("Player " + (game.get_currentplayer()+1) + " draws a card!");
             game.gui_player_handle("d");
@@ -224,8 +221,8 @@ public class GameGUI extends AnchorPane {
             centerbox.getChildren().add(cardView);
         }
         
-        centerbox.setLayoutX(500);
-        centerbox.setLayoutY(250);
+        centerbox.setLayoutX(550);
+        centerbox.setLayoutY(200);
         
         pane2.getChildren().add(centerbox); // Add centerbox to the pane2
         
