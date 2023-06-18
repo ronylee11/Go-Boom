@@ -399,7 +399,10 @@ public class Game {
                     gameStarted = false;
                     return;
                 default: // play card from hand
-                    isValidCard = playCard(currentPlayer, command);
+                    boolean validCommand = checkCommand(command.toLowerCase());
+                    if (validCommand) {
+                        isValidCard = playCard(currentPlayer, command);
+                    }
                     break;
             }
 
@@ -463,6 +466,31 @@ public class Game {
                 System.out.println("Turn: Player" + (currentPlayer + 1));
             }
         }
+    }
+
+    public boolean checkCommand(String command) {
+        // check if command is 2 characters, one alphabet and one number
+        if (command.length() != 2) {
+            System.out.println("Invalid command!");
+            return false;
+        }
+
+        char suit = command.charAt(0);
+        char rank = command.charAt(1);
+
+        // check if suit is valid
+        if (!Character.isLetter(suit) || (suit != 'h' && suit != 'd' && suit != 'c' && suit != 's')) {
+            System.out.println("Invalid suit!");
+            return false;
+        }
+
+        // check if rank is valid
+        if (!Character.isDigit(rank) || (rank < '1' || rank > '9')) {
+            System.out.println("Invalid rank!");
+            return false;
+        }
+
+        return true;
     }
 
     public int prevPlayer() {
@@ -537,7 +565,10 @@ public class Game {
                 setGameStarted(gameStarted);
                 return false;
             default: // play card from hand
-                isValidCard = playCard(currentPlayer, command);
+                boolean validCommand = checkCommand(command.toLowerCase());
+                if (validCommand) {
+                    isValidCard = playCard(currentPlayer, command);
+                }
                 break;
         }
 
