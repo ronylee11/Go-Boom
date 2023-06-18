@@ -234,7 +234,9 @@ public class GameGUI extends AnchorPane {
     // Clear the centerbox and remove it from pane2
     public void center_cleaner() {
         pane2.getChildren().remove(centerbox); // Remove the centerbox from the pane2
-        centerbox.getChildren().clear(); // Clear the ImageView(s) from the centerbox
+        if(centerbox != null){
+            centerbox.getChildren().clear(); // Clear the ImageView(s) from the centerbox
+        }
     }
     // Create the player hand box and add cards to it
     private HBox createPlayerHandBox(ArrayList<String> hand) { //create the player hand box
@@ -382,6 +384,8 @@ public class GameGUI extends AnchorPane {
         if(gcenter.size() != 1){
             createGCenterBox(gcenter);
         }
+        game.center.clear();
+        gcenter = game.center;
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
         updateScores();
