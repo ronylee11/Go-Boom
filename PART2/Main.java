@@ -18,15 +18,12 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    selected = true;
                     System.out.println("");
                     game.start();
                 case 2:
-                    selected = true;
                     System.out.println("");
                     game.load();
                 case 3:
-                    selected = true;
                     System.exit(0);
                 default:
                     System.out.println("Invalid input. Try again (1~3)");
