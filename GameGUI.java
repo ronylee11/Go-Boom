@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -86,7 +87,9 @@ public class GameGUI extends AnchorPane {
         // Scroll to the bottom of the ScrollPane when the content changes
         AnchorPane.setTopAnchor(stackPane, 10.0);
         // Create the initial game setup
-        game_loop();
+        if(!Game.gameStarted){
+            game_loop();
+        }
     }
     // Create an ImageView for a card
     private ImageView createCardImageView(String card) { //create the card image view
@@ -267,8 +270,7 @@ public class GameGUI extends AnchorPane {
         button.setPrefSize(minWidth, minHeight);
         button.setOnAction(event -> {
             game.gui_player_handle("s");
-            stage.setScene(mainMenuScene); // need a way to quit the game after 
-                                            // clicking the return button
+            Platform.exit();
         });
         return button;
     }

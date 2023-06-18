@@ -113,6 +113,7 @@ public class Game {
 
     public void load() {
         gameStarted = true;
+        setGameStarted(gameStarted);
         initializeGame();
 
         // Load File
@@ -163,12 +164,12 @@ public class Game {
             players[i].setScore(Integer.parseInt(AppProps.getProperty("Player " + (i + 1) + " Score")));
         }
 
-        while (gameStarted) { // Game loop
-            printGameState();
-            handlePlayerTurn();
+        // while (gameStarted) { // Game loop
+        //     printGameState();
+        //     handlePlayerTurn();
 
-            System.out.println();
-        }
+        //     System.out.println();
+        // }
 
     }
 

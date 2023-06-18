@@ -28,6 +28,7 @@ public class GUI extends Application {
         StackPane pane = new StackPane();
         Scene scene = new Scene(pane, 1080, 720);
         stage.setResizable(false);
+        Game gamer = new Game();
 
         // Set background for the menu
         Image icon = new Image("Image/Go Boom Logo.png");
@@ -74,6 +75,9 @@ public class GUI extends Application {
         Button resumeBtn = createButton("Resume", resumeImg);
         resumeBtn.setOnAction(event -> {
             System.out.println("Resume Button clicked!");
+            gamer.load();
+            Scene scene2 = new Scene(new GameGUI(stage, scene), 1080, 720);
+            stage.setScene(scene2);
         });
         pane.getChildren().add(resumeBtn);
 
