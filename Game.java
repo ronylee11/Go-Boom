@@ -34,6 +34,15 @@ public class Game {
         }
     }
 
+    public void setPlayers(Player[] loadedPlayers) {
+        players = loadedPlayers;
+    }
+
+    public void setCenter(ArrayList<String> loadedCenter) {
+        center = loadedCenter;
+    }
+    
+
     public ArrayList<ArrayList<String>> getPlayerCards() {
         ArrayList<ArrayList<String>> playerCards = new ArrayList<ArrayList<String>>();
         for (int i = 0; i < 4; i++) {
@@ -204,6 +213,8 @@ public class Game {
         for (String card : centerArray) {
             center.add(card);
         }
+        // Set the center
+        setCenter(center);
         // Get the deck
         String deckString = AppProps.getProperty("deck");
         String[] deckArray = deckString.split(",");
@@ -212,14 +223,17 @@ public class Game {
             deck.loadCard(card);
         }
         // Get the player cards
+        Player[] loadedPlayers = new Player[4];
         for (int i = 0; i < 4; i++) {
             String playerString = AppProps.getProperty("Player " + (i + 1));
             String[] playerArray = playerString.split(",");
-            players[i].resetHand();
+            loadedPlayers[i] = new Player();
+            loadedPlayers[i].resetHand();
             for (String card : playerArray) {
-                players[i].loadCard(card);
+                loadedPlayers[i].loadCard(card);
             }
         }
+        setPlayers(loadedPlayers);
         // Get the player scores
         for (int i = 0; i < 4; i++) {
             players[i].setScore(Integer.parseInt(AppProps.getProperty("Player " + (i + 1) + " Score")));

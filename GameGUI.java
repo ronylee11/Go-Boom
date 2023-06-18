@@ -97,7 +97,7 @@ public class GameGUI extends AnchorPane {
         if(!Game.gameStarted){
             game_loop();
         }else{
-            load_game_loop(); //the line have been conqured by captain buggy
+            load_game_loop(); //this line is free from captain buggy
         }
     }
     
@@ -335,14 +335,16 @@ public class GameGUI extends AnchorPane {
         updateScores();
     }
     public void load_game_loop(){
-        // Initialize playerScores array
         playerScores = new Text[4];
         for (int i = 0; i < playerScores.length; i++) {
             playerScores[i] = new Text();
         }
-        game.current_determine();
+        game.gui_load();
         playerCards = game.getPlayerCards();
         gcenter = game.center;
+        if(gcenter != null){
+            createGCenterBox(gcenter);
+        }
         setupPlayerHands();
         pane2.getChildren().add(createdrawView());
         updateScores();

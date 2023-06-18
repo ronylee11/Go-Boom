@@ -65,6 +65,7 @@ public class GUI extends Application {
         ImageView playImg = new ImageView(new Image("Image/bomb icon.png"));
         Button playBtn = createButton("Play", playImg);
         playBtn.setOnAction(event -> {
+            gamer.setGameStarted(false);
             Scene scene2 = new Scene(new GameGUI(stage, scene), 1080, 720);
             stage.setScene(scene2);
         });
@@ -75,7 +76,7 @@ public class GUI extends Application {
         Button resumeBtn = createButton("Resume", resumeImg);
         resumeBtn.setOnAction(event -> {
             System.out.println("Resume Button clicked!");
-            gamer.gui_load();
+            gamer.setGameStarted(true);
             Scene scene2 = new Scene(new GameGUI(stage, scene), 1080, 720);
             stage.setScene(scene2);
         });
