@@ -171,6 +171,7 @@ public class Game {
         }
 
     }
+
     public void gui_load() {
         gameStarted = true;
         setGameStarted(gameStarted);
@@ -631,10 +632,8 @@ public class Game {
         for (String card : getCenter()) {
             AppProps.setProperty("center", card);
         }
-        // save deck cards
-        for (String card : deck.getDeck()) {
-            AppProps.setProperty("deck", card);
-        }
+        // save each card in the deck
+        AppProps.setProperty("deck", deck.getDeckInString());
         // save player scores
         for (int i = 0; i < 4; i++) {
             AppProps.setProperty("Player " + (i + 1) + " Score", Integer.toString(players[i].getScore()));

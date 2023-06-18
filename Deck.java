@@ -48,6 +48,7 @@ public class Deck {
         // System.out.println(Hash_value);
         return Hash_value;
     }
+
     public HashMap<String, Integer> create_score_Values_HashMap() {
         Score_value.put("A", 1);
         Score_value.put("2", 2);
@@ -87,10 +88,10 @@ public class Deck {
         // System.out.println("Largest Card : " + largest_card);
     }
 
-    //Spliting Card's rank and suite
-    public ArrayList<String> Spliting(ArrayList<String>cunnysplit){
-        for (String C_card : cunnysplit){
-            String [] ArraySplit = C_card.split("");
+    // Spliting Card's rank and suite
+    public ArrayList<String> Spliting(ArrayList<String> cunnysplit) {
+        for (String C_card : cunnysplit) {
+            String[] ArraySplit = C_card.split("");
             cunnysplit.addAll(Arrays.asList(ArraySplit));
         }
         return cunnysplit;
@@ -114,17 +115,24 @@ public class Deck {
         return deck;
     }
 
+    public String getDeckInString() {
+        String output = "" + deck + "";
+        output = output.substring(1, output.length() - 1);
+        return output;
+    }
+
     public Deck() {
         if (!deckCreated) { // make sure there is only one deck
             Create_deck();
             create_card_Values_HashMap();
             create_score_Values_HashMap();
             deckCreated = true;
-        }else{
+        } else {
             create_card_Values_HashMap();
             create_score_Values_HashMap();
         }
     }
+
     public void resetDeck() {
         deck.clear();
     }
@@ -137,5 +145,5 @@ public class Deck {
         // only for load file only
         deck.add(card);
     }
-    
+
 }
