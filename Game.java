@@ -113,7 +113,6 @@ public class Game {
 
     public void load() {
         gameStarted = true;
-        setGameStarted(gameStarted);
         initializeGame();
 
         // Load File
@@ -164,13 +163,66 @@ public class Game {
             players[i].setScore(Integer.parseInt(AppProps.getProperty("Player " + (i + 1) + " Score")));
         }
 
-        // while (gameStarted) { // Game loop
-        //     printGameState();
-        //     handlePlayerTurn();
+        while (gameStarted) { // Game loop
+            printGameState();
+            handlePlayerTurn();
 
-        //     System.out.println();
-        // }
+            System.out.println();
+        }
 
+    }
+    public void gui_load() {
+        gameStarted = true;
+        setGameStarted(gameStarted);
+        initializeGame();
+
+        // Load File
+        Properties AppProps = new Properties();
+
+        // Specify output file name
+        Path PropertyFile = Paths.get("savefile.properties");
+
+        // Read data from file
+        try {
+            Reader PropReader = Files.newBufferedReader(PropertyFile);
+            AppProps.load(PropReader);
+        } catch (IOException e) {
+            System.out.println("IO Exception: " + e.getMessage());
+        }
+
+        // Get data from file and set them to the game
+        // Get the trick number
+        trickNumber = Integer.parseInt(AppProps.getProperty("trickNumber"));
+        // Get the round number
+        roundInATrick = Integer.parseInt(AppProps.getProperty("roundInATrick"));
+        // Get the current player
+        currentPlayer = Integer.parseInt(AppProps.getProperty("currentPlayer"));
+        // Get the center
+        String centerString = AppProps.getProperty("center");
+        String[] centerArray = centerString.split(",");
+        for (String card : centerArray) {
+            center.add(card);
+        }
+        // Get the deck
+        String deckString = AppProps.getProperty("deck");
+        String[] deckArray = deckString.split(",");
+        deck.resetDeck();
+        for (String card : deckArray) {
+            deck.loadCard(card);
+        }
+        // Get the player cards
+        for (int i = 0; i < 4; i++) {
+            String playerString = AppProps.getProperty("Player " + (i + 1));
+            String[] playerArray = playerString.split(",");
+            players[i].resetHand();
+            for (String card : playerArray) {
+                players[i].loadCard(card);
+            }
+        }
+        // Get the player scores
+        for (int i = 0; i < 4; i++) {
+            players[i].setScore(Integer.parseInt(AppProps.getProperty("Player " + (i + 1) + " Score")));
+        }
     }
 
     public void printGameState() { // Print the game interface
