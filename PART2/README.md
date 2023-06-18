@@ -6,7 +6,7 @@
 | --- | ---------- | --------------------- | ----------------- | -------------- |
 | 1   | 1221302735 | Ho Jing Lu            | Done No 5         | 100%           |
 | 2   | 1211311027 | Lee Rong Yi           | Done No 1, 8      | 100%           |
-| 3   | 1211102270 | Yap Choo Kath Moon    | Done No 2, 7      | 100%           |
+| 3   | 1211102270 | Yap Choo Kath Moon    | Done No 7, 8      | 100%           |
 | 4   | 1211201553 | Nicholas Chik Zi Jian | Done No 3,4,6     | 100%           |
 
 ## B. Part 1 Feature Completion
