@@ -391,7 +391,7 @@ public class Game {
                 case "d": // draw a card
                     drawCards();
                     break;
-                case "x": // quit game
+                case "q": // quit game
                     gameStarted = false;
                     return; // Exit the method to avoid moving to the next player
                 case "s": // save game
@@ -547,7 +547,7 @@ public class Game {
             case "d": // draw a card
                 drawCards();
                 break;
-            case "x": // quit game
+            case "q": // quit game
                 gameStarted = false;
                 return false; // Exit the method to avoid moving to the next player
             case "s": // save game
