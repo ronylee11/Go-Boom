@@ -48,6 +48,14 @@ Mark Y for Complete, P for Partial done, N for Not implemented.
 
 How to run the code?
 
+For cli version
+
 ```
 javac *.java && java Main
+```
+
+For GUI version
+
+```
+javac *.java && java GUI
 ```
