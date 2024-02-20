@@ -23,6 +23,10 @@
 | 15  | Support GUI playing mode (cards should be faced up or down as in the real game). The GUI can be in JavaFX, Swing, Spring, or Android. | Y                 |
 | 16  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                    | Y                 |
 
+## User Guide
+
+Watch [How to Play Go Boom](https://youtu.be/NmKOzmNs2Ms?si=YfLlGKBT9O8pA1y0) Youtube to understand the game.
+
 ## Compilation Instructions
 
 How to run the code?
